@@ -41,9 +41,9 @@ function rankClass(rank) {
   <div>
     <div class="rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <div class="hidden overflow-x-auto lg:block">
-      <table class="w-full table-fixed text-sm">
+      <table class="w-full table-fixed text-base">
         <thead>
-          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-sm text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="w-16 px-4 py-3">排名</th>
             <th class="w-48 px-4 py-3">选手</th>
             <th class="w-20 px-4 py-3">场</th>
@@ -81,17 +81,17 @@ function rankClass(rank) {
             <td class="px-4 py-3">
               <span
                 v-if="complete && row.rank <= 2"
-                class="rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
+                class="rounded-full bg-emerald-100 px-2 py-0.5 text-sm font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
               >
                 🏆 晋级
               </span>
               <span
                 v-else-if="row.needsDraw"
-                class="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-400"
+                class="rounded-full bg-amber-100 px-2 py-0.5 text-sm font-semibold text-amber-700 dark:bg-amber-900/40 dark:text-amber-400"
               >
                 待抽签
               </span>
-              <span v-else class="text-xs text-gray-400">-</span>
+              <span v-else class="text-sm text-gray-400">-</span>
             </td>
           </tr>
         </tbody>
@@ -111,21 +111,21 @@ function rankClass(rank) {
           </span>
           <PlayerBadge :player="store.playerById(row.playerId)" size="sm" />
           <div class="ml-auto shrink-0 text-right">
-            <div class="text-sm font-bold">{{ row.points }} 分</div>
-            <div class="text-xs text-gray-400">
+            <div class="text-base font-bold">{{ row.points }} 分</div>
+            <div class="text-sm text-gray-400">
               胜{{ row.wins }} 负{{ row.losses }} · 杆{{
                 row.strokeDiff > 0 ? `+${row.strokeDiff}` : row.strokeDiff
               }}
             </div>
             <span
               v-if="complete && row.rank <= 2"
-              class="text-xs font-semibold text-emerald-600 dark:text-emerald-400"
+              class="text-sm font-semibold text-emerald-600 dark:text-emerald-400"
             >
               🏆 晋级
             </span>
             <span
               v-else-if="row.needsDraw"
-              class="text-xs font-semibold text-amber-600 dark:text-amber-400"
+              class="text-sm font-semibold text-amber-600 dark:text-amber-400"
             >
               待抽签
             </span>

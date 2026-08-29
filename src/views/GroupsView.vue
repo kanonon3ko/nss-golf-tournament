@@ -88,21 +88,24 @@ function onEntrySaved() {
       <GroupTabs v-model="activeGroup" />
     </div>
 
-    <div class="mb-4 flex flex-wrap gap-4 text-sm text-gray-500 dark:text-slate-400">
+    <div class="mb-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-gray-500 dark:text-slate-400">
       <span
         v-for="round in [1, 2, 3]"
         :key="round"
+        class="inline-flex items-baseline gap-1"
       >
-        第{{ round }}轮 DDL：
-        {{ formatDateTime(store.ddlRounds.find((d) => d.stage === 'group' && d.round === round)?.ddl) }}
+        <span class="w-[85px] shrink-0">第{{ round }}轮 DDL：</span>
+        <span>
+          {{ formatDateTime(store.ddlRounds.find((d) => d.stage === 'group' && d.round === round)?.ddl) }}
+        </span>
       </span>
     </div>
 
     <div class="rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <div class="hidden overflow-x-auto lg:block">
-      <table class="w-full table-fixed text-sm">
+      <table class="w-full table-fixed text-base">
         <thead>
-          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-sm text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="w-20 px-4 py-3">轮次</th>
             <th class="w-[320px] px-4 py-3">对阵</th>
             <th class="w-20 px-4 py-3">比分</th>
@@ -151,7 +154,7 @@ function onEntrySaved() {
                   : '-'
               }}
             </td>
-            <td class="px-4 py-3 text-xs text-gray-500 dark:text-slate-400">
+            <td class="px-4 py-3 text-sm text-gray-500 dark:text-slate-400">
               {{ formatDateTime(ddl) }}
             </td>
             <td class="px-4 py-3">
@@ -184,17 +187,17 @@ function onEntrySaved() {
           :class="overdue ? 'bg-red-50 dark:bg-red-900/10' : ''"
         >
           <div class="mb-2 flex items-center justify-between gap-2">
-            <span class="text-xs font-semibold text-gray-500 dark:text-slate-400">
+            <span class="text-sm font-semibold text-gray-500 dark:text-slate-400">
               第 {{ match.round }} 轮
             </span>
             <MatchStatusPill :status="displayStatus({ match, overdue })" />
           </div>
           <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
-            <PlayerBadge :player="store.playerById(match.playerAId)" size="sm" />
+            <PlayerBadge :player="store.playerById(match.playerAId)" size="md" />
             <span class="text-center text-gray-400">vs</span>
             <PlayerBadge
               :player="store.playerById(match.playerBId)"
-              size="sm"
+              size="md"
               reverse
               class="justify-self-end"
             />
@@ -210,7 +213,7 @@ function onEntrySaved() {
 
           </div>
           <div
-            class="mt-2 flex items-center justify-between gap-2 text-xs text-gray-500 dark:text-slate-400"
+            class="mt-2 flex items-center justify-between gap-2 text-sm text-gray-500 dark:text-slate-400"
           >
             <span>{{ formatDateTime(ddl) }}</span>
             <div class="flex gap-1">

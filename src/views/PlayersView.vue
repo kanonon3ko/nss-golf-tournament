@@ -97,25 +97,25 @@ function tierClass(tier) {
           <PlayerBadge :player="player" size="lg" truncate class="min-w-0" />
           <span
             v-if="statsOf(player)"
-            class="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
+            class="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-sm font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
           >
             {{ statsOf(player).points }} 分
           </span>
         </div>
         <div class="flex flex-wrap gap-1">
-          <span class="rounded-full px-2 py-0.5 text-xs font-semibold" :class="tierClass(player.tier)">
+          <span class="rounded-full px-2 py-0.5 text-sm font-semibold" :class="tierClass(player.tier)">
             {{ player.tier }}档
           </span>
           <span
             v-if="player.groupId"
-            class="rounded-full bg-[#eee6f8] px-2 py-0.5 text-xs font-semibold text-gray-500 dark:bg-[#3c3459] dark:text-slate-400"
+            class="rounded-full bg-[#eee6f8] px-2 py-0.5 text-sm font-semibold text-gray-500 dark:bg-[#3c3459] dark:text-slate-400"
           >
             {{ player.groupId }}组
           </span>
         </div>
         <div
           v-if="statsOf(player)"
-          class="mt-auto grid grid-cols-3 gap-1 border-t border-[#f0e9f8] pt-2 text-center text-xs text-gray-500 dark:border-[#3f3760] dark:text-slate-400"
+          class="mt-auto grid grid-cols-3 gap-1 border-t border-[#f0e9f8] pt-2 text-center text-sm text-gray-500 dark:border-[#3f3760] dark:text-slate-400"
         >
           <div>
             <p class="text-base font-bold text-gray-800 dark:text-slate-100">{{ statsOf(player).played }}</p>

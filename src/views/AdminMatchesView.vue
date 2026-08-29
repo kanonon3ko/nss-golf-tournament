@@ -56,8 +56,9 @@ const rows = computed(() => {
 })
 
 function stageLabel(match) {
-  if (match.stage === 'group') return `${match.groupId}组 · 第${match.round}轮`
-  return store.STAGE_LABELS[match.stage] || match.stage
+  if (match.stage === 'group') return `${match.groupId}组${match.round}`
+  if (match.stage === 'final') return '决赛'
+  return `${store.STAGE_LABELS[match.stage]}${match.order ?? ''}`
 }
 
 function displayStatus(row) {
@@ -123,7 +124,7 @@ function forfeit(row, decision) {
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
-            <th class="px-4 py-3">阶段</th>
+            <th class="w-20 px-4 py-3">阶段</th>
             <th class="px-4 py-3">对阵</th>
             <th class="px-4 py-3">比分</th>
             <th class="px-4 py-3">DDL</th>
@@ -140,10 +141,15 @@ function forfeit(row, decision) {
           >
             <td class="whitespace-nowrap px-4 py-3 text-gray-500 dark:text-slate-400">{{ stageLabel(match) }}</td>
             <td class="px-4 py-3">
-              <div class="flex items-center gap-2 whitespace-nowrap">
+              <div class="grid w-full min-w-[240px] grid-cols-[1fr_auto_1fr] items-center gap-2">
                 <PlayerBadge :player="store.playerById(match.playerAId)" size="sm" />
-                <span class="text-gray-400">vs</span>
-                <PlayerBadge :player="store.playerById(match.playerBId)" size="sm" />
+                <span class="text-center text-gray-400">vs</span>
+                <PlayerBadge
+                  :player="store.playerById(match.playerBId)"
+                  size="sm"
+                  reverse
+                  class="justify-self-end"
+                />
               </div>
             </td>
             <td class="whitespace-nowrap px-4 py-3 font-bold">
