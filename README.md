@@ -10,7 +10,7 @@
 - 积分榜：四组同页展示，按规则自动排序（积分 → 相互战绩 → 净胜局 → 净胜杆 → 主办方抽签）
 - 淘汰赛：固定对阵（A1-B2 / C1-D2 / A2-B1 / C2-D1），8 强未确定前只显示预计对位，胜者自动晋级
 - 选手：4×4 卡片 + 个人档案（战绩、对局明细）
-- 规则：PDF 规则九章在线查阅
+- 规则：规则九章在线查阅
 
 **管理端（主办方）**
 - 选手与分组：名单管理、加密级随机抽签（crypto.getRandomValues）并留可验证记录、约束校验
@@ -37,7 +37,7 @@ npm run dev
 访问 `http://localhost:5173/`。
 
 - 未配置 Supabase 时自动回退到本地 localStorage，方便离线体验。
-- 主办方口令不内置在代码中：本地回退模式在 `.env` 的 `VITE_ADMIN_PASSWORD` 里配置（该文件已被 git 忽略，不会提交）；启用 Supabase 后改用 Supabase 主办方账号密码登录。
+- 主办方口令：本地回退模式在 `.env` 的 `VITE_ADMIN_PASSWORD` 里配置（该文件已被 git 忽略，不会提交）；启用 Supabase 后改用 Supabase 主办方账号密码登录。
 
 ## Supabase 配置
 
