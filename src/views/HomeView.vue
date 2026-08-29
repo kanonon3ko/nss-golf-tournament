@@ -126,7 +126,7 @@ const champion = computed(() => store.playerById(store.championId))
         v-if="auth.isAdmin"
         class="mt-3"
         to="/admin/players"
-        color="info"
+        color="purple"
         label="去抽签分组"
       />
     </div>
@@ -147,7 +147,7 @@ const champion = computed(() => store.playerById(store.championId))
     <div class="grid gap-4 lg:grid-cols-2">
       <div
         v-if="currentDdl"
-        class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70"
+        class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80"
       >
         <div class="mb-3 flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-slate-400">
           <BaseIcon :path="mdiCalendarClock" size="18" />
@@ -165,13 +165,13 @@ const champion = computed(() => store.playerById(store.championId))
           v-if="auth.isAdmin"
           class="mt-3"
           to="/admin/ddl"
-          color="info"
+          color="purple"
           small
           label="去设置 DDL"
         />
       </div>
 
-      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <div class="mb-3 flex items-center justify-between">
           <span class="text-sm font-bold text-gray-500 dark:text-slate-400">最近赛果</span>
           <RouterLink to="/groups" class="flex items-center gap-0.5 text-sm text-emerald-600">
@@ -183,7 +183,7 @@ const champion = computed(() => store.playerById(store.championId))
           <div
             v-for="match in store.latestResults"
             :key="match.id"
-            class="flex items-center justify-between rounded-xl bg-gray-50 px-3 py-2 text-sm dark:bg-slate-800"
+            class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-3 py-2 text-sm dark:bg-[#3c3459]"
           >
             <span class="truncate">
               {{ store.playerName(match.playerAId) }}
@@ -198,7 +198,7 @@ const champion = computed(() => store.playerById(store.championId))
     </div>
 
     <div class="mt-4 grid gap-4 lg:grid-cols-2">
-      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <div class="mb-3 flex items-center justify-between">
           <span class="text-sm font-bold text-gray-500 dark:text-slate-400">各组积分榜速览</span>
           <RouterLink to="/standings" class="flex items-center gap-0.5 text-sm text-emerald-600">
@@ -207,7 +207,7 @@ const champion = computed(() => store.playerById(store.championId))
           </RouterLink>
         </div>
         <div class="grid gap-3 sm:grid-cols-2">
-          <div v-for="g in ['A', 'B', 'C', 'D']" :key="g" class="rounded-xl bg-gray-50 p-3 dark:bg-slate-800">
+          <div v-for="g in ['A', 'B', 'C', 'D']" :key="g" class="rounded-xl bg-[#f4eefa] p-3 dark:bg-[#3c3459]">
             <p class="mb-2 text-xs font-bold text-gray-400">{{ g }} 组</p>
             <div v-for="row in standingsSummary[g]" :key="row.playerId" class="flex justify-between py-0.5 text-sm">
               <span class="text-gray-600 dark:text-slate-300">{{ row.rank }}. {{ row.name }}</span>
@@ -217,7 +217,7 @@ const champion = computed(() => store.playerById(store.championId))
         </div>
       </div>
 
-      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <div class="mb-3 flex items-center justify-between">
           <span class="text-sm font-bold text-gray-500 dark:text-slate-400">淘汰赛进度</span>
           <RouterLink to="/bracket" class="flex items-center gap-0.5 text-sm text-emerald-600">
@@ -229,7 +229,7 @@ const champion = computed(() => store.playerById(store.championId))
           <div
             v-for="node in store.knockoutMatches"
             :key="`${node.stage}-${node.order}`"
-            class="flex items-center justify-between rounded-xl bg-gray-50 px-3 py-2 text-sm dark:bg-slate-800"
+            class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-3 py-2 text-sm dark:bg-[#3c3459]"
           >
             <span class="font-semibold text-gray-500 dark:text-slate-400">{{ node.label }}</span>
             <span class="flex items-center gap-2">

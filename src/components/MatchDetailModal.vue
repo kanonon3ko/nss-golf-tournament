@@ -65,7 +65,7 @@ function setLabel(set) {
     </div>
 
     <div
-      class="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-xl bg-gray-50 p-4 dark:bg-slate-800"
+      class="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-xl bg-[#f4eefa] p-4 dark:bg-[#3c3459]"
     >
       <PlayerBadge :player="playerA" />
       <span class="text-xl font-bold">
@@ -82,7 +82,7 @@ function setLabel(set) {
     <div class="mb-4 overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="py-2 pr-2">局</th>
             <th class="py-2 pr-2">{{ playerA?.name || '甲' }} 相对标准杆</th>
             <th class="py-2 pr-2">{{ playerB?.name || '乙' }} 相对标准杆</th>
@@ -93,7 +93,7 @@ function setLabel(set) {
           <tr
             v-for="(set, index) in match.sets"
             :key="index"
-            class="border-b border-gray-100 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] dark:border-[#3f3760]"
           >
             <td class="py-2 pr-2 font-semibold">{{ index + 1 }}</td>
             <td class="py-2 pr-2">{{ set.a ?? '-' }}</td>

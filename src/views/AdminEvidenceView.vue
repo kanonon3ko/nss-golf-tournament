@@ -66,7 +66,7 @@ function remove(id) {
         <h1 class="text-2xl font-bold">证据与日志</h1>
         <p class="text-sm text-gray-500 dark:text-slate-400">赛果截图 / 掉线证据统一留档 · 操作日志可追溯</p>
       </div>
-      <BaseButton :icon="mdiPlus" label="添加证据" color="info" @click="showAdd = true" />
+      <BaseButton :icon="mdiPlus" label="添加证据" color="purple" @click="showAdd = true" />
     </div>
 
     <div class="mb-4 flex flex-wrap gap-2">
@@ -77,8 +77,8 @@ function remove(id) {
         class="rounded-full px-3 py-1.5 text-sm"
         :class="
           typeFilter === value
-            ? 'bg-slate-800 font-semibold text-white dark:bg-slate-200 dark:text-slate-900'
-            : 'bg-white text-gray-600 shadow-sm dark:bg-slate-900 dark:text-slate-300'
+            ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
+            : 'bg-[#faf7fd] text-gray-600 shadow-sm dark:bg-[#2c2648] dark:text-slate-300'
         "
         @click="typeFilter = value"
       >
@@ -86,10 +86,10 @@ function remove(id) {
       </button>
     </div>
 
-    <div class="mb-6 overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-slate-900/70">
+    <div class="mb-6 overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="px-4 py-3">名称</th>
             <th class="px-4 py-3">关联比赛</th>
             <th class="px-4 py-3">类型</th>
@@ -103,7 +103,7 @@ function remove(id) {
           <tr
             v-for="ev in filtered"
             :key="ev.id"
-            class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
           >
             <td class="px-4 py-3 font-medium">{{ ev.name }}</td>
             <td class="px-4 py-3">{{ matchLabel(ev.matchId) }}</td>
@@ -115,7 +115,7 @@ function remove(id) {
                     ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400'
                     : ev.type === 'disconnect'
                       ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400'
-                      : 'bg-gray-100 text-gray-600 dark:bg-slate-800 dark:text-slate-300'
+                      : 'bg-[#eee6f8] text-gray-600 dark:bg-[#3c3459] dark:text-slate-300'
                 "
               >
                 {{ typeLabels[ev.type] || '其他' }}
@@ -146,7 +146,7 @@ function remove(id) {
       </table>
     </div>
 
-    <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+    <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
       <h2 class="mb-3 font-bold">操作日志（最近 30 条）</h2>
       <ul class="flex max-h-72 flex-col gap-1 overflow-y-auto text-sm text-gray-600 dark:text-slate-300">
         <li v-for="log in store.logs.slice(0, 30)" :key="log.id" class="flex gap-2">
@@ -164,7 +164,7 @@ function remove(id) {
           <label class="mb-1 block text-sm font-bold">关联比赛</label>
           <select
             v-model="form.matchId"
-            class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
           >
             <option value="">不关联</option>
             <option v-for="m in store.matches" :key="m.id" :value="m.id">
@@ -177,7 +177,7 @@ function remove(id) {
             <label class="mb-1 block text-sm font-bold">类型</label>
             <select
               v-model="form.type"
-              class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
             >
               <option value="result">赛果截图</option>
               <option value="disconnect">掉线证据</option>
@@ -189,7 +189,7 @@ function remove(id) {
             <input
               v-model="form.name"
               type="text"
-              class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
               placeholder="选填"
             />
           </div>
@@ -199,14 +199,14 @@ function remove(id) {
           <input
             v-model="form.url"
             type="url"
-            class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
             placeholder="https://...（图片 / 录屏链接）"
           />
         </div>
       </div>
       <template #footer>
         <BaseButton label="取消" color="whiteDark" @click="showAdd = false" />
-        <BaseButton label="保存" color="info" @click="save" />
+        <BaseButton label="保存" color="purple" @click="save" />
       </template>
     </BaseModal>
   </div>

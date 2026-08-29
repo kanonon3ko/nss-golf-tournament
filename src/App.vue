@@ -3,7 +3,7 @@ import { RouterView } from 'vue-router'
 import { useTournamentStore } from '@/stores/tournament'
 import { useAuthStore } from '@/stores/auth'
 import BaseIcon from '@/components/BaseIcon.vue'
-import { mdiTrophy } from '@mdi/js'
+import GolfLogo from '@/components/GolfLogo.vue'
 
 const tournamentStore = useTournamentStore()
 const authStore = useAuthStore()
@@ -20,14 +20,10 @@ Promise.all([tournamentStore.init(), authStore.init()]).then(() => {
   <!-- 数据就绪前显示加载页，避免“未抽签”空状态闪烁 -->
   <div
     v-if="!tournamentStore.ready"
-    class="fixed inset-0 z-[100] flex items-center justify-center bg-gray-50 dark:bg-slate-800"
+    class="fixed inset-0 z-[100] flex items-center justify-center bg-[#ede2f6] dark:bg-linear-to-br dark:from-[#7d6ba8] dark:to-[#2a2440]"
   >
     <div class="flex flex-col items-center gap-3">
-      <span
-        class="flex h-14 w-14 animate-pulse items-center justify-center rounded-full bg-linear-to-tr from-emerald-800 via-emerald-900 to-slate-900 text-[#c9a24b]"
-      >
-        <BaseIcon :path="mdiTrophy" size="26" />
-      </span>
+      <GolfLogo :size="56" class="animate-pulse" />
       <p class="text-sm text-gray-500 dark:text-slate-400">正在加载赛事数据…</p>
     </div>
   </div>

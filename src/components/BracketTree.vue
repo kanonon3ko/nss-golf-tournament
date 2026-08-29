@@ -50,7 +50,7 @@ function playerOf(node, side) {
           v-for="node in qf"
           :key="`qf-${node.order}`"
           type="button"
-          class="w-64 rounded-2xl bg-white p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-slate-900/70"
+          class="w-64 rounded-2xl bg-[#faf7fd] p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
           :class="{ 'cursor-pointer': node.matchId, 'cursor-default': !node.matchId }"
           @click="node.matchId && emit('open-match', node.matchId)"
         >
@@ -83,7 +83,7 @@ function playerOf(node, side) {
           v-for="node in sf"
           :key="`sf-${node.order}`"
           type="button"
-          class="w-64 rounded-2xl bg-white p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-slate-900/70"
+          class="w-64 rounded-2xl bg-[#faf7fd] p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
           :class="{ 'cursor-pointer': node.matchId, 'cursor-default': !node.matchId }"
           @click="node.matchId && emit('open-match', node.matchId)"
         >
@@ -115,7 +115,7 @@ function playerOf(node, side) {
         <button
           v-if="final"
           type="button"
-          class="w-64 rounded-2xl bg-white p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-slate-900/70"
+          class="w-64 rounded-2xl bg-[#faf7fd] p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
           :class="{ 'cursor-pointer': final.matchId, 'cursor-default': !final.matchId }"
           @click="final.matchId && emit('open-match', final.matchId)"
         >

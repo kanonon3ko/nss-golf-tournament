@@ -74,8 +74,8 @@ function onEntrySaved() {
           class="rounded-full px-3 py-1 text-sm"
           :class="
             statusFilter === f.value
-              ? 'bg-slate-800 font-semibold text-white dark:bg-slate-200 dark:text-slate-900'
-              : 'bg-white text-gray-600 shadow-sm hover:bg-gray-100 dark:bg-slate-900 dark:text-slate-300'
+              ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
+              : 'bg-[#faf7fd] text-gray-600 shadow-sm hover:bg-[#eee6f8] dark:bg-[#2c2648] dark:text-slate-300'
           "
           @click="statusFilter = f.value"
         >
@@ -98,10 +98,10 @@ function onEntrySaved() {
       </span>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-slate-900/70">
+    <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="px-4 py-3">轮次</th>
             <th class="px-4 py-3">对阵</th>
             <th class="px-4 py-3">比分</th>
@@ -115,7 +115,7 @@ function onEntrySaved() {
           <tr
             v-for="{ match, ddl, overdue } in filteredMatches"
             :key="match.id"
-            class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
             :class="overdue ? 'bg-red-50 dark:bg-red-900/10' : ''"
           >
             <td class="px-4 py-3 font-semibold text-gray-500 dark:text-slate-400">
@@ -158,7 +158,7 @@ function onEntrySaved() {
                 <BaseButton
                   v-if="auth.isAdmin"
                   label="录入"
-                  color="info"
+                  color="purple"
                   small
                   @click="openEntry(match)"
                 />

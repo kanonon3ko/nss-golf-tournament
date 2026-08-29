@@ -138,7 +138,7 @@ function save() {
     </div>
 
     <div
-      class="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-xl bg-gray-50 p-4 dark:bg-slate-800"
+      class="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-xl bg-[#f4eefa] p-4 dark:bg-[#3c3459]"
     >
       <PlayerBadge :player="playerA" />
       <span class="text-xl font-bold">{{ winsPreview.A }} : {{ winsPreview.B }}</span>
@@ -153,7 +153,7 @@ function save() {
     <div class="mb-4 overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="py-2 pr-2">局</th>
             <th class="py-2 pr-2">{{ playerA?.name || '甲' }} 相对标准杆</th>
             <th class="py-2 pr-2">{{ playerB?.name || '乙' }} 相对标准杆</th>
@@ -164,7 +164,7 @@ function save() {
           <tr
             v-for="(set, index) in form.sets"
             :key="index"
-            class="border-b border-gray-100 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] dark:border-[#3f3760]"
           >
             <td class="py-2 pr-2 font-semibold">{{ index + 1 }}</td>
             <td class="py-2 pr-2">
@@ -172,7 +172,7 @@ function save() {
                 v-model.number="set.a"
                 type="number"
                 placeholder="如 -14"
-                class="w-24 rounded-sm border border-gray-300 px-2 py-1.5 dark:border-slate-600 dark:bg-slate-800"
+                class="w-24 rounded-sm border border-[#d9cdeb] px-2 py-1.5 dark:border-[#5a507f] dark:bg-[#3c3459]"
               />
             </td>
             <td class="py-2 pr-2">
@@ -180,13 +180,13 @@ function save() {
                 v-model.number="set.b"
                 type="number"
                 placeholder="如 -12"
-                class="w-24 rounded-sm border border-gray-300 px-2 py-1.5 dark:border-slate-600 dark:bg-slate-800"
+                class="w-24 rounded-sm border border-[#d9cdeb] px-2 py-1.5 dark:border-[#5a507f] dark:bg-[#3c3459]"
               />
             </td>
             <td class="py-2">
               <select
                 v-model="set.sdWinner"
-                class="w-32 rounded-sm border border-gray-300 px-2 py-1.5 pr-7 dark:border-slate-600 dark:bg-slate-800"
+                class="w-32 rounded-sm border border-[#d9cdeb] px-2 py-1.5 pr-7 dark:border-[#5a507f] dark:bg-[#3c3459]"
               >
                 <option :value="null">无（非平局）</option>
                 <option :value="match.playerAId">{{ playerA?.name }}</option>
@@ -205,7 +205,7 @@ function save() {
           v-model="newLink"
           type="url"
           placeholder="https://...（截图或录屏链接）"
-          class="flex-1 rounded-sm border border-gray-300 px-3 py-2 dark:border-slate-600 dark:bg-slate-800"
+          class="flex-1 rounded-sm border border-[#d9cdeb] px-3 py-2 dark:border-[#5a507f] dark:bg-[#3c3459]"
         />
         <BaseButton label="添加" color="whiteDark" small @click="addLink" />
       </div>
@@ -213,7 +213,7 @@ function save() {
         <div
           v-for="(link, i) in form.resultLinks"
           :key="i"
-          class="flex items-center justify-between gap-2 rounded bg-gray-50 px-3 py-1.5 text-sm dark:bg-slate-800"
+          class="flex items-center justify-between gap-2 rounded bg-[#f4eefa] px-3 py-1.5 text-sm dark:bg-[#3c3459]"
         >
           <span class="truncate text-blue-500">{{ link }}</span>
           <button type="button" class="text-red-500" @click="removeLink(i)">移除</button>
@@ -237,7 +237,7 @@ function save() {
           <label class="mb-1 block text-xs font-semibold">掉线发生局</label>
           <select
             v-model.number="form.disconnect.setIndex"
-            class="w-full rounded-sm border border-gray-300 px-2 py-1.5 pr-8 dark:border-slate-600 dark:bg-slate-800"
+            class="w-full rounded-sm border border-[#d9cdeb] px-2 py-1.5 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
           >
             <option v-for="(set, i) in form.sets" :key="i" :value="i">
               第 {{ i + 1 }} 局
@@ -251,7 +251,7 @@ function save() {
             type="number"
             min="0"
             max="9"
-            class="w-full rounded-sm border border-gray-300 px-2 py-1.5 pr-8 dark:border-slate-600 dark:bg-slate-800"
+            class="w-full rounded-sm border border-[#d9cdeb] px-2 py-1.5 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
           />
         </div>
       </div>
@@ -261,14 +261,14 @@ function save() {
       <textarea
         v-model="form.disconnect.note"
         placeholder="掉线情况说明"
-        class="mb-2 w-full rounded-sm border border-gray-300 px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800"
+        class="mb-2 w-full rounded-sm border border-[#d9cdeb] px-3 py-2 text-sm dark:border-[#5a507f] dark:bg-[#3c3459]"
       ></textarea>
       <div class="flex gap-2">
         <input
           v-model="newDisconnectLink"
           type="url"
           placeholder="掉线截图/录屏链接"
-          class="flex-1 rounded-sm border border-gray-300 px-3 py-2 dark:border-slate-600 dark:bg-slate-800"
+          class="flex-1 rounded-sm border border-[#d9cdeb] px-3 py-2 dark:border-[#5a507f] dark:bg-[#3c3459]"
         />
         <BaseButton label="添加" color="whiteDark" small @click="addDisconnectLink" />
       </div>
@@ -276,7 +276,7 @@ function save() {
         <div
           v-for="(link, i) in form.disconnect.links"
           :key="i"
-          class="flex items-center justify-between gap-2 rounded bg-white px-3 py-1.5 text-sm dark:bg-slate-800"
+          class="flex items-center justify-between gap-2 rounded bg-[#faf7fd] px-3 py-1.5 text-sm dark:bg-[#3c3459]"
         >
           <span class="truncate text-blue-500">{{ link }}</span>
           <button type="button" class="text-red-500" @click="removeDisconnectLink(i)">移除</button>
@@ -306,7 +306,7 @@ function save() {
 
     <template #footer>
       <BaseButton label="取消" color="whiteDark" @click="emit('close')" />
-      <BaseButton label="保存并发布" color="info" @click="save" />
+      <BaseButton label="保存并发布" color="purple" @click="save" />
     </template>
   </BaseModal>
 </template>

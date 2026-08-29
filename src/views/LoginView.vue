@@ -6,7 +6,8 @@ import { useTournamentStore } from '@/stores/tournament'
 import { siteName } from '@/config'
 import BaseButton from '@/components/BaseButton.vue'
 import BaseIcon from '@/components/BaseIcon.vue'
-import { mdiLock, mdiEye, mdiEyeOff, mdiTrophy } from '@mdi/js'
+import GolfLogo from '@/components/GolfLogo.vue'
+import { mdiLock, mdiEye, mdiEyeOff } from '@mdi/js'
 
 const route = useRoute()
 const router = useRouter()
@@ -48,21 +49,17 @@ async function submit() {
 
 <template>
   <div
-    class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-10 dark:bg-slate-800 dark:text-slate-100"
+    class="flex min-h-screen items-center justify-center bg-[#ede2f6] px-4 py-10 dark:bg-linear-to-br dark:from-[#7d6ba8] dark:to-[#2a2440] dark:text-slate-100"
   >
     <div class="w-full max-w-sm">
       <div class="mb-6 text-center">
-        <span
-          class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-linear-to-tr from-emerald-800 via-emerald-900 to-slate-900 text-[#c9a24b]"
-        >
-          <BaseIcon :path="mdiTrophy" size="26" />
-        </span>
+        <GolfLogo :size="56" class="mx-auto mb-3" />
         <h1 class="text-xl font-bold">{{ siteName }}</h1>
         <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">管理员登录 · 组织方专用</p>
       </div>
 
       <form
-        class="rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-900/70"
+        class="rounded-2xl bg-[#faf7fd] p-6 shadow-sm dark:bg-[#332c54]/80"
         @submit.prevent="submit"
       >
         <label class="mb-2 block text-sm font-bold">管理员口令</label>
@@ -74,7 +71,7 @@ async function submit() {
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
             placeholder="请输入口令"
-            class="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-10 dark:border-slate-600 dark:bg-slate-800"
+            class="w-full rounded-lg border border-[#d9cdeb] py-2.5 pl-10 pr-10 dark:border-[#5a507f] dark:bg-[#3c3459]"
             autocomplete="current-password"
           />
           <button
@@ -90,7 +87,7 @@ async function submit() {
           {{ error }}
         </p>
 
-        <BaseButton type="submit" label="登录" color="info" class="w-full" />
+        <BaseButton type="submit" label="登录" color="purple" class="w-full" />
         <BaseButton
           class="mt-2 w-full"
           label="以游客身份继续浏览"

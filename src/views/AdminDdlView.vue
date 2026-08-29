@@ -80,10 +80,10 @@ async function copyNotice() {
       </p>
     </div>
 
-    <div class="mb-6 overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-slate-900/70">
+    <div class="mb-6 overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="px-4 py-3">轮次</th>
             <th class="px-4 py-3">DDL</th>
             <th class="px-4 py-3 text-right">操作</th>
@@ -93,25 +93,25 @@ async function copyNotice() {
           <tr
             v-for="d in store.ddlRounds"
             :key="d.key"
-            class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
           >
             <td class="px-4 py-3 font-semibold">{{ d.label }}</td>
             <td class="px-4 py-3">
               <input
                 v-model="localDdl[d.key]"
                 type="datetime-local"
-                class="rounded-sm border border-gray-300 px-3 py-2 dark:border-slate-600 dark:bg-slate-800"
+                class="rounded-sm border border-[#d9cdeb] px-3 py-2 dark:border-[#5a507f] dark:bg-[#3c3459]"
               />
             </td>
             <td class="px-4 py-3 text-right">
-              <BaseButton label="保存" color="info" small @click="saveDdl(d.key)" />
+              <BaseButton label="保存" color="purple" small @click="saveDdl(d.key)" />
             </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="mb-4 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+    <div class="mb-4 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
       <div class="mb-3 flex items-center justify-between">
         <span class="text-sm font-bold text-gray-500 dark:text-slate-400">
           逾期待裁决（{{ store.overdueMatches.length }}）
@@ -151,9 +151,9 @@ async function copyNotice() {
       <p v-else class="text-sm text-gray-400">暂无逾期比赛</p>
     </div>
 
-    <details class="rounded-2xl bg-white p-5 text-sm shadow-sm dark:bg-slate-900/70">
+    <details class="rounded-2xl bg-[#faf7fd] p-5 text-sm shadow-sm dark:bg-[#332c54]/80">
       <summary class="cursor-pointer font-bold">预览通知文案</summary>
-      <pre class="mt-3 whitespace-pre-wrap rounded-xl bg-gray-50 p-4 text-xs dark:bg-slate-800">{{ buildNotice() }}</pre>
+      <pre class="mt-3 whitespace-pre-wrap rounded-xl bg-[#f4eefa] p-4 text-xs dark:bg-[#3c3459]">{{ buildNotice() }}</pre>
     </details>
   </div>
 </template>

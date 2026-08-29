@@ -136,7 +136,7 @@ function tierClass(tier) {
     1: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-400',
     2: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400',
     3: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-400',
-    4: 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
+    4: 'bg-[#e6dcf3] text-slate-700 dark:bg-[#463e68] dark:text-slate-300',
   }
   return map[tier] || ''
 }
@@ -152,7 +152,7 @@ function tierClass(tier) {
         </p>
       </div>
       <div class="flex flex-wrap gap-2">
-        <BaseButton :icon="mdiAccountPlus" label="添加选手" color="info" @click="openAdd" />
+        <BaseButton :icon="mdiAccountPlus" label="添加选手" color="purple" @click="openAdd" />
         <BaseButton
           :icon="mdiDiceMultiple"
           label="随机抽签"
@@ -164,7 +164,7 @@ function tierClass(tier) {
           v-if="store.draft && !published"
           :icon="mdiCheckCircle"
           label="确认发布分组"
-          color="success"
+          color="purple"
           :disabled="!valid"
           @click="doPublish"
         />
@@ -173,12 +173,12 @@ function tierClass(tier) {
     </div>
 
     <div class="grid gap-4 lg:grid-cols-2">
-      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <h2 class="mb-3 font-bold">选手名单</h2>
         <div>
           <table class="w-full text-sm">
-            <thead class="bg-white dark:bg-slate-900">
-              <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+            <thead class="bg-[#faf7fd] dark:bg-[#2c2648]">
+              <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
                 <th class="py-2 pr-2">选手</th>
                 <th class="py-2 pr-2">最佳成绩</th>
                 <th class="py-2 pr-2">档位</th>
@@ -190,7 +190,7 @@ function tierClass(tier) {
               <tr
                 v-for="player in sortedPlayers"
                 :key="player.id"
-                class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+                class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
               >
                 <td class="py-2 pr-2"><PlayerBadge :player="player" /></td>
                 <td class="py-2 pr-2">{{ player.bestScore ?? '-' }}</td>
@@ -215,7 +215,7 @@ function tierClass(tier) {
       </div>
 
       <div class="flex flex-col gap-4">
-        <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+        <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
           <h2 class="mb-3 font-bold">档位池</h2>
           <div class="flex flex-col gap-3">
             <div v-for="t in [1, 2, 3, 4]" :key="t" class="flex items-start gap-3">
@@ -229,7 +229,7 @@ function tierClass(tier) {
                 <span
                   v-for="p in tierPlayers[t]"
                   :key="p.id"
-                  class="rounded-full bg-gray-100 px-2.5 py-1 text-xs text-gray-600 dark:bg-slate-800 dark:text-slate-300"
+                  class="rounded-full bg-[#eee6f8] px-2.5 py-1 text-xs text-gray-600 dark:bg-[#3c3459] dark:text-slate-300"
                 >
                   {{ p.name }}
                 </span>
@@ -239,7 +239,7 @@ function tierClass(tier) {
           </div>
         </div>
 
-        <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+        <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
           <div class="mb-1 flex items-center justify-between">
             <h2 class="font-bold">手动分组</h2>
             <BaseButton
@@ -256,14 +256,14 @@ function tierClass(tier) {
             <div
               v-for="g in GROUPS"
               :key="g"
-              class="rounded-xl bg-gray-50 p-3 dark:bg-slate-800"
+              class="rounded-xl bg-[#f4eefa] p-3 dark:bg-[#3c3459]"
             >
               <p class="mb-2 text-sm font-bold text-gray-500 dark:text-slate-400">{{ g }}组</p>
               <div v-for="t in [1, 2, 3, 4]" :key="t" class="mb-2 last:mb-0">
                 <label class="mb-1 block text-xs text-gray-400">{{ t }}档</label>
                 <select
                   :value="slotPlayerId(g, t - 1)"
-                  class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 text-sm dark:border-slate-600 dark:bg-slate-800"
+                  class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 text-sm dark:border-[#5a507f] dark:bg-[#3c3459]"
                   @change="onSlotChange(g, t - 1, $event)"
                 >
                   <option value="">未选择</option>
@@ -281,7 +281,7 @@ function tierClass(tier) {
           </div>
         </div>
 
-        <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+        <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
           <div class="mb-3 flex items-center justify-between">
             <h2 class="font-bold">抽签分组</h2>
             <span
@@ -298,14 +298,14 @@ function tierClass(tier) {
             <div
               v-for="g in GROUPS"
               :key="g"
-              class="rounded-xl bg-gray-50 p-3 text-sm dark:bg-slate-800"
+              class="rounded-xl bg-[#f4eefa] p-3 text-sm dark:bg-[#3c3459]"
             >
               <p class="mb-1 font-bold text-gray-500 dark:text-slate-400">{{ g }}组</p>
               <div class="flex flex-wrap gap-1">
                 <span
                   v-for="id in (store.draft[g] || []).filter(Boolean)"
                   :key="id"
-                  class="rounded-full bg-white px-2 py-0.5 text-xs shadow-sm dark:bg-slate-700"
+                  class="rounded-full bg-[#faf7fd] px-2 py-0.5 text-xs shadow-sm dark:bg-[#463e68]"
                 >
                   {{ store.playerName(id) }}
                 </span>
@@ -329,14 +329,14 @@ function tierClass(tier) {
 
     <div
       v-if="store.drawHistory.length"
-      class="mt-6 mb-4 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70"
+      class="mt-6 mb-4 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80"
     >
       <h2 class="mb-3 font-bold">抽签记录（可验证）</h2>
       <div class="flex flex-col gap-2">
         <div
           v-for="rec in store.drawHistory.slice(0, 5)"
           :key="rec.id"
-          class="rounded-xl bg-gray-50 p-3 text-sm dark:bg-slate-800"
+          class="rounded-xl bg-[#f4eefa] p-3 text-sm dark:bg-[#3c3459]"
         >
           <p class="mb-2 text-xs text-gray-400">
             {{ formatDateTime(rec.time) }} · {{ rec.by }} · {{ rec.id }}
@@ -371,7 +371,7 @@ function tierClass(tier) {
           <input
             v-model="form.name"
             type="text"
-            class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
             placeholder="选手昵称"
           />
         </div>
@@ -382,7 +382,7 @@ function tierClass(tier) {
               v-model.number="form.bestScore"
               type="number"
               min="1"
-              class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
               placeholder="杆数"
             />
           </div>
@@ -390,7 +390,7 @@ function tierClass(tier) {
             <label class="mb-1 block text-sm font-bold">档位</label>
             <select
               v-model.number="form.tier"
-              class="w-full rounded-sm border border-gray-300 px-3 py-2 pr-8 dark:border-slate-600 dark:bg-slate-800"
+              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
             >
               <option :value="1">1档（最强）</option>
               <option :value="2">2档</option>
@@ -402,7 +402,7 @@ function tierClass(tier) {
       </div>
       <template #footer>
         <BaseButton label="取消" color="whiteDark" @click="showEditor = false" />
-        <BaseButton label="保存" color="info" @click="savePlayer" />
+        <BaseButton label="保存" color="purple" @click="savePlayer" />
       </template>
     </BaseModal>
   </div>

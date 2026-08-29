@@ -21,7 +21,7 @@ const emit = defineEmits(['update:modelValue'])
       :class="
         modelValue === g
           ? 'bg-emerald-500 text-white'
-          : 'bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700'
+          : 'bg-[#eee6f8] text-gray-600 hover:bg-[#e4d9f2] dark:bg-[#3c3459] dark:text-slate-300 dark:hover:bg-[#463e68]'
       "
       @click="emit('update:modelValue', g)"
     >

@@ -93,7 +93,7 @@ function forfeit(row, decision) {
     <div class="mb-4 flex flex-wrap gap-2">
       <select
         v-model="stageFilter"
-        class="rounded-sm border border-gray-300 px-3 py-2 pr-8 text-sm dark:border-slate-600 dark:bg-slate-800"
+        class="rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 text-sm dark:border-[#5a507f] dark:bg-[#3c3459]"
       >
         <option v-for="opt in stageOptions" :key="opt.value" :value="opt.value">
           {{ opt.label }}
@@ -102,14 +102,14 @@ function forfeit(row, decision) {
       <select
         v-if="stageFilter === 'group' || stageFilter === 'all'"
         v-model="groupFilter"
-        class="rounded-sm border border-gray-300 px-3 py-2 pr-8 text-sm dark:border-slate-600 dark:bg-slate-800"
+        class="rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 text-sm dark:border-[#5a507f] dark:bg-[#3c3459]"
       >
         <option value="all">全部小组</option>
         <option v-for="g in ['A', 'B', 'C', 'D']" :key="g" :value="g">{{ g }}组</option>
       </select>
       <select
         v-model="statusFilter"
-        class="rounded-sm border border-gray-300 px-3 py-2 pr-8 text-sm dark:border-slate-600 dark:bg-slate-800"
+        class="rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 text-sm dark:border-[#5a507f] dark:bg-[#3c3459]"
       >
         <option v-for="opt in statusOptions" :key="opt.value" :value="opt.value">
           {{ opt.label }}
@@ -117,10 +117,10 @@ function forfeit(row, decision) {
       </select>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-slate-900/70">
+    <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="px-4 py-3">阶段</th>
             <th class="px-4 py-3">对阵</th>
             <th class="px-4 py-3">比分</th>
@@ -133,7 +133,7 @@ function forfeit(row, decision) {
           <tr
             v-for="{ match, ddl, overdue } in rows"
             :key="match.id"
-            class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
             :class="overdue ? 'bg-red-50 dark:bg-red-900/10' : ''"
           >
             <td class="whitespace-nowrap px-4 py-3 text-gray-500 dark:text-slate-400">{{ stageLabel(match) }}</td>
@@ -164,7 +164,7 @@ function forfeit(row, decision) {
                 <BaseButton label="查看" color="whiteDark" small @click="detailMatch = match" />
                 <BaseButton
                   label="录入/编辑"
-                  color="info"
+                  color="purple"
                   small
                   @click="entryMatch = match"
                 />

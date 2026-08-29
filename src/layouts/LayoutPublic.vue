@@ -4,7 +4,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import { siteName } from '@/config'
 import {
-  mdiTrophy,
   mdiMenu,
   mdiClose,
   mdiLock,
@@ -15,6 +14,7 @@ import {
 } from '@mdi/js'
 import BaseIcon from '@/components/BaseIcon.vue'
 import BaseButton from '@/components/BaseButton.vue'
+import GolfLogo from '@/components/GolfLogo.vue'
 import { useDarkModeStore } from '@/stores/darkMode'
 
 const route = useRoute()
@@ -44,17 +44,13 @@ function logout() {
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col bg-gray-50 dark:bg-slate-800 dark:text-slate-100">
+  <div class="flex min-h-screen flex-col bg-[#ede2f6] dark:bg-linear-to-br dark:from-[#7d6ba8] dark:to-[#2a2440] dark:text-slate-100">
     <header
-      class="sticky top-0 z-40 border-b border-gray-200 bg-white/90 backdrop-blur dark:border-slate-700 dark:bg-slate-900/90"
+      class="sticky top-0 z-40 border-b border-[#e7ddf3] bg-[#f8f4fd]/90 backdrop-blur dark:border-[#4b4270] dark:bg-[#2c2648]/90"
     >
       <div class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <RouterLink to="/" class="flex items-center gap-2 font-bold">
-          <span
-            class="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-tr from-emerald-800 via-emerald-900 to-slate-900 text-[#c9a24b]"
-          >
-            <BaseIcon :path="mdiTrophy" size="18" />
-          </span>
+          <GolfLogo :size="32" />
           <span>{{ siteName }}</span>
         </RouterLink>
 
@@ -66,8 +62,8 @@ function logout() {
             class="rounded-md px-3 py-2 text-sm transition-colors"
             :class="
               isActive(item)
-                ? 'bg-emerald-50 font-semibold text-emerald-600 dark:bg-slate-800 dark:text-emerald-400'
-                : 'text-gray-600 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-700'
+                ? 'bg-[#eae0f8] font-semibold text-[#7e57c2] dark:bg-[#3c3459] dark:text-[#a78bdc]'
+                : 'text-gray-600 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]'
             "
           >
             {{ item.label }}
@@ -75,7 +71,7 @@ function logout() {
           <div class="ms-2 flex items-center gap-1">
             <button
               type="button"
-              class="rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-700"
+              class="rounded-md p-2 text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
               :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
               @click="darkModeStore.set(null, true)"
             >
@@ -89,7 +85,7 @@ function logout() {
                 :to="'/admin'"
                 :icon="mdiViewDashboard"
                 label="管理后台"
-                color="info"
+                color="purple"
                 small
               />
               <BaseButton :icon="mdiLogout" label="退出" color="whiteDark" small @click="logout" />
@@ -99,7 +95,7 @@ function logout() {
               :to="{ name: 'login', query: { next: route.fullPath } }"
               :icon="mdiLock"
               label="管理员登录"
-              color="info"
+              color="purple"
               small
             />
           </div>
@@ -107,7 +103,7 @@ function logout() {
 
         <button
           type="button"
-          class="rounded-md p-1 hover:bg-gray-100 md:hidden dark:hover:bg-slate-700"
+          class="rounded-md p-1 hover:bg-[#eee6f8] md:hidden dark:hover:bg-[#463e68]"
           @click="mobileOpen = !mobileOpen"
         >
           <BaseIcon :path="mobileOpen ? mdiClose : mdiMenu" size="24" />
@@ -116,7 +112,7 @@ function logout() {
 
       <nav
         v-if="mobileOpen"
-        class="border-t border-gray-200 px-4 pb-4 md:hidden dark:border-slate-700"
+        class="border-t border-[#e7ddf3] px-4 pb-4 md:hidden dark:border-[#4b4270]"
       >
         <div class="flex flex-col gap-1 py-2">
           <RouterLink
@@ -126,7 +122,7 @@ function logout() {
             class="rounded-md px-3 py-2 text-sm"
             :class="
               isActive(item)
-                ? 'bg-emerald-50 font-semibold text-emerald-600 dark:bg-slate-800 dark:text-emerald-400'
+                ? 'bg-[#eae0f8] font-semibold text-[#7e57c2] dark:bg-[#3c3459] dark:text-[#a78bdc]'
                 : 'text-gray-600 dark:text-slate-300'
             "
             @click="mobileOpen = false"
@@ -134,10 +130,10 @@ function logout() {
             {{ item.label }}
           </RouterLink>
         </div>
-        <div class="flex gap-2 border-t border-gray-200 pt-3 dark:border-slate-700">
+        <div class="flex gap-2 border-t border-[#e7ddf3] pt-3 dark:border-[#4b4270]">
           <button
             type="button"
-            class="rounded-md p-2 text-gray-500 hover:bg-gray-100 dark:text-slate-300 dark:hover:bg-slate-700"
+            class="rounded-md p-2 text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
             :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
             @click="darkModeStore.set(null, true)"
           >
@@ -147,7 +143,7 @@ function logout() {
             />
           </button>
           <template v-if="auth.isAdmin">
-            <BaseButton :to="'/admin'" :icon="mdiViewDashboard" label="管理后台" color="info" small />
+            <BaseButton :to="'/admin'" :icon="mdiViewDashboard" label="管理后台" color="purple" small />
             <BaseButton :icon="mdiLogout" label="退出" color="whiteDark" small @click="logout" />
           </template>
           <BaseButton
@@ -155,7 +151,7 @@ function logout() {
             :to="{ name: 'login', query: { next: route.fullPath } }"
             :icon="mdiLock"
             label="管理员登录"
-            color="info"
+            color="purple"
             small
           />
         </div>
@@ -167,7 +163,7 @@ function logout() {
     </main>
 
     <footer
-      class="border-t border-gray-200 py-6 text-center text-xs text-gray-400 dark:border-slate-700 dark:text-slate-500"
+      class="border-t border-[#e7ddf3] py-6 text-center text-xs text-gray-400 dark:border-[#4b4270] dark:text-slate-500"
     >
       <div class="mx-auto max-w-6xl px-4">
         <p>© 2026 {{ siteName }} · 数据仅供赛事记录，截图与录屏由组织方留存</p>

@@ -32,17 +32,17 @@ function resolveDraw() {
 
 function rankClass(rank) {
   if (rank === 1) return 'bg-yellow-400 text-yellow-950'
-  if (rank === 2) return 'bg-slate-300 text-slate-800 dark:bg-slate-600'
-  return 'bg-gray-100 text-gray-500 dark:bg-slate-800 dark:text-slate-400'
+  if (rank === 2) return 'bg-[#d8ccec] text-slate-800 dark:bg-[#554c7d]'
+  return 'bg-[#eee6f8] text-gray-500 dark:bg-[#3c3459] dark:text-slate-400'
 }
 </script>
 
 <template>
   <div>
-    <div class="overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-slate-900/70">
+    <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <table class="w-full text-sm">
         <thead>
-          <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
             <th class="px-4 py-3">排名</th>
             <th class="px-4 py-3">选手</th>
             <th class="px-4 py-3">场</th>
@@ -58,7 +58,7 @@ function rankClass(rank) {
           <tr
             v-for="row in rows"
             :key="row.playerId"
-            class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
           >
             <td class="px-4 py-3">
               <span

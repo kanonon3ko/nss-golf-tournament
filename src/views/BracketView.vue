@@ -54,7 +54,7 @@ const champion = computed(() => store.playerById(store.championId))
       小组赛尚未全部结束，对阵会在各组积分确定后自动生成。当前展示按现有积分推算的预排对阵。
     </div>
 
-    <div class="rounded-2xl bg-gray-100 p-4 shadow-sm dark:bg-slate-900/70">
+    <div class="rounded-2xl bg-[#eee6f8] p-4 shadow-sm dark:bg-[#332c54]/80">
       <BracketTree :nodes="store.knockoutMatches" @open-match="openMatch" />
     </div>
 

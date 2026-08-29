@@ -8,7 +8,7 @@
   }
 
   tr {
-    @apply relative block max-w-full border-b-4 border-gray-100 lg:table-row lg:border-b-0 dark:border-slate-800;
+    @apply relative block max-w-full border-b-4 border-[#f0e9f8] lg:table-row lg:border-b-0 dark:border-[#3f3760];
   }
 
   tr:last-child {
@@ -16,7 +16,7 @@
   }
 
   td:not(:first-child) {
-    @apply lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:border-l lg:border-gray-100 lg:dark:border-slate-700;
+    @apply lg:border-t-0 lg:border-r-0 lg:border-b-0 lg:border-l lg:border-[#f0e9f8] lg:dark:border-[#4b4270];
   }
 
   th {
@@ -24,7 +24,7 @@
   }
 
   td {
-    @apply flex justify-between border-b border-gray-100 px-4 py-3 text-right align-top lg:table-cell lg:border-b-0 lg:p-3 lg:text-left lg:align-middle dark:border-slate-800;
+    @apply flex justify-between border-b border-[#f0e9f8] px-4 py-3 text-right align-top lg:table-cell lg:border-b-0 lg:p-3 lg:text-left lg:align-middle dark:border-[#3f3760];
   }
 
   td:last-child {
@@ -33,11 +33,11 @@
 
   tbody tr,
   tbody tr:nth-child(odd) {
-    @apply lg:hover:bg-gray-100 lg:dark:hover:bg-slate-700/70;
+    @apply lg:hover:bg-[#eee6f8] lg:dark:hover:bg-[#463e68]/70;
   }
 
   tbody tr:nth-child(odd) {
-    @apply lg:bg-gray-100/50 lg:dark:bg-slate-800/50;
+    @apply lg:bg-[#eee6f8]/50 lg:dark:bg-[#3c3459]/50;
   }
 
   td:before {

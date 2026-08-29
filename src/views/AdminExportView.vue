@@ -100,7 +100,7 @@ async function copyBracket() {
     </div>
 
     <div class="grid gap-4 sm:grid-cols-2">
-      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <p class="mb-3 font-bold">CSV 导出</p>
         <div class="flex flex-col gap-2">
           <BaseButton
@@ -124,7 +124,7 @@ async function copyBracket() {
         </div>
       </div>
 
-      <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <p class="mb-3 font-bold">完整数据与分享</p>
         <div class="flex flex-col gap-2">
           <BaseButton
@@ -136,7 +136,7 @@ async function copyBracket() {
           <BaseButton
             :icon="mdiClipboardText"
             label="复制对阵文本（群聊分享）"
-            color="info"
+            color="purple"
             @click="copyBracket"
           />
           <p v-if="copied" class="text-sm text-emerald-600">{{ copied }}</p>
@@ -144,9 +144,9 @@ async function copyBracket() {
       </div>
     </div>
 
-    <details class="mt-4 rounded-2xl bg-white p-5 text-sm shadow-sm dark:bg-slate-900/70">
+    <details class="mt-4 rounded-2xl bg-[#faf7fd] p-5 text-sm shadow-sm dark:bg-[#332c54]/80">
       <summary class="cursor-pointer font-bold">预览对阵文本</summary>
-      <pre class="mt-3 whitespace-pre-wrap rounded-xl bg-gray-50 p-4 text-xs dark:bg-slate-800">{{ bracketText() }}</pre>
+      <pre class="mt-3 whitespace-pre-wrap rounded-xl bg-[#f4eefa] p-4 text-xs dark:bg-[#3c3459]">{{ bracketText() }}</pre>
     </details>
   </div>
 </template>

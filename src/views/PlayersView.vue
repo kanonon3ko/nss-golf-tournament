@@ -41,7 +41,7 @@ function tierClass(tier) {
     1: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-400',
     2: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400',
     3: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-400',
-    4: 'bg-slate-200 text-slate-700 dark:bg-slate-700 dark:text-slate-300',
+    4: 'bg-[#e6dcf3] text-slate-700 dark:bg-[#463e68] dark:text-slate-300',
   }
   return map[tier] || ''
 }
@@ -63,7 +63,7 @@ function tierClass(tier) {
             v-model="search"
             type="search"
             placeholder="搜索选手 ID"
-            class="w-56 rounded-full border border-gray-300 py-2 pl-9 pr-3 text-sm dark:border-slate-600 dark:bg-slate-900"
+            class="w-56 rounded-full border border-[#d9cdeb] py-2 pl-9 pr-3 text-sm dark:border-[#5a507f] dark:bg-[#2c2648]"
           />
         </div>
         <div class="flex flex-wrap gap-1">
@@ -74,8 +74,8 @@ function tierClass(tier) {
             class="rounded-full px-3 py-1.5 text-sm"
             :class="
               tierFilter === t.value
-                ? 'bg-slate-800 font-semibold text-white dark:bg-slate-200 dark:text-slate-900'
-                : 'bg-white text-gray-600 shadow-sm hover:bg-gray-100 dark:bg-slate-900 dark:text-slate-300'
+                ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
+                : 'bg-[#faf7fd] text-gray-600 shadow-sm hover:bg-[#eee6f8] dark:bg-[#2c2648] dark:text-slate-300'
             "
             @click="tierFilter = t.value"
           >
@@ -90,7 +90,7 @@ function tierClass(tier) {
         v-for="player in players"
         :key="player.id"
         type="button"
-        class="flex flex-col gap-3 rounded-2xl bg-white p-4 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-slate-900/70"
+        class="flex flex-col gap-3 rounded-2xl bg-[#faf7fd] p-4 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
         @click="router.push(`/players/${player.id}`)"
       >
         <div class="flex items-center justify-between gap-2">
@@ -108,14 +108,14 @@ function tierClass(tier) {
           </span>
           <span
             v-if="player.groupId"
-            class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-semibold text-gray-500 dark:bg-slate-800 dark:text-slate-400"
+            class="rounded-full bg-[#eee6f8] px-2 py-0.5 text-xs font-semibold text-gray-500 dark:bg-[#3c3459] dark:text-slate-400"
           >
             {{ player.groupId }}组
           </span>
         </div>
         <div
           v-if="statsOf(player)"
-          class="mt-auto grid grid-cols-3 gap-1 border-t border-gray-100 pt-2 text-center text-xs text-gray-500 dark:border-slate-800 dark:text-slate-400"
+          class="mt-auto grid grid-cols-3 gap-1 border-t border-[#f0e9f8] pt-2 text-center text-xs text-gray-500 dark:border-[#3f3760] dark:text-slate-400"
         >
           <div>
             <p class="text-base font-bold text-gray-800 dark:text-slate-100">{{ statsOf(player).played }}</p>

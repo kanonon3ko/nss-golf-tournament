@@ -70,7 +70,7 @@ const todos = computed(() => {
         v-for="card in cards"
         :key="card.to"
         :to="card.to"
-        class="group rounded-2xl bg-white p-5 shadow-sm transition-shadow hover:shadow-md dark:bg-slate-900/70"
+        class="group rounded-2xl bg-[#faf7fd] p-5 shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
       >
         <BaseIcon
           :path="card.icon"
@@ -82,7 +82,7 @@ const todos = computed(() => {
       </RouterLink>
     </div>
 
-    <div class="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+    <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
       <div class="mb-3 flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-slate-400">
         <BaseIcon :path="mdiClipboardCheck" size="18" />
         待办
@@ -91,7 +91,7 @@ const todos = computed(() => {
         <div
           v-for="(todo, i) in todos"
           :key="i"
-          class="flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3 text-sm dark:bg-slate-800"
+          class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-4 py-3 text-sm dark:bg-[#3c3459]"
         >
           <span class="flex items-center gap-2">
             <BaseIcon

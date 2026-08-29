@@ -106,7 +106,7 @@ const sections = [
       <div
         v-for="(section, index) in sections"
         :key="section.title"
-        class="overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-slate-900/70"
+        class="overflow-hidden rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80"
       >
         <button
           type="button"
@@ -118,7 +118,7 @@ const sections = [
         </button>
         <ul
           v-if="openIndex === index"
-          class="flex flex-col gap-2 border-t border-gray-100 px-5 py-4 text-sm leading-relaxed text-gray-600 dark:border-slate-800 dark:text-slate-300"
+          class="flex flex-col gap-2 border-t border-[#f0e9f8] px-5 py-4 text-sm leading-relaxed text-gray-600 dark:border-[#3f3760] dark:text-slate-300"
         >
           <li v-for="(item, i) in section.items" :key="i" class="flex gap-2">
             <span class="text-emerald-500">•</span>

@@ -50,7 +50,7 @@ function stageLabel(match) {
     </RouterLink>
 
     <template v-if="player">
-      <div class="mb-5 rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900/70">
+      <div class="mb-5 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
             <PlayerBadge :player="player" size="lg" />
@@ -61,19 +61,19 @@ function stageLabel(match) {
             </div>
           </div>
           <div v-if="groupRow" class="grid grid-cols-2 gap-4 text-center sm:grid-cols-4">
-            <div class="rounded-xl bg-gray-50 px-4 py-2 dark:bg-slate-800">
+            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
               <p class="text-xs text-gray-400">排名</p>
               <p class="text-xl font-bold">第 {{ groupRow.rank }} 名</p>
             </div>
-            <div class="rounded-xl bg-gray-50 px-4 py-2 dark:bg-slate-800">
+            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
               <p class="text-xs text-gray-400">积分</p>
               <p class="text-xl font-bold">{{ groupRow.points }}</p>
             </div>
-            <div class="rounded-xl bg-gray-50 px-4 py-2 dark:bg-slate-800">
+            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
               <p class="text-xs text-gray-400">净胜局</p>
               <p class="text-xl font-bold">{{ groupRow.setDiff }}</p>
             </div>
-            <div class="rounded-xl bg-gray-50 px-4 py-2 dark:bg-slate-800">
+            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
               <p class="text-xs text-gray-400">净胜杆</p>
               <p class="text-xl font-bold">{{ groupRow.strokeDiff }}</p>
             </div>
@@ -89,8 +89,8 @@ function stageLabel(match) {
           class="rounded-full px-4 py-1.5 text-sm"
           :class="
             tab === t.value
-              ? 'bg-slate-800 font-semibold text-white dark:bg-slate-200 dark:text-slate-900'
-              : 'bg-white text-gray-600 shadow-sm dark:bg-slate-900 dark:text-slate-300'
+              ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
+              : 'bg-[#faf7fd] text-gray-600 shadow-sm dark:bg-[#2c2648] dark:text-slate-300'
           "
           @click="tab = t.value"
         >
@@ -98,10 +98,10 @@ function stageLabel(match) {
         </button>
       </div>
 
-      <div class="overflow-x-auto rounded-2xl bg-white shadow-sm dark:bg-slate-900/70">
+      <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
         <table class="w-full text-sm">
           <thead>
-            <tr class="border-b border-gray-200 text-left text-xs text-gray-500 dark:border-slate-700 dark:text-slate-400">
+            <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
               <th class="px-4 py-3">阶段</th>
               <th class="px-4 py-3">对阵</th>
               <th class="px-4 py-3">比分</th>
@@ -113,7 +113,7 @@ function stageLabel(match) {
             <tr
               v-for="match in matches"
               :key="match.id"
-              class="border-b border-gray-100 last:border-0 dark:border-slate-800"
+              class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
             >
               <td class="px-4 py-3 text-gray-500 dark:text-slate-400">{{ stageLabel(match) }}</td>
               <td class="px-4 py-3">
