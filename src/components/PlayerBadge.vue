@@ -8,6 +8,11 @@ const props = defineProps({
   },
   muted: Boolean,
   reverse: Boolean,
+  truncate: Boolean,
+  nameClass: {
+    type: String,
+    default: '',
+  },
   size: {
     type: String,
     default: 'md', // sm | md | lg
@@ -34,7 +39,7 @@ const avatarClass = computed(() => {
 </script>
 
 <template>
-  <span class="inline-flex items-center gap-2" :class="reverse ? 'flex-row-reverse' : ''">
+  <span class="inline-flex items-center gap-2" :class="[reverse ? 'flex-row-reverse' : '', truncate ? 'min-w-0' : '']">
     <img
       v-if="player?.avatar && !imgFailed"
       :src="player.avatar"
@@ -50,7 +55,7 @@ const avatarClass = computed(() => {
     >
       {{ (player?.name || '?').slice(0, 1) }}
     </span>
-    <span :class="muted ? 'text-gray-400' : 'font-medium'">
+    <span :class="[muted ? 'text-gray-400' : 'font-medium', truncate ? 'min-w-0 truncate' : '', nameClass]">
       {{ player?.name || '待定' }}
     </span>
   </span>

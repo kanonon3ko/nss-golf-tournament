@@ -19,6 +19,7 @@ const STATUS_LABELS = {
   forfeit: '判负',
   overdue: '逾期',
   locked: '预计',
+  walkover: '直接晋级',
 }
 
 function now() {
@@ -150,6 +151,13 @@ function countSetWins(match) {
     else if (w === match.playerBId) wins.B += 1
   }
   return wins
+}
+
+function loserOf(match) {
+  if (!match) return null
+  const w = matchWinner(match)
+  if (!w) return null
+  return w === match.playerAId ? match.playerBId : match.playerAId
 }
 
 function matchWinner(match) {
@@ -400,7 +408,8 @@ function syncKnockout(state, persistFn) {
 
   for (const seed of seeds) {
     const match = createKnockoutMatch(state, seed, existing(seed.stage, seed.order))
-    if (match.status !== 'complete') {
+    // 已完赛或已判负的场次保留选手，不再用种子重置（否则判负的决赛/半决赛会被清空）
+    if (match.status !== 'complete' && match.status !== 'forfeit') {
       match.playerAId = seed.a
       match.playerBId = seed.b
     }
@@ -420,25 +429,101 @@ function syncKnockout(state, persistFn) {
     [qfById(1), qfById(2)],
     [qfById(3), qfById(4)],
   ]
+  // 双方负处理：仅当某场淘汰赛真正"双方负"（forfeit both、无胜者）时，配对侧胜者直接晋级下一轮
+  const isBothForfeit = (m) => m && m.status === 'forfeit' && m.forfeitBy === 'both'
+  const sfWalkover = {}
   for (const [idx, seed] of sfSeeds.entries()) {
     const match = existing('sf', seed.order)
-    if (!match || match.status === 'complete') continue
+    if (!match || match.status === 'complete' || match.status === 'forfeit') continue
     const [q1, q2] = sfPairs[idx]
     const a = q1 && matchWinner(q1)
     const b = q2 && matchWinner(q2)
-    match.playerAId = a || null
-    match.playerBId = b || null
+    const aVoid = isBothForfeit(q1)
+    const bVoid = isBothForfeit(q2)
+    if (a && b) {
+      match.playerAId = a
+      match.playerBId = b
+      match.walkover = null
+      if (match.status === 'walkover') match.status = 'pending'
+    } else if ((a && bVoid) || (b && aVoid)) {
+      // 一侧双方负、另一侧已出胜者：胜者直接晋级决赛（本场半决赛轮空）
+      const w = a || b
+      sfWalkover[seed.order] = w
+      match.playerAId = w
+      match.playerBId = null
+      match.walkover = '对手双方负，直接晋级决赛'
+      match.status = 'walkover'
+    } else if (aVoid && bVoid) {
+      match.playerAId = null
+      match.playerBId = null
+      match.walkover = '双方负，本场取消'
+      match.status = 'walkover'
+    } else {
+      // 至少一侧尚未决出（待赛）：保持待定，不轮空、不晋级
+      match.playerAId = a || null
+      match.playerBId = b || null
+      match.walkover = null
+      if (match.status === 'walkover') match.status = 'pending'
+    }
   }
 
   const final = existing('final', 1)
-  if (final && final.status !== 'complete') {
+  if (final && (final.status === 'pending' || final.status === 'walkover')) {
     const sf1 = existing('sf', 1)
     const sf2 = existing('sf', 2)
-    final.playerAId = sf1 && matchWinner(sf1)
-    final.playerBId = sf2 && matchWinner(sf2)
+    const f1 = sfWalkover[1] || (sf1 && matchWinner(sf1))
+    const f2 = sfWalkover[2] || (sf2 && matchWinner(sf2))
+    // 半区"整体作废"：半决赛本身双方负，或半决赛被取消（该半区八强全部双方负）
+    const sf1Void =
+      isBothForfeit(sf1) || (sf1 && sf1.status === 'walkover' && !sfWalkover[1])
+    const sf2Void =
+      isBothForfeit(sf2) || (sf2 && sf2.status === 'walkover' && !sfWalkover[2])
+    final.playerAId = f1 || null
+    final.playerBId = f2 || null
+    if (f1 && f2) {
+      final.walkover = null
+      final.runnerUpId = null
+      if (final.status === 'walkover') final.status = 'pending'
+    } else if (f1 && sf2Void) {
+      // 下半区整体作废：上半区决赛选手直接夺冠；若其半决赛真实完赛，败者递补亚军
+      const champ = f1
+      const runnerUp =
+        !sfWalkover[1] && sf1 && matchWinner(sf1) === champ ? loserOf(sf1) : null
+      final.playerAId = champ
+      final.playerBId = null
+      final.walkover = '对手半区作废，直接夺冠'
+      final.runnerUpId = runnerUp
+      final.status = 'walkover'
+      state.championId.value = champ
+    } else if (f2 && sf1Void) {
+      // 上半区整体作废：下半区决赛选手直接夺冠；若其半决赛真实完赛，败者递补亚军
+      const champ = f2
+      const runnerUp =
+        !sfWalkover[2] && sf2 && matchWinner(sf2) === champ ? loserOf(sf2) : null
+      final.playerAId = champ
+      final.playerBId = null
+      final.walkover = '对手半区作废，直接夺冠'
+      final.runnerUpId = runnerUp
+      final.status = 'walkover'
+      state.championId.value = champ
+    } else if (sf1Void && sf2Void) {
+      final.walkover = '双方半区作废，决赛取消'
+      final.runnerUpId = null
+      final.status = 'walkover'
+      state.championId.value = null
+    } else {
+      // 至少一侧尚未决出：决赛保持待定，不提前确定冠军
+      final.walkover = null
+      final.runnerUpId = null
+      if (final.status === 'walkover') final.status = 'pending'
+      state.championId.value = null
+    }
   }
 
-  state.championId.value = final && final.status === 'complete' ? matchWinner(final) : null
+  if (final && (final.status === 'complete' || final.status === 'forfeit')) {
+    state.championId.value = matchWinner(final)
+    final.runnerUpId = null
+  }
 
   persistFn()
 }
@@ -456,6 +541,18 @@ export const useTournamentStore = defineStore('tournament', () => {
   const championId = ref(null)
   const drawHistory = ref([])
   const ready = ref(false)
+
+  // 决赛结束后：决赛败者为亚军
+  const runnerUpId = computed(() => {
+    const final = matches.value.find((m) => m.stage === 'final')
+    if (!final) return null
+    // 半区作废时的递补亚军
+    if (final.runnerUpId) return final.runnerUpId
+    if ((final.status !== 'complete' && final.status !== 'forfeit') || !final.winnerId) {
+      return null
+    }
+    return final.winnerId === final.playerAId ? final.playerBId : final.playerAId
+  })
   const supabaseMode = ref(false)
 
   function persistLocal() {
@@ -1043,6 +1140,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     evidence,
     logs,
     championId,
+    runnerUpId,
     drawHistory,
     ready,
     init,

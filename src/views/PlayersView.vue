@@ -94,10 +94,10 @@ function tierClass(tier) {
         @click="router.push(`/players/${player.id}`)"
       >
         <div class="flex items-center justify-between gap-2">
-          <PlayerBadge :player="player" size="lg" />
+          <PlayerBadge :player="player" size="lg" truncate class="min-w-0" />
           <span
             v-if="statsOf(player)"
-            class="rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
+            class="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
           >
             {{ statsOf(player).points }} 分
           </span>

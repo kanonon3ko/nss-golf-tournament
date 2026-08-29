@@ -18,11 +18,11 @@ const emit = defineEmits(['close'])
 
 <template>
   <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-[#2c2648]/60 p-4 backdrop-blur-sm"
+    class="fixed inset-0 z-50 flex items-center justify-center bg-[#2c2648]/60 backdrop-blur-sm sm:p-4"
     @click.self="emit('close')"
   >
     <div
-      class="flex max-h-[92vh] w-full flex-col overflow-hidden rounded-2xl bg-[#faf7fd] shadow-2xl dark:bg-[#2c2648]"
+      class="flex h-full w-full flex-col overflow-hidden bg-[#faf7fd] shadow-2xl dark:bg-[#2c2648] sm:h-auto sm:max-h-[92vh] sm:rounded-2xl"
       :class="width"
     >
       <div
@@ -30,7 +30,7 @@ const emit = defineEmits(['close'])
       >
         <h3 class="text-lg font-bold">{{ title }}</h3>
         <button
-          class="rounded-full p-1 hover:bg-[#eee6f8] dark:hover:bg-[#3c3459]"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-[#eee6f8] dark:hover:bg-[#3c3459]"
           type="button"
           @click="emit('close')"
         >
@@ -42,7 +42,7 @@ const emit = defineEmits(['close'])
       </div>
       <div
         v-if="$slots.footer"
-        class="flex justify-end gap-2 border-t border-[#e7ddf3] px-5 py-3 dark:border-[#4b4270]"
+        class="flex justify-end gap-2 border-t border-[#e7ddf3] px-5 pb-[calc(0.75rem+env(safe-area-inset-bottom))] pt-3 dark:border-[#4b4270]"
       >
         <slot name="footer" />
       </div>

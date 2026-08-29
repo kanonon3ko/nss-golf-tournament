@@ -54,20 +54,20 @@ function logout() {
         <div class="flex items-center gap-2">
           <button
             type="button"
-            class="rounded-md p-1 hover:bg-[#eee6f8] lg:hidden dark:hover:bg-[#463e68]"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-[#eee6f8] lg:hidden dark:hover:bg-[#463e68]"
             @click="sidebarOpen = !sidebarOpen"
           >
             <BaseIcon :path="sidebarOpen ? mdiClose : mdiMenu" size="24" />
           </button>
           <span class="flex items-center gap-2 font-bold">
             <GolfLogo :size="32" />
-            <span>{{ siteName }} · 主办方后台</span>
+            <span><span class="hidden sm:inline">{{ siteName }} · </span>主办方后台</span>
           </span>
         </div>
         <div class="flex items-center gap-1">
           <button
             type="button"
-            class="rounded-md p-2 text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
             :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
             @click="darkModeStore.set(null, true)"
           >
@@ -81,18 +81,18 @@ function logout() {
             <span class="hidden sm:inline">查看前台</span>
           </RouterLink>
           <div
-            class="flex items-center gap-2 rounded-full bg-[#eee6f8] py-1 pl-1 pr-3 dark:bg-[#3c3459]"
+            class="flex items-center gap-2 rounded-full bg-[#eee6f8] py-1 pl-1 pr-1 dark:bg-[#3c3459] sm:pr-3"
           >
             <img
               :src="mainStore.userAvatar"
               :alt="mainStore.userName"
               class="h-7 w-7 rounded-full object-cover"
             />
-            <span class="text-sm font-semibold">{{ mainStore.userName }}</span>
+            <span class="hidden text-sm font-semibold sm:inline">{{ mainStore.userName }}</span>
           </div>
           <button
             type="button"
-            class="rounded-md p-2 text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
             title="退出登录"
             @click="logout"
           >
@@ -108,21 +108,23 @@ function logout() {
       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
     >
       <nav class="flex h-full flex-col overflow-y-auto p-3">
-        <RouterLink
-          v-for="item in menuAsideMain"
-          :key="item.to"
-          :to="item.to"
-          class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm"
-          :class="
-            route.path === item.to
-              ? 'bg-[#7e57c2] font-semibold text-white'
-              : 'text-gray-600 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#3c3459]'
-          "
-          @click="sidebarOpen = false"
-        >
-          <BaseIcon :path="item.icon" size="20" />
-          {{ item.label }}
-        </RouterLink>
+        <div class="space-y-1">
+          <RouterLink
+            v-for="item in menuAsideMain"
+            :key="item.to"
+            :to="item.to"
+            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm"
+            :class="
+              route.path === item.to
+                ? 'bg-[#7e57c2] font-semibold text-white'
+                : 'text-gray-600 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#3c3459]'
+            "
+            @click="sidebarOpen = false"
+          >
+            <BaseIcon :path="item.icon" size="20" />
+            {{ item.label }}
+          </RouterLink>
+        </div>
         <div
           class="mt-auto space-y-1 border-t border-[#e7ddf3] pt-3 dark:border-[#4b4270]"
         >

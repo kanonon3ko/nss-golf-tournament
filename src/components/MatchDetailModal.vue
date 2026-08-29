@@ -95,10 +95,10 @@ function setLabel(set) {
             :key="index"
             class="border-b border-[#f0e9f8] dark:border-[#3f3760]"
           >
-            <td class="py-2 pr-2 font-semibold">{{ index + 1 }}</td>
-            <td class="py-2 pr-2">{{ set.a ?? '-' }}</td>
-            <td class="py-2 pr-2">{{ set.b ?? '-' }}</td>
-            <td class="py-2">{{ setLabel(set) }}</td>
+            <td data-label="局" class="py-2 pr-2 font-semibold">{{ index + 1 }}</td>
+            <td :data-label="`${playerA?.name || '甲'} 相对标准杆`" class="py-2 pr-2">{{ set.a ?? '-' }}</td>
+            <td :data-label="`${playerB?.name || '乙'} 相对标准杆`" class="py-2 pr-2">{{ set.b ?? '-' }}</td>
+            <td data-label="结果" class="py-2">{{ setLabel(set) }}</td>
           </tr>
         </tbody>
       </table>

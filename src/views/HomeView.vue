@@ -24,9 +24,10 @@ const stageIndex = computed(() => {
   if (store.stage === 'finished') return 4
   if (store.stage === 'group') return 0
   const knock = store.knockoutMatches
-  const finalDone = knock.some((n) => n.stage === 'final' && n.status === 'complete')
+  const done = (n) => n.status === 'complete' || n.status === 'forfeit' || n.status === 'walkover'
+  const finalDone = knock.some((n) => n.stage === 'final' && done(n))
   if (finalDone) return 3
-  const sfDone = knock.some((n) => n.stage === 'sf' && n.status === 'complete')
+  const sfDone = knock.some((n) => n.stage === 'sf' && done(n))
   if (sfDone) return 2
   return 1
 })
@@ -115,7 +116,7 @@ const champion = computed(() => store.playerById(store.championId))
       </div>
       <GolfBallMark
         size="240"
-        class="absolute right-4 top-1/2 -translate-y-1/2 opacity-60"
+        class="absolute right-4 top-1/2 hidden -translate-y-1/2 opacity-60 sm:block"
       />
     </div>
 
@@ -134,15 +135,23 @@ const champion = computed(() => store.playerById(store.championId))
 
     <div
       v-if="store.championId && champion"
-      class="mb-6 flex items-center gap-4 rounded-2xl bg-yellow-50 p-5 dark:bg-yellow-900/20"
+      class="mb-6 rounded-2xl bg-yellow-50 p-6 text-center dark:bg-yellow-900/20"
     >
-      <BaseIcon :path="mdiTrophy" size="40" class="text-yellow-500" />
-      <div>
-        <p class="text-sm text-yellow-700 dark:text-yellow-400">🏆 2026 冠军</p>
-        <p class="text-xl font-bold text-yellow-800 dark:text-yellow-200">
-          {{ champion.name }}
+      <BaseIcon :path="mdiTrophy" size="40" class="mx-auto mb-2 text-yellow-500" />
+      <p class="mb-1 text-sm text-yellow-700 dark:text-yellow-400">🏆 2026 冠军</p>
+      <p
+        class="bg-linear-to-r from-[#f7e7b0] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-3xl font-black text-transparent"
+      >
+        {{ champion.name }}
+      </p>
+      <template v-if="store.runnerUpId">
+        <p class="mt-3 text-sm font-semibold text-yellow-700/80 dark:text-yellow-400/80">🥈 亚军</p>
+        <p
+          class="bg-linear-to-r from-[#94a3b8] via-[#e2e8f0] to-[#64748b] bg-clip-text text-2xl font-bold text-transparent"
+        >
+          {{ store.playerName(store.runnerUpId) }}
         </p>
-      </div>
+      </template>
     </div>
 
     <div class="grid gap-4 lg:grid-cols-2">
@@ -172,7 +181,10 @@ const champion = computed(() => store.playerById(store.championId))
         />
       </div>
 
-      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div
+        class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80"
+        :class="store.championId ? 'lg:col-span-2' : ''"
+      >
         <div class="mb-3 flex items-center justify-between">
           <span class="text-sm font-bold text-gray-500 dark:text-slate-400">最近赛果</span>
           <RouterLink to="/groups" class="flex items-center gap-0.5 text-sm text-emerald-600">

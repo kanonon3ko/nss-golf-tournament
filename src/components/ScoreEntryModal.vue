@@ -1,5 +1,5 @@
 <script setup>
-import { computed, reactive, ref } from 'vue'
+import { computed, reactive, ref, watch } from 'vue'
 import { useTournamentStore } from '@/stores/tournament'
 import BaseModal from '@/components/BaseModal.vue'
 import BaseButton from '@/components/BaseButton.vue'
@@ -29,6 +29,17 @@ const form = reactive({
 })
 
 const newLink = ref('')
+
+// 只有该局平分（a === b）才允许选择 SD 胜者；不平分时自动清空
+watch(
+  () => form.sets.map((set) => `${set.a}:${set.b}`),
+  () => {
+    for (const set of form.sets) {
+      const tied = set.a != null && set.b != null && set.a === set.b
+      if (!tied) set.sdWinner = null
+    }
+  },
+)
 const newDisconnectLink = ref('')
 const error = ref('')
 const success = ref('')
@@ -166,8 +177,8 @@ function save() {
             :key="index"
             class="border-b border-[#f0e9f8] dark:border-[#3f3760]"
           >
-            <td class="py-2 pr-2 font-semibold">{{ index + 1 }}</td>
-            <td class="py-2 pr-2">
+            <td data-label="局" class="py-2 pr-2 font-semibold">{{ index + 1 }}</td>
+            <td :data-label="`${playerA?.name || '甲'} 相对标准杆`" class="py-2 pr-2">
               <input
                 v-model.number="set.a"
                 type="number"
@@ -175,7 +186,7 @@ function save() {
                 class="w-24 rounded-sm border border-[#d9cdeb] px-2 py-1.5 dark:border-[#5a507f] dark:bg-[#3c3459]"
               />
             </td>
-            <td class="py-2 pr-2">
+            <td :data-label="`${playerB?.name || '乙'} 相对标准杆`" class="py-2 pr-2">
               <input
                 v-model.number="set.b"
                 type="number"
@@ -183,10 +194,11 @@ function save() {
                 class="w-24 rounded-sm border border-[#d9cdeb] px-2 py-1.5 dark:border-[#5a507f] dark:bg-[#3c3459]"
               />
             </td>
-            <td class="py-2">
+            <td data-label="平局 SD 胜者" class="py-2">
               <select
                 v-model="set.sdWinner"
-                class="w-32 rounded-sm border border-[#d9cdeb] px-2 py-1.5 pr-7 dark:border-[#5a507f] dark:bg-[#3c3459]"
+                :disabled="!(set.a != null && set.b != null && set.a === set.b)"
+                class="w-32 rounded-sm border border-[#d9cdeb] px-2 py-1.5 pr-7 dark:border-[#5a507f] dark:bg-[#3c3459] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <option :value="null">无（非平局）</option>
                 <option :value="match.playerAId">{{ playerA?.name }}</option>
@@ -200,7 +212,7 @@ function save() {
 
     <h4 class="mb-2 text-sm font-bold text-gray-500 dark:text-slate-400">结果截图链接</h4>
     <div class="mb-4">
-      <div class="mb-2 flex gap-2">
+      <div class="mb-2 flex flex-wrap gap-2">
         <input
           v-model="newLink"
           type="url"

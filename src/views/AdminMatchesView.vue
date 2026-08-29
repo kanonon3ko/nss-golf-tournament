@@ -30,6 +30,7 @@ const statusOptions = [
   { value: 'complete', label: '已完赛' },
   { value: 'forfeit', label: '判负' },
   { value: 'overdue', label: '逾期' },
+  { value: 'walkover', label: '直接晋级' },
 ]
 
 const rows = computed(() => {
@@ -117,7 +118,8 @@ function forfeit(row, decision) {
       </select>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+    <div class="rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+      <div class="hidden overflow-x-auto lg:block">
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
@@ -192,6 +194,90 @@ function forfeit(row, decision) {
           </tr>
         </tbody>
       </table>
+      </div>
+      <div class="divide-y divide-[#f0e9f8] lg:hidden dark:divide-[#3f3760]">
+        <div
+          v-for="{ match, ddl, overdue } in rows"
+          :key="match.id"
+          class="p-4"
+          :class="overdue ? 'bg-red-50 dark:bg-red-900/10' : ''"
+        >
+          <div class="mb-2 flex items-center justify-between gap-2">
+            <span class="text-xs font-semibold text-gray-500 dark:text-slate-400">
+              {{ stageLabel(match) }}
+            </span>
+            <MatchStatusPill :status="displayStatus({ match, overdue })" />
+          </div>
+          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+            <PlayerBadge :player="store.playerById(match.playerAId)" size="sm" />
+            <span class="text-center text-gray-400">vs</span>
+            <PlayerBadge
+              :player="store.playerById(match.playerBId)"
+              size="sm"
+              reverse
+              class="justify-self-end"
+            />
+          </div>
+          <div
+            class="mt-2 flex items-center justify-between gap-2 text-xs text-gray-500 dark:text-slate-400"
+          >
+            <span>
+              比分
+              <b class="text-gray-800 dark:text-slate-100">{{
+                match.status === 'complete'
+                  ? `${store.matchScore(match).a} : ${store.matchScore(match).b}`
+                  : match.status === 'forfeit'
+                    ? '判负'
+                    : '-'
+              }}</b>
+            </span>
+            <span>{{ formatDateTime(ddl) }}</span>
+          </div>
+          <div class="mt-2 grid grid-cols-[1fr_auto_1fr] items-center gap-1">
+            <BaseButton
+              label="查看"
+              color="whiteDark"
+              small
+              class="justify-self-end"
+              @click="detailMatch = match"
+            />
+            <BaseButton label="录入/编辑" color="purple" small @click="entryMatch = match" />
+            <BaseButton
+              v-if="match.status === 'pending'"
+              label="延期"
+              color="whiteDark"
+              small
+              class="justify-self-start"
+              @click="forfeit({ match }, 'extend')"
+            />
+          </div>
+          <div v-if="match.status === 'pending'" class="mt-1 grid grid-cols-[1fr_auto_1fr] items-center gap-1">
+            <BaseButton
+              :label="`${store.playerName(match.playerAId)}负`"
+              color="danger"
+              small
+              class="justify-self-end"
+              @click="forfeit({ match }, 'A')"
+            />
+            <BaseButton
+              label="双方负"
+              color="warning"
+              small
+              @click="forfeit({ match }, 'both')"
+            />
+            <BaseButton
+              :label="`${store.playerName(match.playerBId)}负`"
+              color="danger"
+              small
+              class="justify-self-start"
+              @click="forfeit({ match }, 'B')"
+            />
+          </div>
+        </div>
+        <div v-if="!rows.length" class="p-6 text-center text-sm text-gray-400">
+          没有符合条件的比赛
+        </div>
+      </div>
     </div>
 
     <MatchDetailModal v-if="detailMatch" :match="detailMatch" @close="detailMatch = null" />

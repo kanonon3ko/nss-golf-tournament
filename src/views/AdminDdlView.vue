@@ -80,7 +80,8 @@ async function copyNotice() {
       </p>
     </div>
 
-    <div class="mb-6 overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+    <div class="mb-6 rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+      <div class="hidden overflow-x-auto lg:block">
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
@@ -109,6 +110,20 @@ async function copyNotice() {
           </tr>
         </tbody>
       </table>
+      </div>
+      <div class="divide-y divide-[#f0e9f8] lg:hidden dark:divide-[#3f3760]">
+        <div v-for="d in store.ddlRounds" :key="d.key" class="p-4">
+          <div class="mb-2 flex items-center justify-between gap-2">
+            <span class="font-semibold">{{ d.label }}</span>
+            <BaseButton label="保存" color="purple" small @click="saveDdl(d.key)" />
+          </div>
+          <input
+            v-model="localDdl[d.key]"
+            type="datetime-local"
+            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 dark:border-[#5a507f] dark:bg-[#3c3459]"
+          />
+        </div>
+      </div>
     </div>
 
     <div class="mb-4 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">

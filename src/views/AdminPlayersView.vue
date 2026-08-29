@@ -151,31 +151,47 @@ function tierClass(tier) {
           {{ store.players.length }} 名选手 · 抽签约束：每组 4 人、每档各 1 人
         </p>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <BaseButton :icon="mdiAccountPlus" label="添加选手" color="purple" @click="openAdd" />
-        <BaseButton
-          :icon="mdiDiceMultiple"
-          label="随机抽签"
-          color="warning"
-          :disabled="store.players.length !== 16"
-          @click="doDraw"
-        />
+      <div class="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+        <div class="grid grid-cols-3 gap-2 sm:contents">
+          <BaseButton
+            :icon="mdiAccountPlus"
+            label="添加选手"
+            color="purple"
+            class="w-full sm:w-auto"
+            @click="openAdd"
+          />
+          <BaseButton
+            :icon="mdiDiceMultiple"
+            label="随机抽签"
+            color="warning"
+            class="w-full sm:w-auto"
+            :disabled="store.players.length !== 16"
+            @click="doDraw"
+          />
+          <BaseButton
+            :icon="mdiRestore"
+            label="重置赛事"
+            color="danger"
+            class="w-full sm:w-auto"
+            @click="doReset"
+          />
+        </div>
         <BaseButton
           v-if="store.draft && !published"
           :icon="mdiCheckCircle"
           label="确认发布分组"
           color="purple"
+          class="w-full sm:w-auto"
           :disabled="!valid"
           @click="doPublish"
         />
-        <BaseButton :icon="mdiRestore" label="重置赛事" color="danger" small @click="doReset" />
       </div>
     </div>
 
     <div class="grid gap-4 lg:grid-cols-2">
       <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
         <h2 class="mb-3 font-bold">选手名单</h2>
-        <div>
+        <div class="hidden overflow-x-auto lg:block">
           <table class="w-full text-sm">
             <thead class="bg-[#faf7fd] dark:bg-[#2c2648]">
               <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
@@ -201,16 +217,42 @@ function tierClass(tier) {
                 </td>
                 <td class="py-2 pr-2">{{ player.groupId || '-' }}</td>
                 <td class="py-2 text-right">
-                  <button type="button" class="p-1 text-gray-400 hover:text-emerald-500" title="编辑" @click="openEdit(player)">
+                  <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-emerald-500" title="编辑" @click="openEdit(player)">
                     <BaseIcon :path="mdiPencil" size="16" />
                   </button>
-                  <button type="button" class="p-1 text-gray-400 hover:text-red-500" title="删除" @click="removePlayer(player)">
+                  <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-red-500" title="删除" @click="removePlayer(player)">
                     <BaseIcon :path="mdiDelete" size="16" />
                   </button>
                 </td>
               </tr>
             </tbody>
           </table>
+        </div>
+        <div class="divide-y divide-[#f0e9f8] lg:hidden dark:divide-[#3f3760]">
+          <div
+            v-for="player in sortedPlayers"
+            :key="player.id"
+            class="flex items-center gap-2 py-3"
+          >
+            <PlayerBadge :player="player" size="sm" truncate class="min-w-0 flex-1" />
+            <div class="shrink-0 text-right text-xs text-gray-500 dark:text-slate-400">
+              <div>
+                <span class="rounded-full px-2 py-0.5 text-xs font-semibold" :class="tierClass(player.tier)">
+                  {{ player.tier }}档
+                </span>
+                · {{ player.groupId || '未分组' }}
+              </div>
+              <div>最佳 {{ player.bestScore ?? '-' }}</div>
+            </div>
+            <div class="flex shrink-0">
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-emerald-500" title="编辑" @click="openEdit(player)">
+                <BaseIcon :path="mdiPencil" size="16" />
+              </button>
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-red-500" title="删除" @click="removePlayer(player)">
+                <BaseIcon :path="mdiDelete" size="16" />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

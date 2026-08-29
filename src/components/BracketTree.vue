@@ -43,110 +43,154 @@ function playerOf(node, side) {
 
 <template>
   <div class="overflow-x-auto pb-4">
-    <div class="flex min-w-max items-stretch gap-8">
-      <div class="flex flex-col justify-around gap-4">
-        <div class="mb-1 text-center text-xs font-bold text-gray-400">八强</div>
-        <button
-          v-for="node in qf"
-          :key="`qf-${node.order}`"
-          type="button"
-          class="w-64 rounded-2xl bg-[#faf7fd] p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
-          :class="{ 'cursor-pointer': node.matchId, 'cursor-default': !node.matchId }"
-          @click="node.matchId && emit('open-match', node.matchId)"
-        >
-          <div class="mb-2 flex items-center justify-between">
-            <span class="text-xs font-bold text-gray-400">{{ node.label }}</span>
-            <MatchStatusPill :status="node.status" />
-          </div>
-          <div
-            class="mb-1 flex items-center justify-between rounded-lg px-2 py-1.5"
-            :class="winnerSide(node) === 'a' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
+    <div class="mx-auto flex w-fit items-stretch gap-8">
+      <div class="flex flex-col">
+        <div class="mb-1 text-center text-sm font-bold text-gray-400">八强</div>
+        <div class="flex flex-1 flex-col justify-around gap-4">
+          <button
+            v-for="node in qf"
+            :key="`qf-${node.order}`"
+            type="button"
+            class="w-80 rounded-2xl bg-[#faf7fd] p-4 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
+            :class="{ 'cursor-pointer': node.matchId, 'cursor-default': !node.matchId }"
+            @click="node.matchId && emit('open-match', node.matchId)"
           >
-            <PlayerBadge v-if="playerOf(node, 'a')" :player="playerOf(node, 'a')" />
-            <span v-else class="text-sm text-gray-400">{{ node.expectedA }}</span>
-            <span class="font-bold">{{ scoreFor(node, 'a') }}</span>
-          </div>
-          <div
-            class="flex items-center justify-between rounded-lg px-2 py-1.5"
-            :class="winnerSide(node) === 'b' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
-          >
-            <PlayerBadge v-if="playerOf(node, 'b')" :player="playerOf(node, 'b')" />
-            <span v-else class="text-sm text-gray-400">{{ node.expectedB }}</span>
-            <span class="font-bold">{{ scoreFor(node, 'b') }}</span>
-          </div>
-        </button>
+            <div class="mb-2 flex items-center justify-between">
+              <span class="text-sm font-bold text-gray-400">{{ node.label }}</span>
+              <MatchStatusPill :status="node.status" />
+            </div>
+            <div
+              class="mb-1.5 flex items-center justify-between rounded-lg px-2.5 py-2"
+              :class="winnerSide(node) === 'a' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
+            >
+              <PlayerBadge v-if="playerOf(node, 'a')" :player="playerOf(node, 'a')" />
+              <span v-else class="text-base text-gray-400">{{ node.expectedA }}</span>
+              <span class="text-base font-bold">{{ scoreFor(node, 'a') }}</span>
+            </div>
+            <div
+              class="flex items-center justify-between rounded-lg px-2.5 py-2"
+              :class="winnerSide(node) === 'b' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
+            >
+              <PlayerBadge v-if="playerOf(node, 'b')" :player="playerOf(node, 'b')" />
+              <span v-else-if="node.status === 'walkover'" class="text-base font-bold text-[#8c6d1f]">
+                直接晋级
+              </span>
+              <span v-else class="text-base text-gray-400">{{ node.expectedB }}</span>
+              <span class="text-base font-bold">{{ scoreFor(node, 'b') }}</span>
+            </div>
+          </button>
+        </div>
       </div>
 
-      <div class="flex flex-col justify-around gap-4">
-        <div class="mb-1 text-center text-xs font-bold text-gray-400">半决赛</div>
-        <button
-          v-for="node in sf"
-          :key="`sf-${node.order}`"
-          type="button"
-          class="w-64 rounded-2xl bg-[#faf7fd] p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
-          :class="{ 'cursor-pointer': node.matchId, 'cursor-default': !node.matchId }"
-          @click="node.matchId && emit('open-match', node.matchId)"
-        >
-          <div class="mb-2 flex items-center justify-between">
-            <span class="text-xs font-bold text-gray-400">{{ node.label }}</span>
-            <MatchStatusPill :status="node.status" />
+      <div class="flex flex-col">
+        <div class="mb-1 text-center text-sm font-bold text-gray-400">半决赛</div>
+        <div class="grid flex-1 grid-rows-2 gap-4">
+          <div v-for="node in sf" :key="`sf-${node.order}`" class="flex items-center">
+            <button
+              type="button"
+              class="w-80 rounded-2xl bg-[#faf7fd] p-4 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
+              :class="{ 'cursor-pointer': node.matchId, 'cursor-default': !node.matchId }"
+              @click="node.matchId && emit('open-match', node.matchId)"
+            >
+              <div class="mb-2 flex items-center justify-between">
+                <span class="text-sm font-bold text-gray-400">{{ node.label }}</span>
+                <MatchStatusPill :status="node.status" />
+              </div>
+              <div
+                class="mb-1.5 flex items-center justify-between rounded-lg px-2.5 py-2"
+                :class="winnerSide(node) === 'a' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
+              >
+                <PlayerBadge v-if="playerOf(node, 'a')" :player="playerOf(node, 'a')" />
+                <span v-else class="text-base text-gray-400">{{ node.expectedA }}</span>
+                <span class="text-base font-bold">{{ scoreFor(node, 'a') }}</span>
+              </div>
+              <div
+                class="flex items-center justify-between rounded-lg px-2.5 py-2"
+                :class="winnerSide(node) === 'b' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
+              >
+                <PlayerBadge v-if="playerOf(node, 'b')" :player="playerOf(node, 'b')" />
+                <span v-else class="text-base text-gray-400">{{ node.expectedB }}</span>
+                <span class="text-base font-bold">{{ scoreFor(node, 'b') }}</span>
+              </div>
+            </button>
           </div>
-          <div
-            class="mb-1 flex items-center justify-between rounded-lg px-2 py-1.5"
-            :class="winnerSide(node) === 'a' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
-          >
-            <PlayerBadge v-if="playerOf(node, 'a')" :player="playerOf(node, 'a')" />
-            <span v-else class="text-sm text-gray-400">{{ node.expectedA }}</span>
-            <span class="font-bold">{{ scoreFor(node, 'a') }}</span>
-          </div>
-          <div
-            class="flex items-center justify-between rounded-lg px-2 py-1.5"
-            :class="winnerSide(node) === 'b' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
-          >
-            <PlayerBadge v-if="playerOf(node, 'b')" :player="playerOf(node, 'b')" />
-            <span v-else class="text-sm text-gray-400">{{ node.expectedB }}</span>
-            <span class="font-bold">{{ scoreFor(node, 'b') }}</span>
-          </div>
-        </button>
+        </div>
       </div>
 
-      <div class="flex flex-col justify-center">
-        <div class="mb-1 text-center text-xs font-bold text-gray-400">决赛</div>
-        <button
-          v-if="final"
-          type="button"
-          class="w-64 rounded-2xl bg-[#faf7fd] p-3 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
-          :class="{ 'cursor-pointer': final.matchId, 'cursor-default': !final.matchId }"
-          @click="final.matchId && emit('open-match', final.matchId)"
-        >
-          <div class="mb-2 flex items-center justify-between">
-            <span class="text-xs font-bold text-gray-400">{{ final.label }}</span>
-            <MatchStatusPill :status="final.status" />
-          </div>
-          <div
-            class="mb-1 flex items-center justify-between rounded-lg px-2 py-1.5"
-            :class="winnerSide(final) === 'a' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
+      <div class="flex flex-col">
+        <div class="mb-1 text-center text-sm font-bold text-gray-400">决赛</div>
+        <div class="flex flex-1 flex-col justify-center">
+          <button
+            v-if="final"
+            type="button"
+            class="w-80 rounded-2xl bg-[#faf7fd] p-4 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
+            :class="{ 'cursor-pointer': final.matchId, 'cursor-default': !final.matchId }"
+            @click="final.matchId && emit('open-match', final.matchId)"
           >
-            <PlayerBadge v-if="playerOf(final, 'a')" :player="playerOf(final, 'a')" />
-            <span v-else class="text-sm text-gray-400">{{ final.expectedA }}</span>
-            <span class="font-bold">{{ scoreFor(final, 'a') }}</span>
-          </div>
-          <div
-            class="flex items-center justify-between rounded-lg px-2 py-1.5"
-            :class="winnerSide(final) === 'b' ? 'bg-emerald-50 dark:bg-emerald-900/30' : ''"
-          >
-            <PlayerBadge v-if="playerOf(final, 'b')" :player="playerOf(final, 'b')" />
-            <span v-else class="text-sm text-gray-400">{{ final.expectedB }}</span>
-            <span class="font-bold">{{ scoreFor(final, 'b') }}</span>
-          </div>
-          <div
-            v-if="store.championId"
-            class="mt-3 flex items-center justify-center gap-1 rounded-lg bg-yellow-50 py-2 text-sm font-bold text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
-          >
-            <BaseIcon :path="mdiTrophy" size="18" />
-            {{ store.playerName(store.championId) }} 夺冠
-          </div>
-        </button>
+            <div class="mb-2 flex items-center justify-between">
+              <span class="text-sm font-bold text-gray-400">{{ final.label }}</span>
+              <MatchStatusPill :status="final.status" />
+            </div>
+            <div
+              class="mb-1.5 flex items-center justify-between rounded-lg px-2.5 py-2"
+              :class="
+                final.status === 'complete'
+                  ? winnerSide(final) === 'a'
+                    ? 'bg-[#f7e7b0]/70 dark:bg-[#8c6d1f]/30'
+                    : 'bg-[#eef2f7] dark:bg-[#475569]/25'
+                  : ''
+              "
+            >
+              <PlayerBadge
+                v-if="playerOf(final, 'a')"
+                :player="playerOf(final, 'a')"
+                :name-class="
+                  final.status === 'complete'
+                    ? winnerSide(final) === 'a'
+                      ? 'text-[#8c6d1f] dark:text-[#f0d78c]'
+                      : 'text-[#64748b] dark:text-[#cbd5e1]'
+                    : ''
+                "
+              />
+              <span v-else class="text-base text-gray-400">{{ final.expectedA }}</span>
+              <span class="text-base font-bold">{{ scoreFor(final, 'a') }}</span>
+            </div>
+            <div
+              class="flex items-center justify-between rounded-lg px-2.5 py-2"
+              :class="
+                final.status === 'complete'
+                  ? winnerSide(final) === 'b'
+                    ? 'bg-[#f7e7b0]/70 dark:bg-[#8c6d1f]/30'
+                    : 'bg-[#eef2f7] dark:bg-[#475569]/25'
+                  : ''
+              "
+            >
+              <PlayerBadge
+                v-if="playerOf(final, 'b')"
+                :player="playerOf(final, 'b')"
+                :name-class="
+                  final.status === 'complete'
+                    ? winnerSide(final) === 'b'
+                      ? 'text-[#8c6d1f] dark:text-[#f0d78c]'
+                      : 'text-[#64748b] dark:text-[#cbd5e1]'
+                    : ''
+                "
+              />
+              <span v-else-if="final.status === 'walkover'" class="text-base font-bold text-[#8c6d1f]">
+                直接夺冠
+              </span>
+              <span v-else class="text-base text-gray-400">{{ final.expectedB }}</span>
+              <span class="text-base font-bold">{{ scoreFor(final, 'b') }}</span>
+            </div>
+            <div
+              v-if="store.championId"
+              class="mt-3 flex items-center justify-center gap-1 rounded-lg bg-[#fdf3d8] py-2 text-base font-bold text-[#8c6d1f] dark:bg-[#8c6d1f]/30 dark:text-[#f0d78c]"
+            >
+              <BaseIcon :path="mdiTrophy" size="18" />
+              {{ store.playerName(store.championId) }} 夺冠
+            </div>
+          </button>
+        </div>
       </div>
     </div>
   </div>

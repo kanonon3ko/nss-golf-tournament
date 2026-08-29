@@ -71,7 +71,7 @@ function logout() {
           <div class="ms-2 flex items-center gap-1">
             <button
               type="button"
-              class="rounded-md p-2 text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+              class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
               :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
               @click="darkModeStore.set(null, true)"
             >
@@ -101,13 +101,26 @@ function logout() {
           </div>
         </nav>
 
-        <button
-          type="button"
-          class="rounded-md p-1 hover:bg-[#eee6f8] md:hidden dark:hover:bg-[#463e68]"
-          @click="mobileOpen = !mobileOpen"
-        >
-          <BaseIcon :path="mobileOpen ? mdiClose : mdiMenu" size="24" />
-        </button>
+        <div class="flex items-center gap-1 md:hidden">
+          <button
+            type="button"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+            :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
+            @click="darkModeStore.set(null, true)"
+          >
+            <BaseIcon
+              :path="darkModeStore.isEnabled ? mdiWhiteBalanceSunny : mdiWeatherNight"
+              size="20"
+            />
+          </button>
+          <button
+            type="button"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-[#eee6f8] dark:hover:bg-[#463e68]"
+            @click="mobileOpen = !mobileOpen"
+          >
+            <BaseIcon :path="mobileOpen ? mdiClose : mdiMenu" size="24" />
+          </button>
+        </div>
       </div>
 
       <nav
@@ -131,17 +144,6 @@ function logout() {
           </RouterLink>
         </div>
         <div class="flex gap-2 border-t border-[#e7ddf3] pt-3 dark:border-[#4b4270]">
-          <button
-            type="button"
-            class="rounded-md p-2 text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
-            :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
-            @click="darkModeStore.set(null, true)"
-          >
-            <BaseIcon
-              :path="darkModeStore.isEnabled ? mdiWhiteBalanceSunny : mdiWeatherNight"
-              size="20"
-            />
-          </button>
           <template v-if="auth.isAdmin">
             <BaseButton :to="'/admin'" :icon="mdiViewDashboard" label="主办方后台" color="purple" small />
             <BaseButton :icon="mdiLogout" label="退出" color="whiteDark" small @click="logout" />

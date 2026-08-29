@@ -98,7 +98,8 @@ function onEntrySaved() {
       </span>
     </div>
 
-    <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+    <div class="rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+      <div class="hidden overflow-x-auto lg:block">
       <table class="w-full table-fixed text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
@@ -174,6 +175,60 @@ function onEntrySaved() {
           </tr>
         </tbody>
       </table>
+      </div>
+      <div class="divide-y divide-[#f0e9f8] lg:hidden dark:divide-[#3f3760]">
+        <div
+          v-for="{ match, ddl, overdue } in filteredMatches"
+          :key="match.id"
+          class="p-4"
+          :class="overdue ? 'bg-red-50 dark:bg-red-900/10' : ''"
+        >
+          <div class="mb-2 flex items-center justify-between gap-2">
+            <span class="text-xs font-semibold text-gray-500 dark:text-slate-400">
+              第 {{ match.round }} 轮
+            </span>
+            <MatchStatusPill :status="displayStatus({ match, overdue })" />
+          </div>
+          <div class="grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+            <PlayerBadge :player="store.playerById(match.playerAId)" size="sm" />
+            <span class="text-center text-gray-400">vs</span>
+            <PlayerBadge
+              :player="store.playerById(match.playerBId)"
+              size="sm"
+              reverse
+              class="justify-self-end"
+            />
+          </div>
+          <div class="mt-3 text-center">
+            <span class="text-3xl font-black text-gray-800 dark:text-slate-100">{{
+              match.status === 'complete'
+                ? `${store.matchScore(match).a} : ${store.matchScore(match).b}`
+                : match.status === 'forfeit'
+                  ? '判负'
+                  : '-'
+            }}</span>
+
+          </div>
+          <div
+            class="mt-2 flex items-center justify-between gap-2 text-xs text-gray-500 dark:text-slate-400"
+          >
+            <span>{{ formatDateTime(ddl) }}</span>
+            <div class="flex gap-1">
+              <BaseButton label="查看" color="whiteDark" small @click="openDetail(match)" />
+              <BaseButton
+                v-if="auth.isAdmin"
+                label="录入"
+                color="purple"
+                small
+                @click="openEntry(match)"
+              />
+            </div>
+          </div>
+        </div>
+        <div v-if="!filteredMatches.length" class="p-6 text-center text-sm text-gray-400">
+          暂无比赛
+        </div>
+      </div>
     </div>
 
     <MatchDetailModal

@@ -17,6 +17,7 @@ const color = computed(() => {
     forfeit: 'warning',
     overdue: 'danger',
     locked: 'light',
+    walkover: 'warning',
   }
   return map[props.status] || 'light'
 })

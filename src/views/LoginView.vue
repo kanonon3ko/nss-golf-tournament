@@ -76,7 +76,7 @@ async function submit() {
           />
           <button
             type="button"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            class="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center text-gray-400 hover:text-gray-600"
             @click="showPassword = !showPassword"
           >
             <BaseIcon :path="showPassword ? mdiEyeOff : mdiEye" size="18" />

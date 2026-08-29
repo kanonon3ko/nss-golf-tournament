@@ -38,13 +38,23 @@ const champion = computed(() => store.playerById(store.championId))
 
     <div
       v-if="store.championId && champion"
-      class="mb-5 flex items-center gap-4 rounded-2xl bg-yellow-50 p-5 dark:bg-yellow-900/20"
+      class="mb-5 rounded-2xl bg-yellow-50 p-6 text-center dark:bg-yellow-900/20"
     >
-      <BaseIcon :path="mdiTrophy" size="40" class="text-yellow-500" />
-      <div>
-        <p class="text-sm text-yellow-700 dark:text-yellow-400">🏆 冠军</p>
-        <p class="text-xl font-bold text-yellow-800 dark:text-yellow-200">{{ champion.name }}</p>
-      </div>
+      <BaseIcon :path="mdiTrophy" size="40" class="mx-auto mb-2 text-yellow-500" />
+      <p class="mb-1 text-sm text-yellow-700 dark:text-yellow-400">🏆 冠军</p>
+      <p
+        class="bg-linear-to-r from-[#f7e7b0] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-3xl font-black text-transparent"
+      >
+        {{ champion.name }}
+      </p>
+      <template v-if="store.runnerUpId">
+        <p class="mt-3 text-sm font-semibold text-yellow-700/80 dark:text-yellow-400/80">🥈 亚军</p>
+        <p
+          class="bg-linear-to-r from-[#94a3b8] via-[#e2e8f0] to-[#64748b] bg-clip-text text-2xl font-bold text-transparent"
+        >
+          {{ store.playerName(store.runnerUpId) }}
+        </p>
+      </template>
     </div>
 
     <div

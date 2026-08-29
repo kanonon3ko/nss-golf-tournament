@@ -39,7 +39,8 @@ function rankClass(rank) {
 
 <template>
   <div>
-    <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+    <div class="rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+      <div class="hidden overflow-x-auto lg:block">
       <table class="w-full text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
@@ -95,6 +96,43 @@ function rankClass(rank) {
           </tr>
         </tbody>
       </table>
+      </div>
+      <div class="lg:hidden">
+        <div
+          v-for="row in rows"
+          :key="row.playerId"
+          class="flex items-center gap-3 border-b border-[#f0e9f8] p-4 last:border-0 dark:border-[#3f3760]"
+        >
+          <span
+            class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold"
+            :class="rankClass(row.rank)"
+          >
+            {{ row.rank }}
+          </span>
+          <PlayerBadge :player="store.playerById(row.playerId)" size="sm" />
+          <div class="ml-auto shrink-0 text-right">
+            <div class="text-sm font-bold">{{ row.points }} 分</div>
+            <div class="text-xs text-gray-400">
+              胜{{ row.wins }} 负{{ row.losses }} · 杆{{
+                row.strokeDiff > 0 ? `+${row.strokeDiff}` : row.strokeDiff
+              }}
+            </div>
+            <span
+              v-if="complete && row.rank <= 2"
+              class="text-xs font-semibold text-emerald-600 dark:text-emerald-400"
+            >
+              🏆 晋级
+            </span>
+            <span
+              v-else-if="row.needsDraw"
+              class="text-xs font-semibold text-amber-600 dark:text-amber-400"
+            >
+              待抽签
+            </span>
+          </div>
+        </div>
+        <div v-if="!rows.length" class="p-6 text-center text-sm text-gray-400">暂无数据</div>
+      </div>
     </div>
 
     <div v-if="hasDraw" class="mt-3 flex flex-wrap items-center gap-3">
