@@ -196,14 +196,14 @@ const champion = computed(() => store.playerById(store.championId))
           <div
             v-for="match in store.latestResults"
             :key="match.id"
-            class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-3 py-2 text-sm dark:bg-[#3c3459]"
+            class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-3 py-2.5 text-base dark:bg-[#3c3459]"
           >
             <span class="truncate">
               {{ store.playerName(match.playerAId) }}
               <b>{{ store.matchScore(match).a }}:{{ store.matchScore(match).b }}</b>
               {{ store.playerName(match.playerBId) }}
             </span>
-            <span class="text-xs text-gray-400">{{ formatDateTime(match.updatedAt) }}</span>
+            <span class="shrink-0 text-sm text-gray-400">{{ formatDateTime(match.updatedAt) }}</span>
           </div>
         </div>
         <p v-else class="text-sm text-gray-400">暂无已完赛记录</p>
@@ -221,8 +221,8 @@ const champion = computed(() => store.playerById(store.championId))
         </div>
         <div class="grid gap-3 sm:grid-cols-2">
           <div v-for="g in ['A', 'B', 'C', 'D']" :key="g" class="rounded-xl bg-[#f4eefa] p-3 dark:bg-[#3c3459]">
-            <p class="mb-2 text-xs font-bold text-gray-400">{{ g }} 组</p>
-            <div v-for="row in standingsSummary[g]" :key="row.playerId" class="flex justify-between py-0.5 text-sm">
+            <p class="mb-2 text-sm font-bold text-gray-400">{{ g }} 组</p>
+            <div v-for="row in standingsSummary[g]" :key="row.playerId" class="flex justify-between py-1 text-base">
               <span class="text-gray-600 dark:text-slate-300">{{ row.rank }}. {{ row.name }}</span>
               <span class="font-semibold">{{ row.points }} 分</span>
             </div>
