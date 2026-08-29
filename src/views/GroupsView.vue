@@ -99,16 +99,16 @@ function onEntrySaved() {
     </div>
 
     <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
-      <table class="w-full text-sm">
+      <table class="w-full table-fixed text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
-            <th class="px-4 py-3">轮次</th>
-            <th class="px-4 py-3">对阵</th>
-            <th class="px-4 py-3">比分</th>
-            <th class="px-4 py-3">SD</th>
-            <th class="px-4 py-3">DDL</th>
-            <th class="px-4 py-3">状态</th>
-            <th class="px-4 py-3 text-right">操作</th>
+            <th class="w-20 px-4 py-3">轮次</th>
+            <th class="w-[320px] px-4 py-3">对阵</th>
+            <th class="w-20 px-4 py-3">比分</th>
+            <th class="w-16 px-4 py-3">SD</th>
+            <th class="w-48 px-4 py-3">DDL</th>
+            <th class="w-28 px-4 py-3">状态</th>
+            <th class="w-36 px-4 py-3 text-right">操作</th>
           </tr>
         </thead>
         <tbody>
@@ -122,10 +122,14 @@ function onEntrySaved() {
               第 {{ match.round }} 轮
             </td>
             <td class="px-4 py-3">
-              <div class="flex items-center gap-2">
+              <div class="grid w-full grid-cols-[1fr_auto_1fr] items-center gap-2">
                 <PlayerBadge :player="store.playerById(match.playerAId)" />
-                <span class="text-gray-400">vs</span>
-                <PlayerBadge :player="store.playerById(match.playerBId)" />
+                <span class="text-center text-gray-400">vs</span>
+                <PlayerBadge
+                  :player="store.playerById(match.playerBId)"
+                  reverse
+                  class="justify-self-end"
+                />
               </div>
             </td>
             <td class="px-4 py-3 font-bold">

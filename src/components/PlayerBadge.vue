@@ -7,6 +7,7 @@ const props = defineProps({
     default: null,
   },
   muted: Boolean,
+  reverse: Boolean,
   size: {
     type: String,
     default: 'md', // sm | md | lg
@@ -33,7 +34,7 @@ const avatarClass = computed(() => {
 </script>
 
 <template>
-  <span class="inline-flex items-center gap-2">
+  <span class="inline-flex items-center gap-2" :class="reverse ? 'flex-row-reverse' : ''">
     <img
       v-if="player?.avatar && !imgFailed"
       :src="player.avatar"
