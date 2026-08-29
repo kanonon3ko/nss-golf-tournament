@@ -10,7 +10,7 @@ import StandingsTable from '@/components/StandingsTable.vue'
     <div class="mb-6">
       <h1 class="text-2xl font-bold">积分榜</h1>
       <p class="text-sm text-gray-500 dark:text-slate-400">
-        排名规则：积分 → 相互战绩 → 净胜局数 → 净胜杆数 → 组织方随机抽签
+        排名规则：积分 → 相互战绩 → 净胜局数 → 净胜杆数 → 主办方随机抽签
       </p>
     </div>
 

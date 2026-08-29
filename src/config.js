@@ -10,8 +10,8 @@ export const ADMIN_EMAIL = String(env.VITE_ADMIN_EMAIL || 'admin@nss.local')
 export const siteName = '鬼吃鱼高尔夫锦标赛'
 export const siteSubtitle = 'NSS · 16人 · 小组赛 + 淘汰赛'
 
-// 本地回退模式的管理员口令：通过 .env 的 VITE_ADMIN_PASSWORD 提供（不提交到仓库）。
-// 启用 Supabase 后登录改用 Supabase 管理员账号密码，此处不再使用。
+// 本地回退模式的主办方口令：通过 .env 的 VITE_ADMIN_PASSWORD 提供（不提交到仓库）。
+// 启用 Supabase 后登录改用 Supabase 主办方账号密码，此处不再使用。
 export const ADMIN_PASSWORD = String(env.VITE_ADMIN_PASSWORD || '')
 
 // 会话有效期（毫秒），默认 7 天

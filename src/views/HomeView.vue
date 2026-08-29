@@ -67,14 +67,17 @@ const champion = computed(() => store.playerById(store.championId))
 <template>
   <div class="mx-auto max-w-6xl px-4 py-6">
     <div
-      class="relative mb-6 overflow-hidden rounded-2xl bg-linear-to-tr from-emerald-950 via-emerald-900 to-slate-900 p-6 text-white shadow-xl md:p-8"
+      class="relative mb-6 overflow-hidden rounded-2xl bg-[#faf7fd] p-6 text-emerald-950 shadow-xl md:p-8 dark:bg-linear-to-br dark:from-emerald-800 dark:via-emerald-950 dark:to-slate-950 dark:text-white"
     >
       <div
         class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-transparent via-[#b8860b] to-transparent"
       ></div>
+      <div
+        class="pointer-events-none absolute inset-0 hidden bg-linear-to-br from-white/15 via-white/5 to-transparent dark:block"
+      ></div>
       <div class="relative z-10">
         <p
-          class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-300"
+          class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-700 dark:text-emerald-300"
         >
           <span class="inline-block h-2 w-2 rounded-full bg-[#b8860b]"></span>
           NSS · 16 人 · 小组赛 + 淘汰赛
@@ -82,7 +85,7 @@ const champion = computed(() => store.playerById(store.championId))
         <h1 class="mb-4 text-3xl font-black md:text-4xl">
           鬼吃鱼高尔夫锦标赛
           <span
-            class="bg-linear-to-r from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-transparent"
+            class="bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-transparent"
           >
             2026
           </span>
@@ -94,25 +97,25 @@ const champion = computed(() => store.playerById(store.championId))
             class="rounded-full border px-3 py-1 text-sm font-semibold"
             :class="
               stageOrder.indexOf(key) === stageIndex
-                ? 'border-[#c9a24b] bg-linear-to-r from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] text-[#241a08]'
+                ? 'border-[#c9a24b] bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] text-[#241a08]'
                 : stageOrder.indexOf(key) < stageIndex
-                  ? 'border-emerald-700 bg-emerald-900/50 text-emerald-200'
-                  : 'border-white/20 bg-white/5 text-emerald-100'
+                  ? 'border-emerald-600 bg-emerald-200/70 text-emerald-800 dark:border-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-200'
+                  : 'border-emerald-300/70 bg-white/50 text-emerald-700 dark:border-white/20 dark:bg-white/5 dark:text-emerald-100'
             "
           >
             {{ name }}
           </span>
         </div>
-        <div class="mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-white/10">
+        <div class="mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-emerald-900/10 dark:bg-white/10">
           <div
-            class="h-full rounded-full bg-linear-to-r from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] transition-all"
+            class="h-full rounded-full bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] transition-all"
             :style="{ width: `${Math.max(0, (stageIndex + 1) / 4) * 100}%` }"
           ></div>
         </div>
       </div>
       <GolfBallMark
         size="240"
-        class="absolute -right-6 -bottom-8 opacity-60"
+        class="absolute right-4 top-1/2 -translate-y-1/2 opacity-60"
       />
     </div>
 

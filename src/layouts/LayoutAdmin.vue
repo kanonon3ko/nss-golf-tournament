@@ -61,7 +61,7 @@ function logout() {
           </button>
           <span class="flex items-center gap-2 font-bold">
             <GolfLogo :size="32" />
-            <span>{{ siteName }} · 管理后台</span>
+            <span>{{ siteName }} · 主办方后台</span>
           </span>
         </div>
         <div class="flex items-center gap-1">

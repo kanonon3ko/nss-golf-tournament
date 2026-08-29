@@ -21,7 +21,7 @@ import ErrorView from '@/views/ErrorView.vue'
 const routes = [
   {
     meta: {
-      title: '管理员登录',
+      title: '主办方登录',
     },
     path: '/login',
     name: 'login',
@@ -78,13 +78,13 @@ const routes = [
   {
     path: '/admin',
     component: LayoutAdmin,
-    meta: { requiresAdmin: true, title: '管理后台' },
+    meta: { requiresAdmin: true, title: '主办方后台' },
     children: [
       {
         path: '',
         name: 'admin',
         component: AdminView,
-        meta: { title: '管理后台' },
+        meta: { title: '主办方后台' },
       },
       {
         path: 'players',

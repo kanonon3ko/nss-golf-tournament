@@ -27,7 +27,7 @@ async function submit() {
     return
   }
   if (!password.value) {
-    error.value = '请输入管理员口令'
+    error.value = '请输入主办方口令'
     return
   }
   if (await auth.login(password.value)) {
@@ -55,14 +55,14 @@ async function submit() {
       <div class="mb-6 text-center">
         <GolfLogo :size="56" class="mx-auto mb-3" />
         <h1 class="text-xl font-bold">{{ siteName }}</h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">管理员登录 · 组织方专用</p>
+        <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">主办方登录 · 主办方专用</p>
       </div>
 
       <form
         class="rounded-2xl bg-[#faf7fd] p-6 shadow-sm dark:bg-[#332c54]/80"
         @submit.prevent="submit"
       >
-        <label class="mb-2 block text-sm font-bold">管理员口令</label>
+        <label class="mb-2 block text-sm font-bold">主办方口令</label>
         <div class="relative mb-3">
           <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
             <BaseIcon :path="mdiLock" size="18" />
@@ -97,7 +97,7 @@ async function submit() {
       </form>
 
       <p class="mt-4 text-center text-xs text-gray-400">
-        登录后仅组织方可编辑赛事数据，选手与游客浏览不受影响。
+        登录后仅主办方可编辑赛事数据，选手与游客浏览不受影响。
       </p>
     </div>
   </div>

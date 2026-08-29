@@ -76,7 +76,7 @@ async function copyNotice() {
     <div class="mb-5">
       <h1 class="text-2xl font-bold">DDL 与逾期</h1>
       <p class="text-sm text-gray-500 dark:text-slate-400">
-        每轮截止时间 · 逾期自动标记 · 组织方裁决
+        每轮截止时间 · 逾期自动标记 · 主办方裁决
       </p>
     </div>
 

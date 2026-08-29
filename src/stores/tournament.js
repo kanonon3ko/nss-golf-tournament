@@ -504,7 +504,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     persistLocal()
   }
 
-  // 管理员登录后调用：把本地/种子数据同步到云端（携带登录态，RLS 才放行）
+  // 主办方登录后调用：把本地/种子数据同步到云端（携带登录态，RLS 才放行）
   function ensureCloudSync() {
     if (supabaseMode.value) {
       persistToSupabase()
@@ -589,7 +589,7 @@ export const useTournamentStore = defineStore('tournament', () => {
       }
       if (result === 'empty') {
         // 云端建好表但还没有数据：先保留本地/种子数据，
-        // 云端的首次写入等管理员登录后由 ensureCloudSync 完成（游客无写权限）
+        // 云端的首次写入等主办方登录后由 ensureCloudSync 完成（游客无写权限）
         if (!loadLocal()) {
           seedState()
         }
@@ -606,7 +606,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     ready.value = true
   }
 
-  function addLog(message, by = '组织方') {
+  function addLog(message, by = '主办方') {
     logs.value.unshift({ id: uid('lg'), time: now(), by, message })
   }
 
@@ -663,7 +663,7 @@ export const useTournamentStore = defineStore('tournament', () => {
     const record = {
       id: uid('draw'),
       time: now(),
-      by: '组织方',
+      by: '主办方',
       tiers: byTier,
       groups: { ...next },
     }
@@ -829,7 +829,7 @@ export const useTournamentStore = defineStore('tournament', () => {
       match.status = 'complete'
       match.winnerId = wins.A >= need ? match.playerAId : match.playerBId
       match.updatedAt = now()
-      match.log.push({ time: now(), by: '组织方', message: '录入并发布赛果' })
+      match.log.push({ time: now(), by: '主办方', message: '录入并发布赛果' })
       addLog(`${playerName(match.playerAId)} vs ${playerName(match.playerBId)} 完赛`)
     } else {
       return { ok: false, message: '比分未达到决出胜负所需的胜局数' }
@@ -858,13 +858,13 @@ export const useTournamentStore = defineStore('tournament', () => {
       match.status = 'pending'
       match.forfeitBy = null
       match.winnerId = null
-      match.log.push({ time: now(), by: '组织方', message: '延期处理，恢复待赛' })
+      match.log.push({ time: now(), by: '主办方', message: '延期处理，恢复待赛' })
     } else {
       match.status = 'forfeit'
       match.forfeitBy = decision
       match.winnerId = matchWinner(match)
       match.updatedAt = now()
-      match.log.push({ time: now(), by: '组织方', message: `判定：${labels[decision]}` })
+      match.log.push({ time: now(), by: '主办方', message: `判定：${labels[decision]}` })
       addLog(`${playerName(match.playerAId)} vs ${playerName(match.playerBId)} 判定 ${labels[decision]}`)
     }
     if (match.stage !== 'group') {
@@ -894,7 +894,7 @@ export const useTournamentStore = defineStore('tournament', () => {
       type: payload.type || 'other',
       url: String(payload.url || '').trim(),
       name: String(payload.name || '').trim() || '未命名证据',
-      by: payload.by || '组织方',
+      by: payload.by || '主办方',
       time: now(),
     }
     evidence.value.push(item)

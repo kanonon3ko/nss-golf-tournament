@@ -8,7 +8,7 @@ import GolfLogo from '@/components/GolfLogo.vue'
 const tournamentStore = useTournamentStore()
 const authStore = useAuthStore()
 
-// 数据与登录会话初始化；若已是管理员（会话恢复），把本地数据同步到云端
+// 数据与登录会话初始化；若已是主办方（会话恢复），把本地数据同步到云端
 Promise.all([tournamentStore.init(), authStore.init()]).then(() => {
   if (authStore.isAdmin) {
     tournamentStore.ensureCloudSync()

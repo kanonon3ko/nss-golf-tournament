@@ -51,7 +51,7 @@ const todos = computed(() => {
 <template>
   <div class="p-6" :class="'xl:max-w-6xl xl:mx-auto'">
     <div class="mb-5">
-      <h1 class="text-2xl font-bold">管理后台</h1>
+      <h1 class="text-2xl font-bold">主办方后台</h1>
       <p class="text-sm text-gray-500 dark:text-slate-400">
         当前赛事状态：{{
           store.stage === 'setup'

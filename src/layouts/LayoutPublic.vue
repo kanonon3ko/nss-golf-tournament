@@ -84,7 +84,7 @@ function logout() {
               <BaseButton
                 :to="'/admin'"
                 :icon="mdiViewDashboard"
-                label="管理后台"
+                label="主办方后台"
                 color="purple"
                 small
               />
@@ -94,7 +94,7 @@ function logout() {
               v-else
               :to="{ name: 'login', query: { next: route.fullPath } }"
               :icon="mdiLock"
-              label="管理员登录"
+              label="主办方登录"
               color="purple"
               small
             />
@@ -143,14 +143,14 @@ function logout() {
             />
           </button>
           <template v-if="auth.isAdmin">
-            <BaseButton :to="'/admin'" :icon="mdiViewDashboard" label="管理后台" color="purple" small />
+            <BaseButton :to="'/admin'" :icon="mdiViewDashboard" label="主办方后台" color="purple" small />
             <BaseButton :icon="mdiLogout" label="退出" color="whiteDark" small @click="logout" />
           </template>
           <BaseButton
             v-else
             :to="{ name: 'login', query: { next: route.fullPath } }"
             :icon="mdiLock"
-            label="管理员登录"
+            label="主办方登录"
             color="purple"
             small
           />
@@ -166,7 +166,7 @@ function logout() {
       class="border-t border-[#e7ddf3] py-6 text-center text-xs text-gray-400 dark:border-[#4b4270] dark:text-slate-500"
     >
       <div class="mx-auto max-w-6xl px-4">
-        <p>© 2026 {{ siteName }} · 数据仅供赛事记录，截图与录屏由组织方留存</p>
+        <p>© 2026 {{ siteName }} · 数据仅供赛事记录，截图与录屏由主办方留存</p>
         <p class="mt-1">
           基于
           <a

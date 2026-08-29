@@ -99,7 +99,7 @@ function rankClass(rank) {
 
     <div v-if="hasDraw" class="mt-3 flex flex-wrap items-center gap-3">
       <p class="text-sm text-amber-700 dark:text-amber-400">
-        按规则顺序（积分 → 相互战绩 → 净胜局 → 净胜杆）仍无法区分，需由组织方随机抽签。
+        按规则顺序（积分 → 相互战绩 → 净胜局 → 净胜杆）仍无法区分，需由主办方随机抽签。
       </p>
       <BaseButton
         v-if="auth.isAdmin"
