@@ -67,7 +67,7 @@ const champion = computed(() => store.playerById(store.championId))
 <template>
   <div class="mx-auto max-w-6xl px-4 py-6">
     <div
-      class="relative mb-6 overflow-hidden rounded-2xl bg-[#faf7fd] p-6 text-emerald-950 shadow-xl md:p-8 dark:bg-linear-to-br dark:from-emerald-800 dark:via-emerald-950 dark:to-slate-950 dark:text-white"
+      class="relative mb-6 overflow-hidden rounded-2xl bg-[#faf7fd] p-6 text-emerald-950 shadow-xl md:p-8 dark:bg-linear-to-br dark:from-[#5f528c] dark:via-[#3d3560] dark:to-[#2a2440] dark:text-white"
     >
       <div
         class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-transparent via-[#b8860b] to-transparent"
@@ -77,7 +77,7 @@ const champion = computed(() => store.playerById(store.championId))
       ></div>
       <div class="relative z-10">
         <p
-          class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-700 dark:text-emerald-300"
+          class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-700 dark:text-[#c3b3e6]"
         >
           <span class="inline-block h-2 w-2 rounded-full bg-[#b8860b]"></span>
           NSS · 16 人 · 小组赛 + 淘汰赛
@@ -99,8 +99,8 @@ const champion = computed(() => store.playerById(store.championId))
               stageOrder.indexOf(key) === stageIndex
                 ? 'border-[#c9a24b] bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] text-[#241a08]'
                 : stageOrder.indexOf(key) < stageIndex
-                  ? 'border-emerald-600 bg-emerald-200/70 text-emerald-800 dark:border-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-200'
-                  : 'border-emerald-300/70 bg-white/50 text-emerald-700 dark:border-white/20 dark:bg-white/5 dark:text-emerald-100'
+                  ? 'border-emerald-600 bg-emerald-200/70 text-emerald-800 dark:border-[#7e6ba8] dark:bg-[#453b6b]/70 dark:text-[#cdbfe8]'
+                  : 'border-emerald-300/70 bg-white/50 text-emerald-700 dark:border-white/20 dark:bg-white/5 dark:text-[#a99cc9]'
             "
           >
             {{ name }}
