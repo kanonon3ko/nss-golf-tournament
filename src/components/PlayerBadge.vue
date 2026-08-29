@@ -1,0 +1,56 @@
+<script setup>
+import { computed, ref, watch } from 'vue'
+
+const props = defineProps({
+  player: {
+    type: Object,
+    default: null,
+  },
+  muted: Boolean,
+  size: {
+    type: String,
+    default: 'md', // sm | md | lg
+  },
+})
+
+const imgFailed = ref(false)
+
+watch(
+  () => props.player?.avatar,
+  () => {
+    imgFailed.value = false
+  },
+)
+
+const avatarClass = computed(() => {
+  const map = {
+    sm: 'h-8 w-8 text-xs',
+    md: 'h-9 w-9 text-sm',
+    lg: 'h-14 w-14 text-base',
+  }
+  return map[props.size] || map.md
+})
+</script>
+
+<template>
+  <span class="inline-flex items-center gap-2">
+    <img
+      v-if="player?.avatar && !imgFailed"
+      :src="player.avatar"
+      alt=""
+      class="shrink-0 rounded-full object-cover"
+      :class="avatarClass"
+      @error="imgFailed = true"
+    />
+    <span
+      v-else
+      class="flex shrink-0 items-center justify-center rounded-full bg-emerald-500 font-bold text-white dark:bg-emerald-600"
+      :class="avatarClass"
+    >
+      {{ (player?.name || '?').slice(0, 1) }}
+    </span>
+    <span :class="muted ? 'text-gray-400' : 'font-medium'">
+      {{ player?.name || '待定' }}
+    </span>
+  </span>
+</template>
