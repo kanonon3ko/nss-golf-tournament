@@ -41,18 +41,18 @@ function rankClass(rank) {
   <div>
     <div class="rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
       <div class="hidden overflow-x-auto lg:block">
-      <table class="w-full text-sm">
+      <table class="w-full table-fixed text-sm">
         <thead>
           <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
-            <th class="px-4 py-3">排名</th>
-            <th class="px-4 py-3">选手</th>
-            <th class="px-4 py-3">场</th>
-            <th class="px-4 py-3">胜</th>
-            <th class="px-4 py-3">负</th>
-            <th class="px-4 py-3">积分</th>
-            <th class="px-4 py-3">净胜局</th>
-            <th class="px-4 py-3">净胜杆</th>
-            <th class="px-4 py-3">备注</th>
+            <th class="w-16 px-4 py-3">排名</th>
+            <th class="w-48 px-4 py-3">选手</th>
+            <th class="w-20 px-4 py-3">场</th>
+            <th class="w-20 px-4 py-3">胜</th>
+            <th class="w-20 px-4 py-3">负</th>
+            <th class="w-20 px-4 py-3">积分</th>
+            <th class="w-20 px-4 py-3">净胜局</th>
+            <th class="w-20 px-4 py-3">净胜杆</th>
+            <th class="w-20 px-4 py-3">备注</th>
           </tr>
         </thead>
         <tbody>
