@@ -9,7 +9,7 @@
 ## 二、在 GitHub 建仓库
 
 1. 打开 https://github.com/new
-2. 仓库名建议：`ghostfish-golf`（可自定义）
+2. 仓库名建议：`nss-golf-tournament`（可自定义）
 3. 可见性：Private 或 Public 都可以（Pages 部署不需要公开代码）
 4. **不要**勾选 “Add a README / .gitignore / license”（避免和本地冲突）
 5. 点 Create repository
