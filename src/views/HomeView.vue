@@ -4,6 +4,7 @@ import { useTournamentStore } from '@/stores/tournament'
 import { useAuthStore } from '@/stores/auth'
 import { formatDateTime, formatCountdown } from '@/utils/format'
 import MatchStatusPill from '@/components/MatchStatusPill.vue'
+import GolfBallMark from '@/components/GolfBallMark.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import {
   mdiCalendarClock,
@@ -81,7 +82,7 @@ const champion = computed(() => store.playerById(store.championId))
         <h1 class="mb-4 text-3xl font-black md:text-4xl">
           鬼吃鱼高尔夫锦标赛
           <span
-            class="bg-linear-to-r from-[#c9a24b] to-[#8c6d1f] bg-clip-text text-transparent"
+            class="bg-linear-to-r from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-transparent"
           >
             2026
           </span>
@@ -93,7 +94,7 @@ const champion = computed(() => store.playerById(store.championId))
             class="rounded-full border px-3 py-1 text-sm font-semibold"
             :class="
               stageOrder.indexOf(key) === stageIndex
-                ? 'border-[#b8860b] bg-[#b8860b] text-white'
+                ? 'border-[#c9a24b] bg-linear-to-r from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] text-[#241a08]'
                 : stageOrder.indexOf(key) < stageIndex
                   ? 'border-emerald-700 bg-emerald-900/50 text-emerald-200'
                   : 'border-white/20 bg-white/5 text-emerald-100'
@@ -104,17 +105,14 @@ const champion = computed(() => store.playerById(store.championId))
         </div>
         <div class="mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-white/10">
           <div
-            class="h-full rounded-full bg-linear-to-r from-[#c9a24b] to-[#8c6d1f] transition-all"
+            class="h-full rounded-full bg-linear-to-r from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] transition-all"
             :style="{ width: `${Math.max(0, (stageIndex + 1) / 4) * 100}%` }"
           ></div>
         </div>
       </div>
-      <BaseIcon
-        :path="mdiTrophy"
-        size="160"
-        class="absolute -right-6 -bottom-8 rotate-12 text-[#b8860b]/20"
-        w="w-40"
-        h="h-40"
+      <GolfBallMark
+        size="240"
+        class="absolute -right-6 -bottom-8 opacity-60"
       />
     </div>
 
