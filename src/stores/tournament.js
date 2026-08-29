@@ -325,22 +325,25 @@ function getStandingsFor(state, groupId) {
   }
   rows = sorted
 
-  // 全维度仍并列 -> 待抽签（小组赛结束后才判定）
+  // 全维度仍并列 -> 待抽签（小组赛结束后才判定；已抽签解决的并列不再标记）
   if (groupComplete) {
+    const orderMap = new Map((resolution || []).map((id, idx) => [id, idx]))
     for (let k = 0; k < rows.length; k += 1) {
-      const prev = rows[k - 1]
-      const next = rows[k + 1]
-      const sameAsPrev =
-        prev && rows[k].points === prev.points
-        && rows[k].h2hWins === prev.h2hWins
-        && rows[k].setDiff === prev.setDiff
-        && rows[k].strokeDiff === prev.strokeDiff
-      const sameAsNext =
-        next && rows[k].points === next.points
-        && rows[k].h2hWins === next.h2hWins
-        && rows[k].setDiff === next.setDiff
-        && rows[k].strokeDiff === next.strokeDiff
-      rows[k].needsDraw = !!(sameAsPrev || sameAsNext)
+      const row = rows[k]
+      const same = (a, b) =>
+        !!a && !!b
+        && a.points === b.points
+        && a.h2hWins === b.h2hWins
+        && a.setDiff === b.setDiff
+        && a.strokeDiff === b.strokeDiff
+      let s = k
+      while (s > 0 && same(rows[s - 1], row)) s -= 1
+      let e = k
+      while (e + 1 < rows.length && same(rows[e + 1], row)) e += 1
+      const cluster = rows.slice(s, e + 1)
+      // 该并列簇内所有选手都已抽签确定顺序，视为已解决
+      const allResolved = cluster.every((r) => orderMap.has(r.playerId))
+      row.needsDraw = cluster.length > 1 && !allResolved
     }
   }
 
@@ -364,7 +367,12 @@ function knockoutSeedMatches(state) {
   for (const g of GROUPS) {
     standings[g] = getStandingsFor(state, g)
   }
-  const idAt = (g, idx) => (standings[g][idx] ? standings[g][idx].playerId : null)
+  // 待抽签未解决的位置不产生晋级者，避免按未确定顺序错误晋级
+  const idAt = (g, idx) => {
+    const row = standings[g][idx]
+    if (!row || row.needsDraw) return null
+    return row.playerId
+  }
   return [
     { stage: 'qf', order: 1, label: '八强 1', a: idAt('A', 0), b: idAt('B', 1), expectedA: 'A组第1名', expectedB: 'B组第2名' },
     { stage: 'qf', order: 2, label: '八强 2', a: idAt('C', 0), b: idAt('D', 1), expectedA: 'C组第1名', expectedB: 'D组第2名' },
@@ -979,6 +987,8 @@ export const useTournamentStore = defineStore('tournament', () => {
     const order = shuffle(unresolved.map((r) => r.playerId))
     tiebreakResolutions.value[groupId] = order
     addLog(`${groupId}组同分选手随机抽签确定排名`)
+    // 抽签解决后立即重算晋级对阵，八强名额随即填充
+    syncKnockoutInternal()
     persist()
   }
 
