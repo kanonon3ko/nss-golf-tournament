@@ -49,45 +49,45 @@ async function submit() {
 
 <template>
   <div
-    class="flex min-h-screen items-center justify-center bg-[#ede2f6] px-4 py-10 dark:bg-linear-to-br dark:from-[#7d6ba8] dark:to-[#2a2440] dark:text-slate-100"
+    class="notion-body flex min-h-screen items-center justify-center px-4 py-10 dark:text-slate-100"
   >
     <div class="w-full max-w-sm">
       <div class="mb-6 text-center">
         <GolfLogo :size="56" class="mx-auto mb-3" />
         <h1 class="text-xl font-bold">{{ siteName }}</h1>
-        <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">主办方登录 · 主办方专用</p>
+        <p class="mt-1 text-sm text-[#5d5b54] dark:text-slate-400">主办方登录 · 主办方专用</p>
       </div>
 
       <form
-        class="rounded-2xl bg-[#faf7fd] p-6 shadow-sm dark:bg-[#332c54]/80"
+        class="notion-card p-6"
         @submit.prevent="submit"
       >
         <label class="mb-2 block text-sm font-bold">主办方口令</label>
         <div class="relative mb-3">
-          <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+          <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#a4a097]">
             <BaseIcon :path="mdiLock" size="18" />
           </span>
           <input
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
             placeholder="请输入口令"
-            class="w-full rounded-lg border border-[#d9cdeb] py-2.5 pl-10 pr-10 dark:border-[#5a507f] dark:bg-[#3c3459]"
+            class="w-full rounded-lg border border-[#c8c4be] py-2.5 pl-10 pr-10 dark:border-[#675d8e] dark:bg-[#4d4778]"
             autocomplete="current-password"
           />
           <button
             type="button"
-            class="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center text-gray-400 hover:text-gray-600"
+            class="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center text-[#a4a097] hover:text-[#37352f]"
             @click="showPassword = !showPassword"
           >
             <BaseIcon :path="showPassword ? mdiEyeOff : mdiEye" size="18" />
           </button>
         </div>
 
-        <p v-if="error" class="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-600 dark:bg-red-900/30">
+        <p v-if="error" class="mb-3 rounded-lg bg-[#fdecec] px-3 py-2 text-sm text-[#e03131] dark:bg-red-900/30">
           {{ error }}
         </p>
 
-        <BaseButton type="submit" label="登录" color="purple" class="w-full" />
+        <BaseButton type="submit" label="登录" color="gold" class="w-full" />
         <BaseButton
           class="mt-2 w-full"
           label="以游客身份继续浏览"
@@ -96,7 +96,7 @@ async function submit() {
         />
       </form>
 
-      <p class="mt-4 text-center text-xs text-gray-400">
+      <p class="mt-4 text-center text-xs text-[#a4a097]">
         登录后仅主办方可编辑赛事数据，选手与游客浏览不受影响。
       </p>
     </div>

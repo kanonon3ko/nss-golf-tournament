@@ -45,29 +45,27 @@ function logout() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#ede2f6] dark:bg-linear-to-br dark:from-[#7d6ba8] dark:to-[#2a2440] dark:text-slate-100">
+  <div class="notion-body min-h-screen">
     <!-- 顶栏 -->
-    <header
-      class="fixed inset-x-0 top-0 z-40 h-14 border-b border-[#e7ddf3] bg-[#faf7fd] dark:border-[#4b4270] dark:bg-[#2c2648]"
-    >
+    <header class="notion-nav fixed inset-x-0 top-0 z-40 h-14">
       <div class="flex h-14 items-center justify-between px-4">
         <div class="flex items-center gap-2">
           <button
             type="button"
-            class="inline-flex h-9 w-9 items-center justify-center rounded-lg hover:bg-[#eee6f8] lg:hidden dark:hover:bg-[#463e68]"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-md text-[#787671] hover:bg-[#f0eeec] lg:hidden dark:text-slate-300 dark:hover:bg-[#524b7a]"
             @click="sidebarOpen = !sidebarOpen"
           >
             <BaseIcon :path="sidebarOpen ? mdiClose : mdiMenu" size="24" />
           </button>
           <span class="flex items-center gap-2 font-bold">
             <GolfLogo :size="32" />
-            <span><span class="hidden sm:inline">{{ siteName }} · </span>主办方后台</span>
+            <span class="text-[#37352f] dark:text-slate-100"><span class="hidden sm:inline">{{ siteName }} · </span>主办方后台</span>
           </span>
         </div>
         <div class="flex items-center gap-1">
           <button
             type="button"
-            class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-md text-[#787671] hover:bg-[#f0eeec] dark:text-slate-300 dark:hover:bg-[#524b7a]"
             :title="darkModeStore.isEnabled ? '切换到浅色模式' : '切换到深色模式'"
             @click="darkModeStore.set(null, true)"
           >
@@ -75,13 +73,13 @@ function logout() {
           </button>
           <RouterLink
             to="/"
-            class="flex items-center gap-1 rounded-md px-2 py-1.5 text-sm text-gray-600 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+            class="flex items-center gap-1 rounded-md px-2 py-1.5 text-sm text-[#5d5b54] hover:bg-[#f0eeec] hover:text-black dark:text-slate-300 dark:hover:bg-[#524b7a]"
           >
             <BaseIcon :path="mdiEye" size="18" />
             <span class="hidden sm:inline">查看前台</span>
           </RouterLink>
           <div
-            class="flex items-center gap-2 rounded-full bg-[#eee6f8] py-1 pl-1 pr-1 dark:bg-[#3c3459] sm:pr-3"
+            class="flex items-center gap-2 rounded-full bg-[#f0eeec] py-1 pl-1 pr-1 dark:bg-[#4d4778] sm:pr-3"
           >
             <img
               :src="mainStore.userAvatar"
@@ -92,7 +90,7 @@ function logout() {
           </div>
           <button
             type="button"
-            class="inline-flex h-9 w-9 items-center justify-center rounded-lg text-gray-500 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#463e68]"
+            class="inline-flex h-9 w-9 items-center justify-center rounded-md text-[#787671] hover:bg-[#f0eeec] dark:text-slate-300 dark:hover:bg-[#524b7a]"
             title="退出登录"
             @click="logout"
           >
@@ -104,7 +102,7 @@ function logout() {
 
     <!-- 侧边栏 -->
     <aside
-      class="fixed inset-y-0 left-0 z-30 w-60 bg-[#faf7fd] pt-14 shadow-lg transition-transform lg:translate-x-0 dark:bg-[#2c2648]"
+      class="fixed inset-y-0 left-0 z-30 w-60 border-r border-[#e5e3df] bg-white pt-14 transition-transform lg:translate-x-0 dark:border-[#58507f] dark:bg-[#423b69]"
       :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
     >
       <nav class="flex h-full flex-col overflow-y-auto p-3">
@@ -113,11 +111,11 @@ function logout() {
             v-for="item in menuAsideMain"
             :key="item.to"
             :to="item.to"
-            class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm"
+            class="flex items-center gap-3 rounded-md px-3 py-2.5 text-sm"
             :class="
               route.path === item.to
-                ? 'bg-[#7e57c2] font-semibold text-white'
-                : 'text-gray-600 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#3c3459]'
+                ? 'bg-[#c9a24b]/25 font-semibold text-[#8c6d1f] dark:bg-[#4d4778] dark:text-[#b69ce4]'
+                : 'text-[#5d5b54] hover:bg-[#f0eeec] hover:text-black dark:text-slate-300 dark:hover:bg-[#524b7a] dark:hover:text-slate-100'
             "
             @click="sidebarOpen = false"
           >
@@ -126,13 +124,13 @@ function logout() {
           </RouterLink>
         </div>
         <div
-          class="mt-auto space-y-1 border-t border-[#e7ddf3] pt-3 dark:border-[#4b4270]"
+          class="mt-auto space-y-1 border-t border-[#e5e3df] pt-3 dark:border-[#58507f]"
         >
           <button
             v-for="item in menuAsideBottom"
             :key="item.label"
             type="button"
-            class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-600 hover:bg-[#eee6f8] dark:text-slate-300 dark:hover:bg-[#3c3459]"
+            class="flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm text-[#5d5b54] hover:bg-[#f0eeec] hover:text-black dark:text-slate-300 dark:hover:bg-[#524b7a] dark:hover:text-slate-100"
             @click="go(item)"
           >
             <BaseIcon :path="item.icon" size="20" />
@@ -145,7 +143,7 @@ function logout() {
     <!-- 移动端遮罩 -->
     <div
       v-if="sidebarOpen"
-      class="fixed inset-0 z-20 bg-[#2c2648]/50 lg:hidden"
+      class="fixed inset-0 z-20 bg-black/40 lg:hidden dark:bg-[#423b69]/50"
       @click="sidebarOpen = false"
     ></div>
 
@@ -155,7 +153,7 @@ function logout() {
     </div>
 
     <footer
-      class="border-t border-[#e7ddf3] py-4 text-center text-xs text-gray-400 lg:pl-60 dark:border-[#4b4270] dark:text-slate-500"
+      class="border-t border-[#e5e3df] py-4 text-center text-xs text-[#a4a097] lg:pl-60 dark:border-[#58507f] dark:text-slate-500"
     >
       © 2026 {{ siteName }} · 基于 Admin One Tailwind Vue 3（MIT）构建
     </footer>

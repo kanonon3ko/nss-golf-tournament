@@ -15,11 +15,15 @@ const props = defineProps({
   icon: String,
   small: Boolean,
   outline: Boolean,
+  extraClass: {
+    type: String,
+    default: '',
+  },
 })
 
 const componentClass = computed(() => [
   props.small ? 'py-1 px-3' : 'py-1.5 px-4',
-  props.outline ? colorsOutline[props.color] : colorsBgLight[props.color],
+  props.extraClass || (props.outline ? colorsOutline[props.color] : colorsBgLight[props.color]),
 ])
 </script>
 

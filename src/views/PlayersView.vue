@@ -36,12 +36,22 @@ function statsOf(player) {
   return store.getStandings(player.groupId).find((r) => r.playerId === player.id) || null
 }
 
+function groupChipClass(groupId) {
+  const map = {
+    A: 'rounded-full bg-[#e6e0f5] px-2 py-0.5 text-sm font-semibold text-[#37352f] dark:bg-[#7469a6] dark:text-[#e5e1f2]',
+    B: 'rounded-full bg-[#d9f3e1] px-2 py-0.5 text-sm font-semibold text-[#37352f] dark:bg-[#6b7f72] dark:text-[#e0ebe4]',
+    C: 'rounded-full bg-[#dcecfa] px-2 py-0.5 text-sm font-semibold text-[#37352f] dark:bg-[#6b7890] dark:text-[#e1e8f4]',
+    D: 'rounded-full bg-[#ffe8d4] px-2 py-0.5 text-sm font-semibold text-[#37352f] dark:bg-[#8c7363] dark:text-[#f2e6dc]',
+  }
+  return map[groupId] || ''
+}
+
 function tierClass(tier) {
   const map = {
-    1: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-400',
-    2: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400',
-    3: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-400',
-    4: 'bg-[#e6dcf3] text-slate-700 dark:bg-[#463e68] dark:text-slate-300',
+    1: 'rounded-full bg-[#e6e0f5] px-2 py-0.5 text-sm font-semibold text-[#391c57] dark:bg-[#52497b] dark:text-[#dec4f8]',
+    2: 'rounded-full bg-[#dcecfa] px-2 py-0.5 text-sm font-semibold text-[#005bab] dark:bg-[#4a4d7c] dark:text-[#b4d6f8]',
+    3: 'rounded-full bg-[#d9f3e1] px-2 py-0.5 text-sm font-semibold text-[#12902d] dark:bg-emerald-900/40 dark:text-emerald-400',
+    4: 'rounded-full bg-[#f0eeec] px-2 py-0.5 text-sm font-semibold text-[#5d5b54] dark:bg-[#524b7a] dark:text-slate-300',
   }
   return map[tier] || ''
 }
@@ -52,18 +62,18 @@ function tierClass(tier) {
     <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
       <div>
         <h1 class="text-2xl font-bold">选手</h1>
-        <p class="text-sm text-gray-500 dark:text-slate-400">共 {{ store.players.length }} 名选手 · 按档位分组</p>
+        <p class="text-sm text-[#5d5b54] dark:text-slate-400">共 {{ store.players.length }} 名选手 · 按档位分组</p>
       </div>
       <div class="flex flex-wrap items-center gap-2">
         <div class="relative">
-          <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+          <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#a4a097]">
             <BaseIcon :path="mdiMagnify" size="16" />
           </span>
           <input
             v-model="search"
             type="search"
             placeholder="搜索选手 ID"
-            class="w-56 rounded-full border border-[#d9cdeb] py-2 pl-9 pr-3 text-sm dark:border-[#5a507f] dark:bg-[#2c2648]"
+            class="w-56 rounded-full border border-[#c8c4be] py-2 pl-9 pr-3 text-sm dark:border-[#675d8e] dark:bg-[#423b69]"
           />
         </div>
         <div class="flex flex-wrap gap-1">
@@ -74,8 +84,8 @@ function tierClass(tier) {
             class="rounded-full px-3 py-1.5 text-sm"
             :class="
               tierFilter === t.value
-                ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
-                : 'bg-[#faf7fd] text-gray-600 shadow-sm hover:bg-[#eee6f8] dark:bg-[#2c2648] dark:text-slate-300'
+                ? 'notion-pill-active font-semibold'
+                : 'bg-[#f6f5f4] text-[#5d5b54] hover:bg-[#e8e6e2] dark:bg-[#423b69] dark:text-slate-300'
             "
             @click="tierFilter = t.value"
           >
@@ -90,14 +100,14 @@ function tierClass(tier) {
         v-for="player in players"
         :key="player.id"
         type="button"
-        class="flex flex-col gap-3 rounded-2xl bg-[#faf7fd] p-4 text-left shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
+        class="notion-card flex flex-col gap-3 p-4 text-left transition-shadow hover:shadow-md"
         @click="router.push(`/players/${player.id}`)"
       >
         <div class="flex items-center justify-between gap-2">
           <PlayerBadge :player="player" size="lg" truncate class="min-w-0" />
           <span
             v-if="statsOf(player)"
-            class="shrink-0 rounded-full bg-emerald-50 px-2 py-0.5 text-sm font-semibold text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400"
+            class="shrink-0 rounded-full bg-[#d9f3e1] px-2 py-0.5 text-sm font-semibold text-[#1aae39] dark:bg-emerald-900/40 dark:text-emerald-400"
           >
             {{ statsOf(player).points }} 分
           </span>
@@ -108,32 +118,33 @@ function tierClass(tier) {
           </span>
           <span
             v-if="player.groupId"
-            class="rounded-full bg-[#eee6f8] px-2 py-0.5 text-sm font-semibold text-gray-500 dark:bg-[#3c3459] dark:text-slate-400"
+            class="rounded-full px-2 py-0.5 text-sm font-semibold"
+            :class="groupChipClass(player.groupId)"
           >
             {{ player.groupId }}组
           </span>
         </div>
         <div
           v-if="statsOf(player)"
-          class="mt-auto grid grid-cols-3 gap-1 border-t border-[#f0e9f8] pt-2 text-center text-sm text-gray-500 dark:border-[#3f3760] dark:text-slate-400"
+          class="mt-auto grid grid-cols-3 gap-1 border-t border-[#ede9e4] pt-2 text-center text-sm text-[#5d5b54] dark:border-[#4a426e] dark:text-slate-400"
         >
           <div>
-            <p class="text-base font-bold text-gray-800 dark:text-slate-100">{{ statsOf(player).played }}</p>
+            <p class="text-base font-bold text-[#1a1a1a] dark:text-slate-100">{{ statsOf(player).played }}</p>
             <p>场次</p>
           </div>
           <div>
-            <p class="text-base font-bold text-gray-800 dark:text-slate-100">{{ statsOf(player).points }}</p>
+            <p class="text-base font-bold text-[#1a1a1a] dark:text-slate-100">{{ statsOf(player).points }}</p>
             <p>积分</p>
           </div>
           <div>
-            <p class="text-base font-bold text-gray-800 dark:text-slate-100">{{ statsOf(player).setDiff }}</p>
+            <p class="text-base font-bold text-[#1a1a1a] dark:text-slate-100">{{ statsOf(player).setDiff }}</p>
             <p>净胜局</p>
           </div>
         </div>
-        <p v-else class="text-sm text-gray-400">未分组</p>
+        <p v-else class="text-sm text-[#a4a097]">未分组</p>
       </button>
     </div>
 
-    <p v-if="!players.length" class="py-12 text-center text-gray-400">没有匹配的选手</p>
+    <p v-if="!players.length" class="py-12 text-center text-[#a4a097]">没有匹配的选手</p>
   </div>
 </template>

@@ -75,16 +75,16 @@ async function copyNotice() {
   <div class="p-6 xl:mx-auto xl:max-w-6xl">
     <div class="mb-5">
       <h1 class="text-2xl font-bold">DDL 与逾期</h1>
-      <p class="text-sm text-gray-500 dark:text-slate-400">
+      <p class="text-sm text-[#5d5b54] dark:text-slate-400">
         每轮截止时间 · 逾期自动标记 · 主办方裁决
       </p>
     </div>
 
-    <div class="mb-6 rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
+    <div class="mb-6 notion-card">
       <div class="hidden overflow-x-auto lg:block">
-      <table class="w-full text-sm">
+      <table class="notion-table w-full text-sm">
         <thead>
-          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
+          <tr class="border-b border-[#e5e3df] text-left text-xs text-[#5d5b54] dark:border-[#58507f] dark:text-slate-400">
             <th class="px-4 py-3">轮次</th>
             <th class="px-4 py-3">DDL</th>
             <th class="px-4 py-3 text-right">操作</th>
@@ -94,14 +94,14 @@ async function copyNotice() {
           <tr
             v-for="d in store.ddlRounds"
             :key="d.key"
-            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
+            class="border-b border-[#ede9e4] last:border-0 dark:border-[#4a426e]"
           >
             <td class="px-4 py-3 font-semibold">{{ d.label }}</td>
             <td class="px-4 py-3">
               <input
                 v-model="localDdl[d.key]"
                 type="datetime-local"
-                class="rounded-sm border border-[#d9cdeb] px-3 py-2 dark:border-[#5a507f] dark:bg-[#3c3459]"
+                class="rounded-sm border border-[#c8c4be] px-3 py-2 dark:border-[#675d8e] dark:bg-[#4d4778]"
               />
             </td>
             <td class="px-4 py-3 text-right">
@@ -111,7 +111,7 @@ async function copyNotice() {
         </tbody>
       </table>
       </div>
-      <div class="divide-y divide-[#f0e9f8] lg:hidden dark:divide-[#3f3760]">
+      <div class="divide-y divide-[#ede9e4] lg:hidden dark:divide-[#4a426e]">
         <div v-for="d in store.ddlRounds" :key="d.key" class="p-4">
           <div class="mb-2 flex items-center justify-between gap-2">
             <span class="font-semibold">{{ d.label }}</span>
@@ -120,29 +120,29 @@ async function copyNotice() {
           <input
             v-model="localDdl[d.key]"
             type="datetime-local"
-            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 dark:border-[#5a507f] dark:bg-[#3c3459]"
+            class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 dark:border-[#675d8e] dark:bg-[#4d4778]"
           />
         </div>
       </div>
     </div>
 
-    <div class="mb-4 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+    <div class="mb-4 notion-card p-5">
       <div class="mb-3 flex items-center justify-between">
-        <span class="text-sm font-bold text-gray-500 dark:text-slate-400">
+        <span class="text-sm font-bold text-[#5d5b54] dark:text-slate-400">
           逾期待裁决（{{ store.overdueMatches.length }}）
         </span>
         <BaseButton :icon="mdiClipboardText" label="生成群通知文案" color="whiteDark" small @click="copyNotice" />
       </div>
-      <p v-if="copied" class="mb-2 text-sm text-emerald-600">{{ copied }}</p>
+      <p v-if="copied" class="mb-2 text-sm text-[#0075de]">{{ copied }}</p>
       <div v-if="store.overdueMatches.length" class="flex flex-col gap-2">
         <div
           v-for="{ match } in store.overdueMatches"
           :key="match.id"
-          class="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-red-50 px-4 py-3 dark:bg-red-900/10"
+          class="flex flex-wrap items-center justify-between gap-3 rounded-lg bg-[#fdecec] px-4 py-3 dark:bg-red-900/10"
         >
           <div class="flex items-center gap-2">
             <PlayerBadge :player="store.playerById(match.playerAId)" />
-            <span class="text-gray-400">vs</span>
+            <span class="text-[#a4a097]">vs</span>
             <PlayerBadge :player="store.playerById(match.playerBId)" />
           </div>
           <div class="flex flex-wrap gap-1">
@@ -163,12 +163,12 @@ async function copyNotice() {
           </div>
         </div>
       </div>
-      <p v-else class="text-sm text-gray-400">暂无逾期比赛</p>
+      <p v-else class="text-sm text-[#a4a097]">暂无逾期比赛</p>
     </div>
 
-    <details class="rounded-2xl bg-[#faf7fd] p-5 text-sm shadow-sm dark:bg-[#332c54]/80">
+    <details class="notion-card p-5 text-sm">
       <summary class="cursor-pointer font-bold">预览通知文案</summary>
-      <pre class="mt-3 whitespace-pre-wrap rounded-xl bg-[#f4eefa] p-4 text-xs dark:bg-[#3c3459]">{{ buildNotice() }}</pre>
+      <pre class="mt-3 whitespace-pre-wrap rounded-xl notion-card-soft p-4 text-xs dark:bg-[#4d4778]">{{ buildNotice() }}</pre>
     </details>
   </div>
 </template>

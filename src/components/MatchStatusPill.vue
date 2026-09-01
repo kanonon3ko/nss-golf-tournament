@@ -8,6 +8,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  tint: {
+    type: String,
+    default: '',
+  },
 })
 
 const color = computed(() => {
@@ -26,5 +30,5 @@ const label = computed(() => STATUS_LABELS[props.status] || '待定')
 </script>
 
 <template>
-  <PillTag :label="label" :color="color" small outline />
+  <PillTag :label="label" :color="color" small :outline="!tint" :extra-class="tint" />
 </template>

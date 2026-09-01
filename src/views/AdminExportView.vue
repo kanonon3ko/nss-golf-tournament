@@ -96,11 +96,11 @@ async function copyBracket() {
   <div class="p-6 xl:mx-auto xl:max-w-6xl">
     <div class="mb-5">
       <h1 class="text-2xl font-bold">数据导出</h1>
-      <p class="text-sm text-gray-500 dark:text-slate-400">导出当前赛事数据，用于留档或分享</p>
+      <p class="text-sm text-[#5d5b54] dark:text-slate-400">导出当前赛事数据，用于留档或分享</p>
     </div>
 
     <div class="grid gap-4 sm:grid-cols-2">
-      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div class="notion-card p-5">
         <p class="mb-3 font-bold">CSV 导出</p>
         <div class="flex flex-col gap-2">
           <BaseButton
@@ -124,7 +124,7 @@ async function copyBracket() {
         </div>
       </div>
 
-      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div class="notion-card p-5">
         <p class="mb-3 font-bold">完整数据与分享</p>
         <div class="flex flex-col gap-2">
           <BaseButton
@@ -139,14 +139,14 @@ async function copyBracket() {
             color="purple"
             @click="copyBracket"
           />
-          <p v-if="copied" class="text-sm text-emerald-600">{{ copied }}</p>
+          <p v-if="copied" class="text-sm text-[#0075de]">{{ copied }}</p>
         </div>
       </div>
     </div>
 
-    <details class="mt-4 rounded-2xl bg-[#faf7fd] p-5 text-sm shadow-sm dark:bg-[#332c54]/80">
+    <details class="notion-card mt-4 p-5 text-sm">
       <summary class="cursor-pointer font-bold">预览对阵文本</summary>
-      <pre class="mt-3 whitespace-pre-wrap rounded-xl bg-[#f4eefa] p-4 text-xs dark:bg-[#3c3459]">{{ bracketText() }}</pre>
+      <pre class="mt-3 whitespace-pre-wrap rounded-xl notion-card-soft p-4 text-xs dark:bg-[#4d4778]">{{ bracketText() }}</pre>
     </details>
   </div>
 </template>

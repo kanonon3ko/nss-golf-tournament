@@ -52,7 +52,7 @@ const todos = computed(() => {
   <div class="p-6" :class="'xl:max-w-6xl xl:mx-auto'">
     <div class="mb-5">
       <h1 class="text-2xl font-bold">主办方后台</h1>
-      <p class="text-sm text-gray-500 dark:text-slate-400">
+      <p class="text-sm text-[#5d5b54] dark:text-slate-400">
         当前赛事状态：{{
           store.stage === 'setup'
             ? '未开始（待抽签分组）'
@@ -70,20 +70,20 @@ const todos = computed(() => {
         v-for="card in cards"
         :key="card.to"
         :to="card.to"
-        class="group rounded-2xl bg-[#faf7fd] p-5 shadow-sm transition-shadow hover:shadow-md dark:bg-[#332c54]/80"
+        class="group notion-card card-hover-gold p-5 transition hover:shadow-md"
       >
         <BaseIcon
           :path="card.icon"
           size="26"
-          class="mb-3 text-emerald-500 transition-transform group-hover:scale-110"
+          class="mb-3 text-[#c9a24b] transition-transform group-hover:scale-110 dark:text-[#e3c565]"
         />
         <p class="font-bold">{{ card.title }}</p>
-        <p class="mt-1 text-sm text-gray-500 dark:text-slate-400">{{ card.desc }}</p>
+        <p class="mt-1 text-sm text-[#5d5b54] dark:text-slate-400">{{ card.desc }}</p>
       </RouterLink>
     </div>
 
-    <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
-      <div class="mb-3 flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-slate-400">
+    <div class="notion-card p-5">
+      <div class="mb-3 flex items-center gap-2 text-sm font-bold text-[#5d5b54] dark:text-slate-400">
         <BaseIcon :path="mdiClipboardCheck" size="18" />
         待办
       </div>
@@ -91,7 +91,7 @@ const todos = computed(() => {
         <div
           v-for="(todo, i) in todos"
           :key="i"
-          class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-4 py-3 text-sm dark:bg-[#3c3459]"
+          class="flex items-center justify-between notion-card-soft px-4 py-3 text-sm"
         >
           <span class="flex items-center gap-2">
             <BaseIcon
@@ -99,10 +99,10 @@ const todos = computed(() => {
               size="16"
               :class="
                 todo.type === 'danger'
-                  ? 'text-red-500'
+                  ? 'text-[#e03131]'
                   : todo.type === 'warn'
-                    ? 'text-amber-500'
-                    : 'text-emerald-500'
+                    ? 'text-[#dd5b00]'
+                    : 'text-[#c9a24b] dark:text-[#e3c565]'
               "
             />
             {{ todo.text }}

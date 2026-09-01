@@ -133,10 +133,10 @@ const published = computed(() => store.players.some((p) => p.groupId))
 
 function tierClass(tier) {
   const map = {
-    1: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-400',
-    2: 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400',
-    3: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-400',
-    4: 'bg-[#e6dcf3] text-slate-700 dark:bg-[#463e68] dark:text-slate-300',
+    1: 'rounded-full bg-[#e6e0f5] px-2 py-0.5 text-sm font-semibold text-[#391c57] dark:bg-[#52497b] dark:text-[#dec4f8]',
+    2: 'rounded-full bg-[#dcecfa] px-2 py-0.5 text-sm font-semibold text-[#005bab] dark:bg-[#4a4d7c] dark:text-[#b4d6f8]',
+    3: 'rounded-full bg-[#d9f3e1] px-2 py-0.5 text-sm font-semibold text-[#12902d] dark:bg-emerald-900/40 dark:text-emerald-400',
+    4: 'rounded-full bg-[#f0eeec] px-2 py-0.5 text-sm font-semibold text-[#5d5b54] dark:bg-[#524b7a] dark:text-slate-300',
   }
   return map[tier] || ''
 }
@@ -147,7 +147,7 @@ function tierClass(tier) {
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
         <h1 class="text-2xl font-bold">选手与分组</h1>
-        <p class="text-sm text-gray-500 dark:text-slate-400">
+        <p class="text-sm text-[#5d5b54] dark:text-slate-400">
           {{ store.players.length }} 名选手 · 抽签约束：每组 4 人、每档各 1 人
         </p>
       </div>
@@ -189,12 +189,12 @@ function tierClass(tier) {
     </div>
 
     <div class="grid gap-4 lg:grid-cols-2">
-      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div class="notion-card p-5">
         <h2 class="mb-3 font-bold">选手名单</h2>
         <div class="hidden overflow-x-auto lg:block">
-          <table class="w-full text-base">
-            <thead class="bg-[#faf7fd] dark:bg-[#2c2648]">
-              <tr class="border-b border-[#e7ddf3] text-left text-sm text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
+          <table class="hover-gold notion-table w-full text-base">
+            <thead class="bg-[#f6f5f4] dark:bg-[#423b69]">
+              <tr class="border-b border-[#e5e3df] text-left text-sm text-[#5d5b54] dark:border-[#58507f] dark:text-slate-400">
                 <th class="py-2 pr-2">选手</th>
                 <th class="py-2 pr-2">最佳成绩</th>
                 <th class="py-2 pr-2">档位</th>
@@ -206,7 +206,7 @@ function tierClass(tier) {
               <tr
                 v-for="player in sortedPlayers"
                 :key="player.id"
-                class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
+                class="border-b border-[#ede9e4] last:border-0 dark:border-[#4a426e]"
               >
                 <td class="py-2 pr-2"><PlayerBadge :player="player" /></td>
                 <td class="py-2 pr-2">{{ player.bestScore ?? '-' }}</td>
@@ -217,10 +217,10 @@ function tierClass(tier) {
                 </td>
                 <td class="py-2 pr-2">{{ player.groupId || '-' }}</td>
                 <td class="py-2 text-right">
-                  <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-emerald-500" title="编辑" @click="openEdit(player)">
+                  <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-[#a4a097] hover:text-[#1aae39]" title="编辑" @click="openEdit(player)">
                     <BaseIcon :path="mdiPencil" size="16" />
                   </button>
-                  <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-red-500" title="删除" @click="removePlayer(player)">
+                  <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-[#a4a097] hover:text-[#e03131]" title="删除" @click="removePlayer(player)">
                     <BaseIcon :path="mdiDelete" size="16" />
                   </button>
                 </td>
@@ -228,14 +228,14 @@ function tierClass(tier) {
             </tbody>
           </table>
         </div>
-        <div class="divide-y divide-[#f0e9f8] lg:hidden dark:divide-[#3f3760]">
+        <div class="divide-y divide-[#ede9e4] lg:hidden dark:divide-[#4a426e]">
           <div
             v-for="player in sortedPlayers"
             :key="player.id"
             class="flex items-center gap-2 py-3"
           >
             <PlayerBadge :player="player" size="sm" truncate class="min-w-0 flex-1" />
-            <div class="shrink-0 text-right text-sm text-gray-500 dark:text-slate-400">
+            <div class="shrink-0 text-right text-sm text-[#5d5b54] dark:text-slate-400">
               <div>
                 <span class="rounded-full px-2 py-0.5 text-sm font-semibold" :class="tierClass(player.tier)">
                   {{ player.tier }}档
@@ -245,10 +245,10 @@ function tierClass(tier) {
               <div>最佳 {{ player.bestScore ?? '-' }}</div>
             </div>
             <div class="flex shrink-0">
-              <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-emerald-500" title="编辑" @click="openEdit(player)">
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-[#a4a097] hover:text-[#1aae39]" title="编辑" @click="openEdit(player)">
                 <BaseIcon :path="mdiPencil" size="16" />
               </button>
-              <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-gray-400 hover:text-red-500" title="删除" @click="removePlayer(player)">
+              <button type="button" class="inline-flex h-8 w-8 items-center justify-center text-[#a4a097] hover:text-[#e03131]" title="删除" @click="removePlayer(player)">
                 <BaseIcon :path="mdiDelete" size="16" />
               </button>
             </div>
@@ -257,7 +257,7 @@ function tierClass(tier) {
       </div>
 
       <div class="flex flex-col gap-4">
-        <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+        <div class="notion-card p-5">
           <h2 class="mb-3 font-bold">档位池</h2>
           <div class="flex flex-col gap-3">
             <div v-for="t in [1, 2, 3, 4]" :key="t" class="flex items-start gap-3">
@@ -271,17 +271,17 @@ function tierClass(tier) {
                 <span
                   v-for="p in tierPlayers[t]"
                   :key="p.id"
-                  class="rounded-full bg-[#eee6f8] px-2.5 py-1 text-sm text-gray-600 dark:bg-[#3c3459] dark:text-slate-300"
+                  class="rounded-full bg-[#f6f5f4] px-2.5 py-1 text-sm text-[#37352f] dark:bg-[#4d4778] dark:text-slate-300"
                 >
                   {{ p.name }}
                 </span>
-                <span v-if="!tierPlayers[t].length" class="text-sm text-gray-400">空</span>
+                <span v-if="!tierPlayers[t].length" class="text-sm text-[#a4a097]">空</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+        <div class="notion-card p-5">
           <div class="mb-1 flex items-center justify-between">
             <h2 class="font-bold">手动分组</h2>
             <BaseButton
@@ -291,21 +291,21 @@ function tierClass(tier) {
               @click="doClearDraft"
             />
           </div>
-          <p class="mb-3 text-sm text-gray-400">
+          <p class="mb-3 text-sm text-[#a4a097]">
             默认全部为「未选择」；为每个小组的 1-4 档各选一名选手，同一选手不会重复出现在两组，四组都选满后才能发布。
           </p>
           <div class="grid gap-3 sm:grid-cols-2">
             <div
               v-for="g in GROUPS"
               :key="g"
-              class="rounded-xl bg-[#f4eefa] p-3 dark:bg-[#3c3459]"
+              class="notion-card-soft p-3"
             >
-              <p class="mb-2 text-sm font-bold text-gray-500 dark:text-slate-400">{{ g }}组</p>
+              <p class="mb-2 text-sm font-bold text-[#5d5b54] dark:text-slate-400">{{ g }}组</p>
               <div v-for="t in [1, 2, 3, 4]" :key="t" class="mb-2 last:mb-0">
-                <label class="mb-1 block text-sm text-gray-400">{{ t }}档</label>
+                <label class="mb-1 block text-sm text-[#a4a097]">{{ t }}档</label>
                 <select
                   :value="slotPlayerId(g, t - 1)"
-                  class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 text-sm dark:border-[#5a507f] dark:bg-[#3c3459]"
+                  class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 text-sm dark:border-[#675d8e] dark:bg-[#4d4778]"
                   @change="onSlotChange(g, t - 1, $event)"
                 >
                   <option value="">未选择</option>
@@ -323,31 +323,31 @@ function tierClass(tier) {
           </div>
         </div>
 
-        <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+        <div class="notion-card p-5">
           <div class="mb-3 flex items-center justify-between">
             <h2 class="font-bold">抽签分组</h2>
             <span
               class="rounded-full px-2.5 py-1 text-sm font-semibold"
-              :class="valid ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400' : 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400'"
+              :class="valid ? 'rounded-full bg-[#d9f3e1] px-2.5 py-1 text-sm font-semibold text-[#1aae39] dark:bg-emerald-900/40 dark:text-emerald-400' : 'rounded-full bg-[#ffe8d4] px-2.5 py-1 text-sm font-semibold text-[#793400] dark:bg-amber-900/40 dark:text-amber-400'"
             >
               {{ valid ? '✅ 满足全部约束' : '未满足约束' }}
             </span>
           </div>
-          <p v-if="!store.draft" class="mb-3 text-sm text-gray-400">
+          <p v-if="!store.draft" class="mb-3 text-sm text-[#a4a097]">
             尚未分组：点击「随机抽签」，或在上方「手动分组」里为每组选择选手。
           </p>
           <div v-if="store.draft" class="mb-3 grid gap-2 sm:grid-cols-2">
             <div
               v-for="g in GROUPS"
               :key="g"
-              class="rounded-xl bg-[#f4eefa] p-3 text-sm dark:bg-[#3c3459]"
+              class="notion-card-soft p-3 text-sm"
             >
-              <p class="mb-1 font-bold text-gray-500 dark:text-slate-400">{{ g }}组</p>
+              <p class="mb-1 font-bold text-[#5d5b54] dark:text-slate-400">{{ g }}组</p>
               <div class="flex flex-wrap gap-1">
                 <span
                   v-for="id in (store.draft[g] || []).filter(Boolean)"
                   :key="id"
-                  class="rounded-full bg-[#faf7fd] px-2 py-0.5 text-sm shadow-sm dark:bg-[#463e68]"
+                  class="rounded-full bg-[#f6f5f4] px-2 py-0.5 text-sm dark:bg-[#524b7a]"
                 >
                   {{ store.playerName(id) }}
                 </span>
@@ -356,12 +356,12 @@ function tierClass(tier) {
           </div>
           <div
             v-if="published"
-            class="flex items-center gap-2 rounded-xl bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
+            class="flex items-center gap-2 rounded-lg bg-[#e5f6ea] px-3 py-2 text-sm text-[#1aae39] dark:bg-emerald-900/30 dark:text-emerald-400"
           >
             <BaseIcon :path="mdiCheckCircle" size="16" />
             分组已发布，赛程已生成。如需重新抽签请先「重置赛事」。
           </div>
-          <p v-else class="flex items-center gap-2 rounded-xl bg-amber-50 px-3 py-2 text-sm text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+          <p v-else class="flex items-center gap-2 rounded-lg bg-[#fef7d6] px-3 py-2 text-sm text-[#793400] dark:bg-amber-900/30 dark:text-amber-400">
             <BaseIcon :path="mdiAlertCircle" size="16" />
             分组为草稿状态，需「确认发布分组」后生成赛程。
           </p>
@@ -371,26 +371,26 @@ function tierClass(tier) {
 
     <div
       v-if="store.drawHistory.length"
-      class="mt-6 mb-4 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80"
+      class="mt-6 mb-4 notion-card p-5"
     >
       <h2 class="mb-3 font-bold">抽签记录（可验证）</h2>
       <div class="flex flex-col gap-2">
         <div
           v-for="rec in store.drawHistory.slice(0, 5)"
           :key="rec.id"
-          class="rounded-xl bg-[#f4eefa] p-3 text-sm dark:bg-[#3c3459]"
+          class="notion-card-soft p-3 text-sm"
         >
-          <p class="mb-2 text-sm text-gray-400">
+          <p class="mb-2 text-sm text-[#a4a097]">
             {{ formatDateTime(rec.time) }} · {{ rec.by }} · {{ rec.id }}
           </p>
           <div class="flex flex-col gap-1 text-sm">
             <p v-for="t in [1, 2, 3, 4]" :key="t">
               {{ t }}档顺序：
-              <span class="text-gray-600 dark:text-slate-300">
+              <span class="text-[#37352f] dark:text-slate-300">
                 {{ (rec.tiers[t] || []).map((id) => store.playerName(id)).join(' → ') }}
               </span>
             </p>
-            <p class="mt-1 text-gray-500 dark:text-slate-400">
+            <p class="mt-1 text-[#5d5b54] dark:text-slate-400">
               分组：
               <span v-for="g in ['A', 'B', 'C', 'D']" :key="g" class="me-2">
                 {{ g }}组（{{ (rec.groups[g] || []).map((id) => store.playerName(id)).join('、') }}）
@@ -413,7 +413,7 @@ function tierClass(tier) {
           <input
             v-model="form.name"
             type="text"
-            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+            class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
             placeholder="选手昵称"
           />
         </div>
@@ -424,7 +424,7 @@ function tierClass(tier) {
               v-model.number="form.bestScore"
               type="number"
               min="1"
-              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+              class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
               placeholder="杆数"
             />
           </div>
@@ -432,7 +432,7 @@ function tierClass(tier) {
             <label class="mb-1 block text-sm font-bold">档位</label>
             <select
               v-model.number="form.tier"
-              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+              class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
             >
               <option :value="1">1档（最强）</option>
               <option :value="2">2档</option>

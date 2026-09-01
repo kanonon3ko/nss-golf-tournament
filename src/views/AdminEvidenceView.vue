@@ -64,7 +64,7 @@ function remove(id) {
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
         <h1 class="text-2xl font-bold">证据与日志</h1>
-        <p class="text-sm text-gray-500 dark:text-slate-400">赛果截图 / 掉线证据统一留档 · 操作日志可追溯</p>
+        <p class="text-sm text-[#5d5b54] dark:text-slate-400">赛果截图 / 掉线证据统一留档 · 操作日志可追溯</p>
       </div>
       <BaseButton :icon="mdiPlus" label="添加证据" color="purple" @click="showAdd = true" />
     </div>
@@ -77,8 +77,8 @@ function remove(id) {
         class="rounded-full px-3 py-1.5 text-sm"
         :class="
           typeFilter === value
-            ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
-            : 'bg-[#faf7fd] text-gray-600 shadow-sm dark:bg-[#2c2648] dark:text-slate-300'
+            ? 'notion-pill-active font-semibold'
+            : 'bg-[#f6f5f4] text-[#5d5b54] dark:bg-[#423b69] dark:text-slate-300'
         "
         @click="typeFilter = value"
       >
@@ -86,10 +86,10 @@ function remove(id) {
       </button>
     </div>
 
-    <div class="mb-6 overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
-      <table class="w-full text-sm">
+    <div class="mb-6 overflow-x-auto notion-card">
+      <table class="notion-table w-full text-sm">
         <thead>
-          <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
+          <tr class="border-b border-[#e5e3df] text-left text-xs text-[#5d5b54] dark:border-[#58507f] dark:text-slate-400">
             <th class="px-4 py-3">名称</th>
             <th class="px-4 py-3">关联比赛</th>
             <th class="px-4 py-3">类型</th>
@@ -103,7 +103,7 @@ function remove(id) {
           <tr
             v-for="ev in filtered"
             :key="ev.id"
-            class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
+            class="border-b border-[#ede9e4] last:border-0 dark:border-[#4a426e]"
           >
             <td class="px-4 py-3 font-medium">{{ ev.name }}</td>
             <td class="px-4 py-3">{{ matchLabel(ev.matchId) }}</td>
@@ -112,10 +112,10 @@ function remove(id) {
                 class="rounded-full px-2 py-0.5 text-xs font-semibold"
                 :class="
                   ev.type === 'result'
-                    ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400'
+                    ? 'bg-[#d9f3e1] text-[#1aae39] dark:bg-emerald-900/40 dark:text-emerald-400'
                     : ev.type === 'disconnect'
-                      ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400'
-                      : 'bg-[#eee6f8] text-gray-600 dark:bg-[#3c3459] dark:text-slate-300'
+                      ? 'bg-[#ffe8d4] text-[#793400] dark:bg-amber-900/40 dark:text-amber-400'
+                      : 'notion-card-soft text-[#37352f] dark:bg-[#4d4778] dark:text-slate-300'
                 "
               >
                 {{ typeLabels[ev.type] || '其他' }}
@@ -126,13 +126,13 @@ function remove(id) {
                 :href="ev.url"
                 target="_blank"
                 rel="noopener"
-                class="max-w-[200px] truncate text-blue-500 underline"
+                class="max-w-[200px] truncate text-[#0075de] underline"
               >
                 {{ ev.url }}
               </a>
             </td>
             <td class="px-4 py-3">{{ ev.by }}</td>
-            <td class="px-4 py-3 text-xs text-gray-500 dark:text-slate-400">
+            <td class="px-4 py-3 text-xs text-[#5d5b54] dark:text-slate-400">
               {{ formatDateTime(ev.time) }}
             </td>
             <td class="px-4 py-3 text-right">
@@ -140,21 +140,21 @@ function remove(id) {
             </td>
           </tr>
           <tr v-if="!filtered.length">
-            <td colspan="7" class="px-4 py-8 text-center text-gray-400">暂无证据</td>
+            <td colspan="7" class="px-4 py-8 text-center text-[#a4a097]">暂无证据</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+    <div class="notion-card p-5">
       <h2 class="mb-3 font-bold">操作日志（最近 30 条）</h2>
-      <ul class="flex max-h-72 flex-col gap-1 overflow-y-auto text-sm text-gray-600 dark:text-slate-300">
+      <ul class="flex max-h-72 flex-col gap-1 overflow-y-auto text-sm text-[#37352f] dark:text-slate-300">
         <li v-for="log in store.logs.slice(0, 30)" :key="log.id" class="flex gap-2">
-          <span class="shrink-0 text-xs text-gray-400">{{ formatDateTime(log.time) }}</span>
+          <span class="shrink-0 text-xs text-[#a4a097]">{{ formatDateTime(log.time) }}</span>
           <span class="shrink-0 font-semibold">{{ log.by }}</span>
           <span>{{ log.message }}</span>
         </li>
-        <li v-if="!store.logs.length" class="text-gray-400">暂无日志</li>
+        <li v-if="!store.logs.length" class="text-[#a4a097]">暂无日志</li>
       </ul>
     </div>
 
@@ -164,7 +164,7 @@ function remove(id) {
           <label class="mb-1 block text-sm font-bold">关联比赛</label>
           <select
             v-model="form.matchId"
-            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+            class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
           >
             <option value="">不关联</option>
             <option v-for="m in store.matches" :key="m.id" :value="m.id">
@@ -177,7 +177,7 @@ function remove(id) {
             <label class="mb-1 block text-sm font-bold">类型</label>
             <select
               v-model="form.type"
-              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+              class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
             >
               <option value="result">赛果截图</option>
               <option value="disconnect">掉线证据</option>
@@ -189,7 +189,7 @@ function remove(id) {
             <input
               v-model="form.name"
               type="text"
-              class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+              class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
               placeholder="选填"
             />
           </div>
@@ -199,7 +199,7 @@ function remove(id) {
           <input
             v-model="form.url"
             type="url"
-            class="w-full rounded-sm border border-[#d9cdeb] px-3 py-2 pr-8 dark:border-[#5a507f] dark:bg-[#3c3459]"
+            class="w-full rounded-sm border border-[#c8c4be] px-3 py-2 pr-8 dark:border-[#675d8e] dark:bg-[#4d4778]"
             placeholder="https://...（图片 / 录屏链接）"
           />
         </div>

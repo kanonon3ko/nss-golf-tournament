@@ -9,6 +9,14 @@ defineProps({
 })
 
 const emit = defineEmits(['update:modelValue'])
+
+// 与首页积分榜卡片同款组色
+const groupTint = {
+  A: 'bg-[#e6e0f5] text-[#37352f] dark:bg-[#7469a6] dark:text-[#e5e1f2]',
+  B: 'bg-[#d9f3e1] text-[#37352f] dark:bg-[#6b7f72] dark:text-[#e0ebe4]',
+  C: 'bg-[#dcecfa] text-[#37352f] dark:bg-[#6b7890] dark:text-[#e1e8f4]',
+  D: 'bg-[#ffe8d4] text-[#37352f] dark:bg-[#8c7363] dark:text-[#f2e6dc]',
+}
 </script>
 
 <template>
@@ -20,8 +28,8 @@ const emit = defineEmits(['update:modelValue'])
       class="rounded-full px-4 py-1.5 text-sm font-semibold transition-colors"
       :class="
         modelValue === g
-          ? 'bg-emerald-500 text-white'
-          : 'bg-[#eee6f8] text-gray-600 hover:bg-[#e4d9f2] dark:bg-[#3c3459] dark:text-slate-300 dark:hover:bg-[#463e68]'
+          ? groupTint[g]
+          : 'bg-[#f6f5f4] text-[#37352f] hover:bg-[#e8e6e2] dark:bg-[#4d4778] dark:text-slate-300 dark:hover:bg-[#524b7a]'
       "
       @click="emit('update:modelValue', g)"
     >

@@ -4,7 +4,6 @@ import { useTournamentStore } from '@/stores/tournament'
 import { useAuthStore } from '@/stores/auth'
 import { formatDateTime, formatCountdown } from '@/utils/format'
 import MatchStatusPill from '@/components/MatchStatusPill.vue'
-import GolfBallMark from '@/components/GolfBallMark.vue'
 import BaseButton from '@/components/BaseButton.vue'
 import {
   mdiCalendarClock,
@@ -68,22 +67,26 @@ const champion = computed(() => store.playerById(store.championId))
 <template>
   <div class="mx-auto max-w-6xl px-4 py-6">
     <div
-      class="relative mb-6 overflow-hidden rounded-2xl bg-[#faf7fd] p-6 text-emerald-950 shadow-xl md:p-8 dark:bg-linear-to-br dark:from-[#5f528c] dark:via-[#3d3560] dark:to-[#2a2440] dark:text-white"
+      class="hero-card hero-card--img relative mb-6 overflow-hidden rounded-2xl p-6 text-[#1a1a1a] shadow-xl md:p-8"
     >
       <div
         class="absolute inset-x-0 top-0 h-1 bg-linear-to-r from-transparent via-[#b8860b] to-transparent"
       ></div>
       <div
+        class="pointer-events-none absolute inset-0 opacity-20"
+        style="background-image: radial-gradient(rgba(0,0,0,0.12) 2px, transparent 2.5px); background-size: 36px 36px"
+      ></div>
+      <div
         class="pointer-events-none absolute inset-0 hidden bg-linear-to-br from-white/15 via-white/5 to-transparent dark:block"
       ></div>
-      <div class="relative z-10">
+      <div class="relative z-10 text-center">
         <p
-          class="mb-2 flex items-center gap-2 text-sm font-semibold tracking-wide text-emerald-700 dark:text-[#c3b3e6]"
+          class="mb-2 flex items-center justify-center gap-2 text-sm font-semibold tracking-wide text-[#5d5b54]"
         >
           <span class="inline-block h-2 w-2 rounded-full bg-[#b8860b]"></span>
           NSS · 16 人 · 小组赛 + 淘汰赛
         </p>
-        <h1 class="mb-4 text-3xl font-black md:text-4xl">
+        <h1 class="mb-4 text-3xl font-semibold tracking-tight md:text-4xl">
           鬼吃鱼高尔夫锦标赛
           <span
             class="bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-transparent"
@@ -91,37 +94,33 @@ const champion = computed(() => store.playerById(store.championId))
             2026
           </span>
         </h1>
-        <div class="flex flex-wrap items-center gap-2">
+        <div class="flex flex-wrap items-center justify-center gap-2">
           <span
             v-for="(name, key) in stageNames"
             :key="key"
             class="rounded-full border px-3 py-1 text-sm font-semibold"
             :class="
               stageOrder.indexOf(key) === stageIndex
-                ? 'border-[#c9a24b] bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] text-[#241a08]'
+                ? 'border-[#8c6d1f] bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] text-[#241a08]'
                 : stageOrder.indexOf(key) < stageIndex
-                  ? 'border-emerald-600 bg-emerald-200/70 text-emerald-800 dark:border-[#7e6ba8] dark:bg-[#453b6b]/70 dark:text-[#cdbfe8]'
-                  : 'border-emerald-300/70 bg-white/50 text-emerald-700 dark:border-white/20 dark:bg-white/5 dark:text-[#a99cc9]'
+                  ? 'border-[#1aae39]/60 bg-[#1aae39]/15 text-[#0f6b28]'
+                  : 'border-black/15 bg-white/70 text-[#5d5b54]'
             "
           >
             {{ name }}
           </span>
         </div>
-        <div class="mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-emerald-900/10 dark:bg-white/10">
+        <div class="mx-auto mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-black/10">
           <div
             class="h-full rounded-full bg-linear-to-br from-[#f0d78c] via-[#c9a24b] to-[#8c6d1f] transition-all"
             :style="{ width: `${Math.max(0, (stageIndex + 1) / 4) * 100}%` }"
           ></div>
         </div>
       </div>
-      <GolfBallMark
-        size="240"
-        class="absolute right-4 top-1/2 hidden -translate-y-1/2 opacity-60 sm:block"
-      />
     </div>
 
-    <div v-if="store.stage === 'setup'" class="mb-6 rounded-2xl bg-amber-50 p-5 dark:bg-amber-900/20">
-      <p class="font-semibold text-amber-700 dark:text-amber-400">
+    <div v-if="store.stage === 'setup'" class="mb-6 rounded-xl bg-[#fef7d6] p-5 dark:bg-amber-900/20">
+      <p class="font-semibold text-[#793400] dark:text-amber-400">
         赛事尚未开始：分组未发布，暂无赛程。
       </p>
       <BaseButton
@@ -135,17 +134,17 @@ const champion = computed(() => store.playerById(store.championId))
 
     <div
       v-if="store.championId && champion"
-      class="mb-6 rounded-2xl bg-yellow-50 p-6 text-center dark:bg-yellow-900/20"
+      class="notion-banner-yellow mb-6 p-6 text-center"
     >
-      <BaseIcon :path="mdiTrophy" size="40" class="mx-auto mb-2 text-yellow-500" />
-      <p class="mb-1 text-sm text-yellow-700 dark:text-yellow-400">🏆 2026 冠军</p>
+      <BaseIcon :path="mdiTrophy" size="40" class="mx-auto mb-2 text-[#b45309]" />
+      <p class="mb-1 text-sm font-semibold text-[#7c5200] dark:text-yellow-400">🏆 2026 冠军</p>
       <p
         class="bg-linear-to-r from-[#f7e7b0] via-[#c9a24b] to-[#8c6d1f] bg-clip-text text-3xl font-black text-transparent"
       >
         {{ champion.name }}
       </p>
       <template v-if="store.runnerUpId">
-        <p class="mt-3 text-sm font-semibold text-yellow-700/80 dark:text-yellow-400/80">🥈 亚军</p>
+        <p class="mt-3 text-sm font-semibold text-[#7c5200]/80 dark:text-yellow-400/80">🥈 亚军</p>
         <p
           class="bg-linear-to-r from-[#94a3b8] via-[#e2e8f0] to-[#64748b] bg-clip-text text-2xl font-bold text-transparent"
         >
@@ -157,17 +156,17 @@ const champion = computed(() => store.playerById(store.championId))
     <div class="grid gap-4 lg:grid-cols-2">
       <div
         v-if="currentDdl"
-        class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80"
+        class="notion-card p-5"
       >
-        <div class="mb-3 flex items-center gap-2 text-sm font-bold text-gray-500 dark:text-slate-400">
+        <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-[#5d5b54] dark:text-slate-400">
           <BaseIcon :path="mdiCalendarClock" size="18" />
           当前轮次 DDL
         </div>
         <p class="text-lg font-bold">{{ currentDdl.label }}</p>
-        <p class="text-gray-500 dark:text-slate-400">{{ formatDateTime(currentDdl.ddl) }}</p>
+        <p class="text-[#5d5b54] dark:text-slate-400">{{ formatDateTime(currentDdl.ddl) }}</p>
         <p
           class="mt-1 text-sm font-semibold"
-          :class="currentDdl.pending ? 'text-amber-600 dark:text-amber-400' : 'text-emerald-600'"
+          :class="currentDdl.pending ? 'text-[#dd5b00] dark:text-amber-400' : 'text-[#1aae39]'"
         >
           {{ currentDdl.pending ? `${currentDdl.pending} 场比赛待完成 · ${formatCountdown(currentDdl.ddl)}` : '本轮比赛已完成' }}
         </p>
@@ -175,19 +174,19 @@ const champion = computed(() => store.playerById(store.championId))
           v-if="auth.isAdmin"
           class="mt-3"
           to="/admin/ddl"
-          color="purple"
+          color="gold"
           small
           label="去设置 DDL"
         />
       </div>
 
       <div
-        class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80"
+        class="notion-card p-5"
         :class="store.championId ? 'lg:col-span-2' : ''"
       >
         <div class="mb-3 flex items-center justify-between">
-          <span class="text-sm font-bold text-gray-500 dark:text-slate-400">最近赛果</span>
-          <RouterLink to="/groups" class="flex items-center gap-0.5 text-sm text-emerald-600">
+          <span class="text-sm font-semibold text-[#5d5b54] dark:text-slate-400">最近赛果</span>
+          <RouterLink to="/groups" class="flex items-center gap-0.5 text-sm font-medium text-[#8c6d1f] dark:text-[#e3c565]">
             查看全部
             <BaseIcon :path="mdiChevronRight" size="16" />
           </RouterLink>
@@ -196,44 +195,44 @@ const champion = computed(() => store.playerById(store.championId))
           <div
             v-for="match in store.latestResults"
             :key="match.id"
-            class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-3 py-2.5 text-base dark:bg-[#3c3459]"
+            class="notion-card-soft flex items-center justify-between px-3 py-2.5 text-base"
           >
             <span class="truncate">
               {{ store.playerName(match.playerAId) }}
               <b>{{ store.matchScore(match).a }}:{{ store.matchScore(match).b }}</b>
               {{ store.playerName(match.playerBId) }}
             </span>
-            <span class="shrink-0 text-sm text-gray-400">{{ formatDateTime(match.updatedAt) }}</span>
+            <span class="shrink-0 text-sm text-[#a4a097]">{{ formatDateTime(match.updatedAt) }}</span>
           </div>
         </div>
-        <p v-else class="text-sm text-gray-400">暂无已完赛记录</p>
+        <p v-else class="text-sm text-[#a4a097]">暂无已完赛记录</p>
       </div>
     </div>
 
     <div class="mt-4 grid gap-4 lg:grid-cols-2">
-      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div class="notion-card p-5">
         <div class="mb-3 flex items-center justify-between">
-          <span class="text-sm font-bold text-gray-500 dark:text-slate-400">各组积分榜速览</span>
-          <RouterLink to="/standings" class="flex items-center gap-0.5 text-sm text-emerald-600">
+          <span class="text-sm font-semibold text-[#5d5b54] dark:text-slate-400">各组积分榜速览</span>
+          <RouterLink to="/standings" class="flex items-center gap-0.5 text-sm font-medium text-[#8c6d1f] dark:text-[#e3c565]">
             进入积分榜
             <BaseIcon :path="mdiChevronRight" size="16" />
           </RouterLink>
         </div>
         <div class="grid gap-3 sm:grid-cols-2">
-          <div v-for="g in ['A', 'B', 'C', 'D']" :key="g" class="rounded-xl bg-[#f4eefa] p-3 dark:bg-[#3c3459]">
-            <p class="mb-2 text-sm font-bold text-gray-400">{{ g }} 组</p>
+          <div v-for="g in ['A', 'B', 'C', 'D']" :key="g" :class="['rounded-xl p-3', g === 'A' ? 'notion-tint-lavender' : g === 'B' ? 'notion-tint-mint' : g === 'C' ? 'notion-tint-sky' : 'notion-tint-peach']">
+            <p class="mb-2 text-sm font-bold text-[#5d5b54] dark:text-slate-300">{{ g }} 组</p>
             <div v-for="row in standingsSummary[g]" :key="row.playerId" class="flex justify-between py-1 text-base">
-              <span class="text-gray-600 dark:text-slate-300">{{ row.rank }}. {{ row.name }}</span>
+              <span class="text-[#37352f] dark:text-slate-300">{{ row.rank }}. {{ row.name }}</span>
               <span class="font-semibold">{{ row.points }} 分</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div class="notion-card p-5">
         <div class="mb-3 flex items-center justify-between">
-          <span class="text-sm font-bold text-gray-500 dark:text-slate-400">淘汰赛进度</span>
-          <RouterLink to="/bracket" class="flex items-center gap-0.5 text-sm text-emerald-600">
+          <span class="text-sm font-semibold text-[#5d5b54] dark:text-slate-400">淘汰赛进度</span>
+          <RouterLink to="/bracket" class="flex items-center gap-0.5 text-sm font-medium text-[#8c6d1f] dark:text-[#e3c565]">
             进入对阵
             <BaseIcon :path="mdiChevronRight" size="16" />
           </RouterLink>
@@ -242,14 +241,14 @@ const champion = computed(() => store.playerById(store.championId))
           <div
             v-for="node in store.knockoutMatches"
             :key="`${node.stage}-${node.order}`"
-            class="flex items-center justify-between rounded-xl bg-[#f4eefa] px-3 py-2 text-sm dark:bg-[#3c3459]"
+            class="notion-card-soft flex items-center justify-between px-3 py-2 text-sm"
           >
-            <span class="font-semibold text-gray-500 dark:text-slate-400">{{ node.label }}</span>
+            <span class="font-semibold text-[#5d5b54] dark:text-slate-400">{{ node.label }}</span>
             <span class="flex items-center gap-2">
-              <span v-if="node.playerAId && node.playerBId" class="text-gray-600 dark:text-slate-300">
+              <span v-if="node.playerAId && node.playerBId" class="text-[#37352f] dark:text-slate-300">
                 {{ store.playerName(node.playerAId) }} vs {{ store.playerName(node.playerBId) }}
               </span>
-              <span v-else class="text-gray-400">{{ node.expectedA }} vs {{ node.expectedB }}</span>
+              <span v-else class="text-[#a4a097]">{{ node.expectedA }} vs {{ node.expectedB }}</span>
               <MatchStatusPill :status="node.status" />
             </span>
           </div>

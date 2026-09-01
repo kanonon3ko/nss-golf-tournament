@@ -50,12 +50,12 @@ const avatarClass = computed(() => {
     />
     <span
       v-else
-      class="flex shrink-0 items-center justify-center rounded-full bg-emerald-500 font-bold text-white dark:bg-emerald-600"
+      class="flex shrink-0 items-center justify-center rounded-full bg-[#5645d4] font-bold text-white dark:bg-emerald-600"
       :class="avatarClass"
     >
       {{ (player?.name || '?').slice(0, 1) }}
     </span>
-    <span :class="[muted ? 'text-gray-400' : 'font-medium', truncate ? 'min-w-0 truncate' : '', nameClass]">
+    <span :class="[muted ? 'text-[#a4a097]' : 'font-medium', truncate ? 'min-w-0 truncate' : '', nameClass]">
       {{ player?.name || '待定' }}
     </span>
   </span>

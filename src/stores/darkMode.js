@@ -11,8 +11,8 @@ export const useDarkModeStore = defineStore('darkMode', () => {
     if (typeof localStorage !== 'undefined' && typeof window !== 'undefined') {
       const saved = localStorage[darkModeKey]
       if (saved === undefined) {
-        // 默认暗色主题
-        set(true, true)
+        // 默认浅色主题
+        set(false, true)
       } else if (saved === '1') {
         set(true)
       } else {

@@ -45,36 +45,36 @@ function stageLabel(match) {
 
 <template>
   <div class="mx-auto max-w-6xl px-4 py-6">
-    <RouterLink to="/players" class="mb-4 inline-block text-sm text-emerald-600">
+    <RouterLink to="/players" class="mb-4 inline-block text-sm text-[#0075de]">
       ← 返回选手列表
     </RouterLink>
 
     <template v-if="player">
-      <div class="mb-5 rounded-2xl bg-[#faf7fd] p-5 shadow-sm dark:bg-[#332c54]/80">
+      <div class="mb-5 notion-card p-5">
         <div class="flex flex-wrap items-center justify-between gap-4">
           <div>
             <PlayerBadge :player="player" size="lg" />
-            <div class="mt-2 flex flex-wrap gap-2 text-sm text-gray-500 dark:text-slate-400">
+            <div class="mt-2 flex flex-wrap gap-2 text-sm text-[#5d5b54] dark:text-slate-400">
               <span>{{ player.tier }}档</span>
               <span v-if="player.groupId">{{ player.groupId }}组</span>
               <span v-if="player.bestScore">历史最佳：{{ player.bestScore }} 杆</span>
             </div>
           </div>
           <div v-if="groupRow" class="grid grid-cols-2 gap-4 text-center sm:grid-cols-4">
-            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
-              <p class="text-xs text-gray-400">排名</p>
+            <div class="rounded-xl notion-card-soft px-4 py-2">
+              <p class="text-xs text-[#a4a097]">排名</p>
               <p class="text-xl font-bold">第 {{ groupRow.rank }} 名</p>
             </div>
-            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
-              <p class="text-xs text-gray-400">积分</p>
+            <div class="rounded-xl notion-card-soft px-4 py-2">
+              <p class="text-xs text-[#a4a097]">积分</p>
               <p class="text-xl font-bold">{{ groupRow.points }}</p>
             </div>
-            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
-              <p class="text-xs text-gray-400">净胜局</p>
+            <div class="rounded-xl notion-card-soft px-4 py-2">
+              <p class="text-xs text-[#a4a097]">净胜局</p>
               <p class="text-xl font-bold">{{ groupRow.setDiff }}</p>
             </div>
-            <div class="rounded-xl bg-[#f4eefa] px-4 py-2 dark:bg-[#3c3459]">
-              <p class="text-xs text-gray-400">净胜杆</p>
+            <div class="rounded-xl notion-card-soft px-4 py-2">
+              <p class="text-xs text-[#a4a097]">净胜杆</p>
               <p class="text-xl font-bold">{{ groupRow.strokeDiff }}</p>
             </div>
           </div>
@@ -89,8 +89,8 @@ function stageLabel(match) {
           class="rounded-full px-4 py-1.5 text-sm"
           :class="
             tab === t.value
-              ? 'bg-[#2c2648] font-semibold text-white dark:bg-[#8a7fb0] dark:text-slate-900'
-              : 'bg-[#faf7fd] text-gray-600 shadow-sm dark:bg-[#2c2648] dark:text-slate-300'
+              ? 'notion-pill-active font-semibold'
+              : 'bg-[#f6f5f4] text-[#5d5b54] dark:bg-[#423b69] dark:text-slate-300'
           "
           @click="tab = t.value"
         >
@@ -98,10 +98,10 @@ function stageLabel(match) {
         </button>
       </div>
 
-      <div class="overflow-x-auto rounded-2xl bg-[#faf7fd] shadow-sm dark:bg-[#332c54]/80">
-        <table class="w-full text-sm">
+      <div class="overflow-x-auto notion-card">
+        <table class="notion-table w-full text-sm">
           <thead>
-            <tr class="border-b border-[#e7ddf3] text-left text-xs text-gray-500 dark:border-[#4b4270] dark:text-slate-400">
+            <tr class="border-b border-[#e5e3df] text-left text-xs text-[#5d5b54] dark:border-[#58507f] dark:text-slate-400">
               <th class="px-4 py-3">阶段</th>
               <th class="px-4 py-3">对阵</th>
               <th class="px-4 py-3">比分</th>
@@ -113,9 +113,9 @@ function stageLabel(match) {
             <tr
               v-for="match in matches"
               :key="match.id"
-              class="border-b border-[#f0e9f8] last:border-0 dark:border-[#3f3760]"
+              class="border-b border-[#ede9e4] last:border-0 dark:border-[#4a426e]"
             >
-              <td class="px-4 py-3 text-gray-500 dark:text-slate-400">{{ stageLabel(match) }}</td>
+              <td class="px-4 py-3 text-[#5d5b54] dark:text-slate-400">{{ stageLabel(match) }}</td>
               <td class="px-4 py-3">
                 {{ store.playerName(match.playerAId) }} vs {{ store.playerName(match.playerBId) }}
               </td>
@@ -134,7 +134,7 @@ function stageLabel(match) {
               </td>
             </tr>
             <tr v-if="!matches.length">
-              <td colspan="5" class="px-4 py-8 text-center text-gray-400">暂无对局</td>
+              <td colspan="5" class="px-4 py-8 text-center text-[#a4a097]">暂无对局</td>
             </tr>
           </tbody>
         </table>
@@ -143,6 +143,6 @@ function stageLabel(match) {
       <MatchDetailModal v-if="detailMatch" :match="detailMatch" @close="detailMatch = null" />
     </template>
 
-    <p v-else class="py-12 text-center text-gray-400">选手不存在</p>
+    <p v-else class="py-12 text-center text-[#a4a097]">选手不存在</p>
   </div>
 </template>

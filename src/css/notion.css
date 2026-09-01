@@ -1,0 +1,210 @@
+/* ============================================================
+   Notion 设计语言 — 浅色模式（源自 DESIGN.md）
+   深色模式覆盖保持原版现状（暗紫渐变 + 深紫面板）
+   ============================================================ */
+
+:root {
+  --notion-primary: #5645d4;
+  --notion-primary-pressed: #4534b3;
+  --notion-primary-deep: #3a2a99;
+  --notion-navy: #0a1530;
+  --notion-navy-mid: #1a2a52;
+  --notion-link: #0075de;
+  --notion-link-pressed: #005bab;
+  --notion-orange: #dd5b00;
+  --notion-pink: #ff64c8;
+  --notion-purple: #7b3ff2;
+  --notion-teal: #2a9d99;
+  --notion-green: #1aae39;
+  --notion-yellow: #f5d75e;
+  --notion-ink: #1a1a1a;
+  --notion-charcoal: #37352f;
+  --notion-slate: #5d5b54;
+  --notion-steel: #787671;
+  --notion-stone: #a4a097;
+  --notion-muted: #bbb8b1;
+  --notion-canvas: #ffffff;
+  --notion-surface: #f6f5f4;
+  --notion-surface-soft: #fafaf9;
+  --notion-hairline: #e5e3df;
+  --notion-hairline-soft: #ede9e4;
+  --notion-hairline-strong: #c8c4be;
+  --notion-error: #e03131;
+  --notion-tint-peach: #ffe8d4;
+  --notion-tint-rose: #fde0ec;
+  --notion-tint-mint: #d9f3e1;
+  --notion-tint-lavender: #e6e0f5;
+  --notion-tint-sky: #dcecfa;
+  --notion-tint-yellow: #fef7d6;
+  --notion-tint-yellow-bold: #f9e79f;
+  --notion-tint-cream: #f8f5e8;
+  --notion-tint-gray: #f0eeec;
+}
+
+/* ---------- 机身：白色画布（浅色）/ 原版暗紫渐变（深色） ---------- */
+.notion-body {
+  background: var(--notion-canvas);
+  color: var(--notion-ink);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+}
+
+.dark .notion-body {
+  background-image: linear-gradient(135deg, #8d7bb8 0%, #342e50 100%);
+  color: #f1f5f9;
+}
+
+/* ---------- 卡片：白底 + 发丝线 + 12px 圆角 + 轻微阴影 ---------- */
+.notion-card {
+  background: var(--notion-canvas);
+  border: 1px solid var(--notion-hairline);
+  border-radius: 12px;
+  box-shadow: rgba(15, 15, 15, 0.04) 0 1px 2px 0;
+  overflow: hidden;
+}
+
+.dark .notion-card {
+  background: #463e6c;
+  border-color: #58507f;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 1px 2px 0;
+}
+
+/* 内嵌浅灰块 */
+.notion-card-soft {
+  background: var(--notion-surface);
+  border: 1px solid var(--notion-hairline-soft);
+  border-radius: 8px;
+}
+
+.dark .notion-card-soft {
+  background: #4d4778;
+  border-color: #675d8e;
+}
+
+/* 粉彩功能卡（回响 Notion 数据库属性色） */
+.notion-tint-lavender { background: var(--notion-tint-lavender); color: var(--notion-charcoal); }
+.notion-tint-mint     { background: var(--notion-tint-mint);     color: var(--notion-charcoal); }
+.notion-tint-sky      { background: var(--notion-tint-sky);      color: var(--notion-charcoal); }
+.notion-tint-peach    { background: var(--notion-tint-peach);    color: var(--notion-charcoal); }
+.notion-tint-rose     { background: var(--notion-tint-rose);     color: var(--notion-charcoal); }
+.notion-tint-yellow   { background: var(--notion-tint-yellow);   color: var(--notion-charcoal); }
+.notion-tint-cream    { background: var(--notion-tint-cream);    color: var(--notion-charcoal); }
+.notion-tint-gray     { background: var(--notion-tint-gray);     color: var(--notion-charcoal); }
+
+.dark .notion-tint-lavender {
+  background: #7469a6;
+  color: #e5e1f2;
+  border: 1px solid #8478b4;
+}
+.dark .notion-tint-mint {
+  background: #6b7f72;
+  color: #e0ebe4;
+  border: 1px solid #7a8e81;
+}
+.dark .notion-tint-sky {
+  background: #6b7890;
+  color: #e1e8f4;
+  border: 1px solid #79879f;
+}
+.dark .notion-tint-peach {
+  background: #8c7363;
+  color: #f2e6dc;
+  border: 1px solid #9d8575;
+}
+.dark .notion-tint-rose,
+.dark .notion-tint-yellow,
+.dark .notion-tint-cream,
+.dark .notion-tint-gray {
+  background: #4d4778;
+  color: #cbd5e1;
+  border: 1px solid #675d8e;
+}
+
+/* 高强调黄色横幅 */
+.notion-banner-yellow {
+  background: var(--notion-tint-yellow-bold);
+  color: var(--notion-charcoal);
+  border: 1px solid #eedf9a;
+  border-radius: 12px;
+}
+
+.dark .notion-banner-yellow {
+  background: rgba(120, 83, 15, 0.45);
+  color: #fde68a;
+  border-color: #675d8e;
+}
+
+/* 顶部导航：白色吸顶条（浅色）/ 原版暗色条（深色） */
+.notion-nav {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--notion-hairline);
+  color: var(--notion-ink);
+}
+
+.dark .notion-nav {
+  background: rgba(68, 60, 106, 0.92);
+  border-bottom-color: #58507f;
+}
+
+/* 激活药丸：黑底白字（Notion pill-tab-active） */
+.notion-pill-active {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+}
+
+.dark .notion-pill-active {
+  background: #9a90c2;
+  color: #0f172a;
+  border-color: #9a90c2;
+}
+
+/* 表格表头：Notion 微标签 */
+.notion-table thead th {
+  font-family: Inter, -apple-system, 'Segoe UI', 'PingFang SC', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--notion-slate);
+}
+
+.dark .notion-table thead th {
+  color: #b3b1d6;
+}
+
+/* 悬停：淡金色（更淡） */
+.hover-gold tbody tr:hover,
+.card-hover-gold:hover {
+  background-color: rgba(201, 162, 75, 0.14);
+}
+
+.dark .hover-gold tbody tr:hover,
+.dark .card-hover-gold:hover {
+  background-color: rgba(227, 197, 101, 0.13);
+}
+
+/* 首页英雄卡片：背景图顶部对齐、按原比例填宽，不裁切 */
+.hero-card {
+  background-color: #f6f2e7;
+}
+
+.dark .hero-card {
+  background-color: #342e50;
+}
+
+.hero-card--img {
+  background-image: url('/card-bg.jpg');
+  background-size: cover;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+/* 分割虚线：Notion 文档式 */
+.notion-divider {
+  border-top: 1px dashed var(--notion-hairline-strong);
+}
+
+.dark .notion-divider {
+  border-top-color: #675d8e;
+}
